@@ -12,7 +12,9 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        //
+        $pegawai = Pegawai::all();
+        
+        return view('forms/index',compact('pegawai'));
     }
 
     /**
@@ -36,7 +38,7 @@ class PegawaiController extends Controller
      */
     public function show(Pegawai $pegawai)
     {
-        //
+        return view('forms/tables',compact('pegawai'));
     }
 
     /**

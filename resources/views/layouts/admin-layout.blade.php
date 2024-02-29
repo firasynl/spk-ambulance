@@ -43,7 +43,7 @@
                 <i class="fas fa-table mr-3"></i>
                 Tables
             </a>
-            <a href="forms.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="/home/form" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-align-left mr-3"></i>
                 Forms
             </a>

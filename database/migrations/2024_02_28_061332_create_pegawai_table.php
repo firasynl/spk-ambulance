@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('pegawai', function (Blueprint $table) {
             $table->id();
             $table->string('nama_pegawai');
-            $table->string('jabatan_pegawai');
-            $table->string('unit_kerja_pegawai');
+            $table->unsignedBigInteger('jabatan_pegawai');
+            $table->unsignedBigInteger('unit_kerja_pegawai');
+            $table->foreign('jabatan_pegawai')->references('id')->on('jabatan');
+            $table->foreign('unit_kerja_pegawai')->references('id')->on('unit_kerja');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PegawaiController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -21,6 +22,8 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
+
+Route::resource('/home/form', PegawaiController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
