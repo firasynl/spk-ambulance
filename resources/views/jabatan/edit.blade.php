@@ -5,7 +5,7 @@
                             <i class="fas fa-list mr-3"></i> Input Jabatan
                         </p>
                         <div class="leading-loose">
-                            <form action="/jabatan/{{$jabatan->id}}" method="POST" class="p-10 bg-white rounded shadow-xl">
+                            <form action="/home/jabatan/{{$jabatan->id}}" method="POST" class="p-10 bg-white rounded shadow-xl">
                                 @csrf
                                 @method('PUT')
                                 <div class="">

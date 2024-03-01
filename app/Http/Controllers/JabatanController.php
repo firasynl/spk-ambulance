@@ -37,7 +37,7 @@ class JabatanController extends Controller
     		'jabatan' => $request->jabatan,
     	]);
  
-    	return redirect('/jabatan');
+    	return redirect('/home/jabatan');
     }
 
     /**
@@ -69,7 +69,7 @@ class JabatanController extends Controller
         $jabatan = Jabatan::find($id);
         $jabatan->jabatan = $request->jabatan;
         $jabatan->update();
-        return redirect('/jabatan');
+        return redirect('/home/jabatan');
     }
 
     /**
@@ -79,6 +79,6 @@ class JabatanController extends Controller
     {
         $jabatan = Jabatan::find($id);
         $jabatan->delete();
-        return redirect('/jabatan');
+        return redirect('/home/jabatan');
     }
 }

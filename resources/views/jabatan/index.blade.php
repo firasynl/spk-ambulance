@@ -4,7 +4,7 @@
                         <i class="fas fa-list mr-3"></i> Daftar Jabatan
                     </p>
                     <div class="mt-4 mb-4">
-                    <a href="/jabatan/create" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded">Tambah</a>
+                    <a href="/home/jabatan/create" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded">Tambah</a>
                     </div>
                     <div class="bg-white overflow-auto">
                         <table class="min-w-full bg-white">
@@ -21,8 +21,8 @@
                                     <td class="text-left py-3 px-4">{{$key + 1}}</td>
                                     <td class="w-1/3 text-left py-3 px-4">{{$value->jabatan}}</td>
                                     <td class="text-left py-3 px-4">
-                                        <a href="/jabatan/{{$value->id}}/edit" class="px-4 py-1 text-white font-light tracking-wider bg-blue-700 rounded">Edit</a>
-                                        <form action="/jabatan/{{$value->id}}" method="POST">
+                                        <a href="/home/jabatan/{{$value->id}}/edit" class="px-4 py-1 text-white font-light tracking-wider bg-blue-700 rounded">Edit</a>
+                                        <form action="/home/jabatan/{{$value->id}}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <input type="submit" class="px-4 py-1 text-white font-light tracking-wider bg-red-700 rounded" value="Delete">

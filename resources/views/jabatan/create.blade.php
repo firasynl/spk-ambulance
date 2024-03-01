@@ -5,7 +5,7 @@
                             <i class="fas fa-list mr-3"></i> Input Jabatan
                         </p>
                         <div class="leading-loose">
-                            <form action="/jabatan" method="POST" class="p-10 bg-white rounded shadow-xl">
+                            <form action="/home/jabatan" method="POST" class="p-10 bg-white rounded shadow-xl">
                                 @csrf
                                 <div class="">
                                     <label class="block text-sm text-gray-600" for="jabatan">Nama Jabatan</label>
