@@ -24,8 +24,7 @@ Route::get('/', function () {
 
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
-Route::resource('/home/form', PegawaiController::class);
-Route::resource('/jabatan', JabatanController::class);
+Route::resource('/home/pegawai', PegawaiController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

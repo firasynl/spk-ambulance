@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Pegawai extends Model
 {
@@ -13,4 +14,12 @@ class Pegawai extends Model
     protected $fillable = [
         'nama_pegawai', 'jabatan_pegawai', 'unit_kerja_pegawai'
     ];
+
+    public static function join(){
+        $data = DB::table('pegawai')
+            ->join('jabatan', 'pegawai.jabatan_pegawai', 'jabatan.id')
+            ->join('unit_kerja', 'pegawai.unit_kerja_pegawai', 'unit_kerja.id')
+            ->select('pegawai.*', 'jabatan.jabatan as jabatan', 'unit_kerja.unit_kerja as unit_kerja');
+        return $data;
+    }
 }
