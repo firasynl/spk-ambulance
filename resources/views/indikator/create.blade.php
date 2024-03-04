@@ -14,6 +14,18 @@
                                     <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="indikator" name="indikator" type="text" required="" placeholder="Masukkan indikator penilaian" aria-label="Indikator">
                                 </div>
                                 <div class="">
+                                    <label class="block text-sm text-gray-600" for="kategori">Kategori</label>
+                                    <select class="rounded text-sm py-1 px-2 text-black w-[700px]  border-1 border-black" name="kategori" aria-label="Default select example">
+                                        <option selected>Pilih Kategori</option>
+                                            <option value="Penilaian Kinerja">
+                                                Penilaian Kinerja
+                                            </option>
+                                            <option value="Perilaku Kerja">
+                                                Perilaku Kerja
+                                            </option>
+                                    </select>  
+                                </div>
+                                <div class="">
                                     <label class="block text-sm text-gray-600" for="jabatan">Jabatan</label>
                                     <select class="rounded text-sm py-1 px-2 text-black w-[700px]  border-1 border-black" name="jabatan" aria-label="Default select example">
                                         <option selected>Pilih Jabatan</option>
