@@ -12,6 +12,7 @@
                     <tr>
                         <th class="text-left py-3 px-4 uppercase font-semibold text-sm">No</th> 
                         <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Indikator</th> 
+                        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Kategori</th> 
                         <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Jabatan</th> 
                         <th class="text-left py-3 px-4 uppercase font-semibold text-sm"></th>
                     </tr>
@@ -25,6 +26,7 @@
                         <tr>
                             <td class="text-left py-3 px-4">{{ $no++ }}</td>
                             <td class="text-left py-3 px-4">{{ $indikator->indikator }}</td>
+                            <td class="text-left py-3 px-4">{{ $indikator->kategori }}</td>
                             <td class="text-left py-3 px-4">{{ $indikator->jabatan }}</td>
                             <td class="text-left py-3 px-4">
                                 <a href="{{ route('indikator.edit',$indikator->id) }}" class="px-4 py-1 text-white font-light tracking-wider bg-blue-700 rounded">Edit</a>

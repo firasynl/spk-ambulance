@@ -12,7 +12,7 @@ class Indikator extends Model
     public $table = 'indikator';
 
     protected $fillable = [
-        'indikator', 'jabatan'
+        'indikator', 'kategori','jabatan'
     ];
 
     public static function join(){

@@ -37,14 +37,17 @@ class IndikatorController extends Controller
     {
         $request->validate([
             'indikator' => 'required',
+            'kategori' => 'required',
             'jabatan' => 'required',
         ]);
 
         $indikator = $request->input('indikator');
+        $kategori = $request->input('kategori');
         $jabatan = $request->input('jabatan');
     
         Indikator::create([
             'indikator' => $indikator,
+            'kategori' => $kategori,
             'jabatan' => $jabatan,
         ]);
 
@@ -69,6 +72,7 @@ class IndikatorController extends Controller
     {
         $request->validate([
             'indikator' => 'required',
+            'kategori' => 'required',
             'jabatan' => 'required',
         ]);
 
