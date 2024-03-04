@@ -5,6 +5,7 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\IndikatorController;
+use App\Http\Controllers\PenilaianKinerjaController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -28,6 +29,7 @@ Route::get('/home', [HomeController::class, 'index']);
 Route::resource('/home/pegawai', PegawaiController::class);
 Route::resource('/home/jabatan', JabatanController::class);
 Route::resource('/home/indikator', IndikatorController::class);
+Route::resource('/home/penilaian_kinerja', PenilaianKinerjaController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

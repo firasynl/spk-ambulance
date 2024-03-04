@@ -35,6 +35,10 @@
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
+            <a href="/home/penilaian_kinerja" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
+                <i class="fas fa-tachometer-alt mr-3"></i>
+                Penilaian Kinerja
+            </a>
             <!-- dropdwon sidebar -->
             <div x-data="{ isOpen: false }">
                 <button @click="isOpen = !isOpen" class="w-full flex items-center text-white font-semibold opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
