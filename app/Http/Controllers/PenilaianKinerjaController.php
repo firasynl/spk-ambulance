@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Indikator;
 use App\Models\PenilaianKinerja;
 use App\Models\Pegawai;
 use App\Models\Users;
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
+
+use function Laravel\Prompts\select;
 
 class PenilaianKinerjaController extends Controller
 {
@@ -28,7 +31,12 @@ class PenilaianKinerjaController extends Controller
      */
     public function create()
     {
-        //
+        $penilaian_kinerja = PenilaianKinerja::select('id', 'pegawai')->first();
+        // $jabatan = Jabatan::join('id', 'jabatan')->get();
+
+        $indikator = Indikator::select('id', 'indikator')->get();
+        // $nilai
+        return view('penilaian_kinerja.create', compact('indikator', 'penilaian_kinerja'));
     }
 
     /**
