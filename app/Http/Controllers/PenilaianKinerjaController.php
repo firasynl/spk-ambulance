@@ -7,6 +7,7 @@ use App\Models\Pegawai;
 use App\Models\Users;
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PenilaianKinerjaController extends Controller
 {
@@ -15,10 +16,13 @@ class PenilaianKinerjaController extends Controller
      */
     public function index()
     {
-        // $pegawai = Pegawai::select('id', 'nama_pegawai')->get();
-        // $user = Users::select('id', 'nama_user')->get();
-        // $jabatan = Jabatan::select('id', 'jabatan')->get();
-        $penilaian_kinerja = PenilaianKinerja::join()->get();
+        $penilaian_kinerja = DB::table('pegawai')
+        ->join('jabatan', 'pegawai.jabatan_pegawai', '=', 'jabatan.id')
+        ->select(
+            'pegawai.nama_pegawai as nama_pegawai',
+            'jabatan.jabatan'
+        )
+        ->get();
         
         return view('penilaian_kinerja.index',compact('penilaian_kinerja'));
     }
