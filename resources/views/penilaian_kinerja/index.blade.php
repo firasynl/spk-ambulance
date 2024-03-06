@@ -26,7 +26,13 @@
                             <td class="text-left py-3 px-4">
                                 <div class="mt-4 mb-4">
                                     <a href="{{ route('penilaian_kinerja.create') }}" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded" >
-                                        <i class="fas fa-edit"></i> Isi penilaian</a>
+                                        <i class="fas fa-edit"></i> Isi penilaian
+                                    </a>
+                                </div>
+                                <div class="mt-4 mb-4">
+                                    <a href="/export-pdf" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded" >
+                                        <i class="fas fa-edit"></i> Export PDF
+                                    </a>
                                 </div>
                             </td>
                         </tr>

@@ -31,6 +31,8 @@ Route::resource('/home/jabatan', JabatanController::class);
 Route::resource('/home/indikator', IndikatorController::class);
 Route::resource('/home/penilaian_kinerja', PenilaianKinerjaController::class);
 
+Route::get('/export-pdf', [PenilaianKinerjaController::class, 'exportPdf']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
