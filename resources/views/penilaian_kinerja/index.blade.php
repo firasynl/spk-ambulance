@@ -3,6 +3,24 @@
         <p class="text-xl pb-3 flex items-center">
             <i class="fas fa-list mr-3"></i> Penilaian Kinerja Pegawai
         </p>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="date_filter">Periode Penilaian:</label>
+
+                <form method="get" action="penilaian_kinerja">
+                    <div class="input-group">
+                        <select class="form-select" name="date_filter">
+                            <option value="">All Data</option>
+                            <option value="today" {{ $dateFilter == 'today' ? 'selected' : '' }}>Today</option>
+                            <option value="last_three_months" {{ $dateFilter == 'last_three_months' ? 'selected' : '' }}>Jan-Mar</option>
+
+                            </select>
+                        <button type="submit" class="btn btn-primary">Ganti</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
         <div class="bg-white overflow-auto">
             <table class="min-w-full bg-white">
                 <thead class="bg-gray-800 text-white">
@@ -30,7 +48,7 @@
                             <td class="text-left py-3 px-4">
                                 <div class="mt-4 mb-4 flex">
                                     <div class="mr-2">
-                                        <a href="{{ route('penilaian_kinerja.create') }}" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded">
+                                        <a href="{{ route('penilaian_kinerja.create', ['pegawai' => $pk->id]) }}" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded">
                                             <i class="fas fa-edit"></i> Isi penilaian
                                         </a>
                                     </div>
