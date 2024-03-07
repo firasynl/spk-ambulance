@@ -11,6 +11,7 @@ use App\Models\Nilai;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use function Laravel\Prompts\select;
 
@@ -22,17 +23,34 @@ class PenilaianKinerjaController extends Controller
     public function index()
     {
         // $penilaian_kinerja = DB::table('pegawai')
-        // ->join('jabatan', 'pegawai.jabatan_pegawai', '=', 'jabatan.id')
-        // ->select(
-        //     'pegawai.id',
+            // ->join('jabatan', 'pegawai.jabatan_pegawai', '=', 'jabatan.id')
+            // ->select(
+            //     'pegawai.id',
         //     'pegawai.nama_pegawai as nama_pegawai',
-        //     'jabatan.jabatan',
-        // )
-        // ->get();
-
+            //     'jabatan.jabatan',
+            // )
+            // ->get();
+    
         $penilaian_kinerja = Pegawai::get();
         
         return view('penilaian_kinerja.index',compact('penilaian_kinerja'));
+    }
+
+    public function exportPdf()
+    {
+        $data = DB::table('pegawai')
+            ->join('jabatan', 'pegawai.jabatan_pegawai', '=', 'jabatan.id')
+            ->join('indikator', 'jabatan.id', '=', 'indikator.jabatan')
+            ->select(
+                'pegawai.nama_pegawai as nama_pegawai',
+                'jabatan.jabatan',
+                'indikator.indikator'
+            )
+            ->get();
+
+        // return view('pdf.export-penilaian',compact('data'));
+        $pdf = Pdf::loadView('pdf.export-penilaian', ['data' => $data]);
+        return $pdf->download('export-penilaian-pegawai.pdf');
     }
 
     /**
