@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 
 class Pegawai extends Model
@@ -21,5 +23,10 @@ class Pegawai extends Model
             ->join('unit_kerja', 'pegawai.unit_kerja_pegawai', 'unit_kerja.id')
             ->select('pegawai.*', 'jabatan.jabatan as jabatan', 'unit_kerja.unit_kerja as unit_kerja');
         return $data;
+    }
+
+    public function jabatan(): BelongsTo
+    {
+        return $this->belongsTo(Jabatan::class);
     }
 }

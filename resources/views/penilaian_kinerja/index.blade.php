@@ -22,10 +22,14 @@
                         <tr>
                             <td class="text-left py-3 px-4">{{ $no++ }}</td>
                             <td class="text-left py-3 px-4">{{ $pk->nama_pegawai }}</td>
-                            <td class="text-left py-3 px-4">{{ $pk->jabatan }}</td>
+                            @php 
+                                $position = App\Models\Jabatan::where('id', $pk->jabatan_pegawai)->first()->jabatan;
+                                
+                            @endphp
+                            <td class="text-left py-3 px-4">{{ $position }}</td>
                             <td class="text-left py-3 px-4">
                                 <div class="mt-4 mb-4">
-                                    <a href="{{ route('penilaian_kinerja.create') }}" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded" >
+                                    <a href="{{ route('penilaian_kinerja.create', ['pegawai' => $pk->id]) }}" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded" >
                                         <i class="fas fa-edit"></i> Isi penilaian</a>
                                 </div>
                             </td>
