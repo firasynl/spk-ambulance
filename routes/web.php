@@ -24,7 +24,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'index'])
+->middleware(['auth', 'verified'])->name('home');
 
 Route::resource('/home/pegawai', PegawaiController::class);
 Route::resource('/home/jabatan', JabatanController::class);

@@ -73,22 +73,26 @@ class PenilaianKinerjaController extends Controller
      */
     public function store(Request $request)
     {
-        $pegawai = $request->input('pegawai');
-        $user = $request->input('user');
-        $tanggal = $request->input('tanggal');
+        //yang diambil id pegawai, id user
 
-        $pk= PenilaianKinerja::create([
-            'pegawai' => $pegawai,
-            'user' => $user,
+        // $pegawai->id = $request->input('pegawai_id');
+        // $user = $request->input('user');
+        // $tanggal = $request->input('tanggal');
+
+        $pk = PenilaianKinerja::create([
+            'pegawai' => ,
+            'user' => auth()->user()->id,
             'tanggal' => Carbon::now(),
         ]);
-
-        
-
-        Nilai::create([
+        dd($pk);
+        //indikator yang diambil idnya, penilian kerja juga
+        $tes = Nilai::create([
+            // 'indikator' => Indikator::find($id),
             'penilaian_kinerja' => $pk->id,
+            'nilai' => $request->nilai,
         ]);
         return redirect()->route('penilaian_kinerja.index');
+        // dd($tes);
     }
 
     /**

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user');
             $table->dateTime('tanggal');
             $table->foreign('pegawai')->references('id')->on('pegawai');
-            $table->foreign('user')->references('id')->on('user');
+            $table->foreign('user')->references('id')->on('users');
             $table->timestamps();
         });
     }

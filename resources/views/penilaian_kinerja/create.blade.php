@@ -3,8 +3,9 @@
         <p class="text-xl pb-3 flex items-center">
             <i class="fas fa-list mr-3"></i> Penilaian Kinerja Pegawai
         </p>
-        <form action="" method="POST">
+        <form action="{{ route('penilaian_kinerja.store') }}" method="POST">
             @csrf
+
         <div class="bg-white overflow-auto">
             <table class="min-w-full bg-white">
                 <thead class="bg-gray-800 text-white">
