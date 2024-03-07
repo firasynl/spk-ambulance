@@ -4,6 +4,7 @@
             <i class="fas fa-list mr-3"></i> Penilaian Kinerja Pegawai
         </p>
         <form action="" method="POST">
+            @csrf
         <div class="bg-white overflow-auto">
             <table class="min-w-full bg-white">
                 <thead class="bg-gray-800 text-white">
@@ -19,9 +20,13 @@
                 </thead>
                 
                 <tbody class="text-gray-700">
-                    @forelse ($indikator as $key=>$value)
+                    @php
+                        $no = 1;
+                    @endphp
+                    @foreach ($indikator as $value)
+                        
                         <tr>
-                            <td class="text-left py-3 px-4">{{$key + 1}}</td>
+                            <td class="text-left py-3 px-4">{{$no++}}</td>
                             <td class="text-left py-3 px-4">{{$value->indikator}}</td>
                             <td class="text-center py-3 px-4">
                                 <input type="radio" id="nilai" name="nilai{{$value->id}}" value="1">
@@ -39,14 +44,13 @@
                                 <input type="radio" id="nilai" name="nilai{{$value->id}}" value="5">
                             </td>
                         </tr>
-                    @empty
-                    <tr colspan="3">
-                        <td>No data</td>
-                    </tr>
-                    @endforelse
+                    @endforeach
                 </tbody>
             </table>
         </div>
+        <div class="flex justify-center mt-5">
+                <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Submit</button>
+            </div>
         </form>
     </div>
 </x-adminlayout>

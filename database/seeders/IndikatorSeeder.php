@@ -20,7 +20,7 @@ class IndikatorSeeder extends Seeder
                 \DB::table('indikator')->insert([
                     "indikator" => $data['0'],
                     "kategori" => $data['1'],
-                    "jabatan" => $data['2']
+                    "jabatan_id" => $data['2']
                 ]);    
             }
             $firstline = false;

@@ -7,6 +7,8 @@ use App\Models\PenilaianKinerja;
 use App\Models\Pegawai;
 use App\Models\Users;
 use App\Models\Jabatan;
+use App\Models\Nilai;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -20,14 +22,17 @@ class PenilaianKinerjaController extends Controller
      */
     public function index()
     {
-        $penilaian_kinerja = DB::table('pegawai')
-            ->join('jabatan', 'pegawai.jabatan_pegawai', '=', 'jabatan.id')
-            ->select(
-                'pegawai.nama_pegawai as nama_pegawai',
-                'jabatan.jabatan'
-            )
-            ->get();
-            
+        // $penilaian_kinerja = DB::table('pegawai')
+            // ->join('jabatan', 'pegawai.jabatan_pegawai', '=', 'jabatan.id')
+            // ->select(
+            //     'pegawai.id',
+        //     'pegawai.nama_pegawai as nama_pegawai',
+            //     'jabatan.jabatan',
+            // )
+            // ->get();
+    
+        $penilaian_kinerja = Pegawai::get();
+        
         return view('penilaian_kinerja.index',compact('penilaian_kinerja'));
     }
 
@@ -51,14 +56,16 @@ class PenilaianKinerjaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        $penilaian_kinerja = PenilaianKinerja::select('id', 'pegawai')->first();
-        // $jabatan = Jabatan::join('id', 'jabatan')->get();
-
-        $indikator = Indikator::select('id', 'indikator')->get();
-        // $nilai
-        return view('penilaian_kinerja.create', compact('indikator', 'penilaian_kinerja'));
+        $pegawai = $request -> pegawai;
+        $position = Pegawai::findOrFail($pegawai)->jabatan_pegawai;
+        // dd($position);
+        // $id_position = Jabatan::where('jabatan', $position)->first()->id;
+        // dd($id_position);
+        $indikator = Indikator::where('jabatan_id', $position)->get();
+        
+        return view('penilaian_kinerja.create', compact('indikator'));
     }
 
     /**
@@ -66,7 +73,22 @@ class PenilaianKinerjaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $pegawai = $request->input('pegawai');
+        $user = $request->input('user');
+        $tanggal = $request->input('tanggal');
+
+        $pk= PenilaianKinerja::create([
+            'pegawai' => $pegawai,
+            'user' => $user,
+            'tanggal' => Carbon::now(),
+        ]);
+
+        
+
+        Nilai::create([
+            'penilaian_kinerja' => $pk->id,
+        ]);
+        return redirect()->route('penilaian_kinerja.index');
     }
 
     /**
