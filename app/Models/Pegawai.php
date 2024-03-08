@@ -29,4 +29,9 @@ class Pegawai extends Model
     {
         return $this->belongsTo(Jabatan::class);
     }
+
+    public function penilaian_kinerja()
+    {
+        return $this->hasMany(PenilaianKinerja::class);
+    }
 }

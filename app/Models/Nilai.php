@@ -13,7 +13,7 @@ class Nilai extends Model
     public $table = 'nilai';
 
     protected $fillable = [
-        'nilai', 'indikator','penilaian'
+        'indikator','penilaian_kinerja', 'nilai'
     ];
 
     public function indikator(): BelongsTo

@@ -20,4 +20,9 @@ class PenilaianKinerja extends Model
     {
         return $this->hasMany(Nilai::class);
     }
+
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class);
+    }
 }

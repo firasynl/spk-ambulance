@@ -63,14 +63,11 @@ class PenilaianKinerjaController extends Controller
      */
     public function create(Request $request)
     {
-        $pegawai = $request -> pegawai;
+        $pegawai = $request->input('pegawai');
         $position = Pegawai::findOrFail($pegawai)->jabatan_pegawai;
-        // dd($position);
-        // $id_position = Jabatan::where('jabatan', $position)->first()->id;
-        // dd($id_position);
         $indikator = Indikator::where('jabatan_id', $position)->get();
         
-        return view('penilaian_kinerja.create', compact('indikator'));
+        return view('penilaian_kinerja.create', compact('pegawai','indikator'));
     }
 
     /**
@@ -78,26 +75,29 @@ class PenilaianKinerjaController extends Controller
      */
     public function store(Request $request)
     {
-        //yang diambil id pegawai, id user
-
-        // $pegawai->id = $request->input('pegawai_id');
-        // $user = $request->input('user');
-        // $tanggal = $request->input('tanggal');
-
-        $pk = PenilaianKinerja::create([
-            'pegawai' => ,
-            'user' => auth()->user()->id,
-            'tanggal' => Carbon::now(),
+        $data = $request->validate([
+            'pegawai' => 'required',
+            'nilai' => 'required|array',
         ]);
-        dd($pk);
-        //indikator yang diambil idnya, penilian kerja juga
-        $tes = Nilai::create([
-            // 'indikator' => Indikator::find($id),
-            'penilaian_kinerja' => $pk->id,
-            'nilai' => $request->nilai,
-        ]);
+    
+        $penilaian = new PenilaianKinerja();
+        $penilaian->pegawai = $data['pegawai'];
+        $penilaian->user = auth()->user()->id;
+        $penilaian->tanggal = Carbon::now();
+        $penilaian->save();
+    
+        $nilaiData = [];
+        foreach ($data['nilai'] as $indikatorId => $nilai) {
+            $nilaiData[] = [
+                'penilaian_kinerja' => $penilaian->id,
+                'indikator' => $indikatorId,
+                'nilai' => $nilai
+            ];
+        }
+
+        Nilai::insert($nilaiData);
+
         return redirect()->route('penilaian_kinerja.index');
-        // dd($tes);
     }
 
     /**
