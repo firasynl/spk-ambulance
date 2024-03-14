@@ -19,7 +19,7 @@ class Indikator extends Model
 
     public static function join(){
         $data = DB::table('indikator')
-            ->join('jabatan', 'indikator.jabatan', 'jabatan.id')
+            ->join('jabatan', 'indikator.jabatan_id', 'jabatan.id')
             ->select('indikator.*', 'jabatan.jabatan as jabatan');
         return $data;
     }

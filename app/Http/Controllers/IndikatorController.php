@@ -25,7 +25,7 @@ class IndikatorController extends Controller
      */
     public function create()
     {
-        $jabatan = Jabatan::select('id', 'jabatan')->get();
+        $jabatan = Jabatan::with('id', 'jabatan')->get();
 
         return view('indikator.create',compact('jabatan'));
     }

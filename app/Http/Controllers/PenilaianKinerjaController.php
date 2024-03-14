@@ -13,6 +13,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 
 use function Laravel\Prompts\select;
 
@@ -23,7 +24,9 @@ class PenilaianKinerjaController extends Controller
      */
     public function index(Request $request): Response
     {
-        $query = Pegawai::query();
+        $unitKerjaId = Auth::user()->unit_kerja_pegawai;
+        // $pegawai = Pegawai::where('unit_kerja_pegawai', $unitKerjaId)->get();
+        $query = Pegawai::where('unit_kerja_pegawai', $unitKerjaId)->get();
         $dateFilter = $request->date_filter;
 
         switch($dateFilter){
@@ -42,11 +45,14 @@ class PenilaianKinerjaController extends Controller
             //     break;                       
         }
             
-        $penilaian_kinerja = $query->get();
+        $penilaian_kinerja = $query;
         // $penilaian_kinerja = Pegawai::get();
         
+
+            // dd($pegawai);
         // return view('penilaian_kinerja.index',compact('penilaian_kinerja'));
         return response()->view('penilaian_kinerja.index',compact('penilaian_kinerja','dateFilter'));
+
     }
 
     public function exportPdf()
