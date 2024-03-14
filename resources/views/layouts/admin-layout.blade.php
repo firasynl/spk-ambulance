@@ -61,6 +61,10 @@
                         <i class="fas fa-tasks mr-3"></i>
                         Indikator
                     </a>
+                    <a href="/home/periode" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <i class="far fa-calendar-alt mr-3"></i>
+                        Periode
+                    </a>
                 </div>
             </div>
             @endif
