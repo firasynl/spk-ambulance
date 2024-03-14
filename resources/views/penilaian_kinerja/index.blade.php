@@ -42,7 +42,6 @@
                             <td class="text-left py-3 px-4">{{ $pk->nama_pegawai }}</td>
                             @php 
                                 $position = App\Models\Jabatan::where('id', $pk->jabatan_pegawai)->first()->jabatan;
-                                
                             @endphp
                             <td class="text-left py-3 px-4">{{ $position }}</td>
                             <td class="text-left py-3 px-4">

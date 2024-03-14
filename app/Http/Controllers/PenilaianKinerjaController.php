@@ -24,9 +24,22 @@ class PenilaianKinerjaController extends Controller
      */
     public function index(Request $request): Response
     {
-        $unitKerjaId = Auth::user()->unit_kerja_pegawai;
+        if(Auth::id()){
+            $usertype = Auth()->user()->usertype;
+            
+            if($usertype=='user')
+            {
+                $unitKerjaId = Auth::user()->unit_kerja_pegawai;
+                $query= Pegawai::where('unit_kerja_pegawai', $unitKerjaId)->get();
+            }
+            else if($usertype=='admin')
+            {
+                $query = Pegawai::query()->get();
+            }
+        }
+        
         // $pegawai = Pegawai::where('unit_kerja_pegawai', $unitKerjaId)->get();
-        $query = Pegawai::where('unit_kerja_pegawai', $unitKerjaId)->get();
+        
         $dateFilter = $request->date_filter;
 
         switch($dateFilter){
@@ -47,9 +60,6 @@ class PenilaianKinerjaController extends Controller
             
         $penilaian_kinerja = $query;
         // $penilaian_kinerja = Pegawai::get();
-        
-
-            // dd($pegawai);
         // return view('penilaian_kinerja.index',compact('penilaian_kinerja'));
         return response()->view('penilaian_kinerja.index',compact('penilaian_kinerja','dateFilter'));
 

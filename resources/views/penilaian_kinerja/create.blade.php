@@ -3,6 +3,10 @@
         <p class="text-xl pb-3 flex items-center">
             <i class="fas fa-list mr-3"></i> Penilaian Kinerja Pegawai
         </p>
+        @php 
+            $nama = App\Models\Pegawai::find($pegawai)->nama_pegawai;
+        @endphp
+        <p class="text-l pb-3 flex items-center">{{ $nama }}</p>
         <form action="{{ route('penilaian_kinerja.store') }}" method="POST">
             @csrf
             <input type="hidden" name="pegawai" value="{{ $pegawai }}">
