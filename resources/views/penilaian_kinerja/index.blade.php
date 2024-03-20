@@ -48,7 +48,7 @@
                                 <div class="mt-4 mb-4 flex">
                                     <div class="mr-2">
                                         <a href="{{ route('penilaian_kinerja.create', ['pegawai' => $pk->id]) }}" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded">
-                                            <i class="fas fa-edit"></i> Isi penilaian
+                                            <i class="fas fa-pen-alt"></i> Isi penilaian
                                         </a>
                                     </div>
                                     <div>

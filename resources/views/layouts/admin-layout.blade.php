@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tailwind Admin Template</title>
-    <meta name="author" content="David Grzyb">
+    <title>Sistem Penilaian Kinerja</title>
+    <meta name="firanregina" content="David Grzyb">
     <meta name="description" content="">
 
     <!-- Tailwind -->
@@ -25,7 +25,7 @@
 
     <aside class="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
         <div class="p-6">
-            <a href="index.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+            <a href="/home" class="text-white text-2xl font-semibold uppercase hover:text-gray-300">Sistem Penilaian Kinerja</a>
             <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
             </button> -->
@@ -163,7 +163,9 @@
             </main>
     
             <footer class="w-full bg-white text-right p-4">
-                Built by <a target="_blank" href="https://davidgrzyb.com" class="underline">David Grzyb</a>.
+                Built by <a target="_blank" href="https://github.com/firasynl" class="underline">Firasyana</a>
+                <i class="far fa-handshake"></i><a target="_blank" href="https://github.com/ReginaAyumi" class="underline"> Regina</a>
+                .
             </footer>
         </div>
         
