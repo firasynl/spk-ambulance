@@ -13,4 +13,9 @@ class Periode extends Model
     protected $fillable = [
         'nama_periode', 'tanggal_mulai', 'tanggal_selesai', 'status'
     ];
+
+    public function penilaianKinerja()
+    {
+        return $this->hasMany(PenilaianKinerja::class);
+    }
 }

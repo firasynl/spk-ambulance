@@ -35,19 +35,19 @@
                             <td class="text-left py-3 px-4">{{$no++}}</td>
                             <td class="text-left py-3 px-4">{{$value->indikator}}</td>
                             <td class="text-center py-3 px-4">
-                                <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value="1">
+                                <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value=1>
                             </td>
                             <td class="text-center py-3 px-4">
-                                <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value="2">
+                                <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value=2>
                             </td>
                             <td class="text-center py-3 px-4">
-                                <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value="3">
+                                <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value=3>
                             </td>
                             <td class="text-center py-3 px-4">
-                                <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value="4">
+                                <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value=4>
                             </td>
                             <td class="text-center py-3 px-4">
-                                <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value="5">
+                                <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value=5>
                             </td>
                         </tr>
                     @endforeach

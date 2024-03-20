@@ -13,7 +13,7 @@ class PenilaianKinerja extends Model
     public $table = 'penilaian_kinerja';
 
     protected $fillable = [
-        'pegawai', 'user', 'tanggal'
+        'pegawai', 'user', 'tanggal', 'periode_id'
     ];
 
     public function nilai(): HasMany
@@ -24,5 +24,10 @@ class PenilaianKinerja extends Model
     public function pegawai()
     {
         return $this->belongsTo(Pegawai::class);
+    }
+
+    public function periode()
+    {
+        return $this->belongsTo(Periode::class, 'periode_id');
     }
 }

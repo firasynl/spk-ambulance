@@ -6,6 +6,7 @@ use App\Models\Indikator;
 use App\Models\PenilaianKinerja;
 use App\Models\Pegawai;
 use App\Models\Users;
+use App\Models\Periode;
 use App\Models\Jabatan;
 use App\Models\Nilai;
 use Illuminate\Http\Request;
@@ -37,31 +38,34 @@ class PenilaianKinerjaController extends Controller
                 $query = Pegawai::query()->get();
             }
         }
-        
+
+        // $penilaian_kinerja = $query;
+        $periodeAktif = Periode::where('status', '=', 'Aktif')->first();
+
         // $pegawai = Pegawai::where('unit_kerja_pegawai', $unitKerjaId)->get();
         
         $dateFilter = $request->date_filter;
-
-        switch($dateFilter){
-            case 'today':
-                $query->whereDate('created_at',Carbon::today());
-                break;
-            case 'last_three_months':
-                $startDate = Carbon::now()->subMonths(2)->startOfMonth();
-                $endDate = Carbon::now()->endOfMonth();
-                $intervalMonths = 3;
-                break;
-            // default:
-            //     // Default untuk periode bulan paling baru
-            //     $query->whereYear('created_at', Carbon::now()->year)
-            //             ->whereMonth('created_at', Carbon::now()->month);
-            //     break;                       
-        }
-            
+        $periode = Periode::all();
         $penilaian_kinerja = $query;
-        // $penilaian_kinerja = Pegawai::get();
-        // return view('penilaian_kinerja.index',compact('penilaian_kinerja'));
-        return response()->view('penilaian_kinerja.index',compact('penilaian_kinerja','dateFilter'));
+        $penilaianKinerja = PenilaianKinerja::all();
+
+        // switch ($dateFilter) {
+        //     case 'today':
+        //         $query->whereDate('updated_at', Carbon::today());
+        //         break;
+        //     case 'nama_periode':
+        //         // Ambil periode yang sesuai dari tabel Periode
+        //         foreach ($periode as $periode) {
+        //             $query->orWhereBetween('updated_at', [$periode->tanggal_mulai, $periode->tanggal_selesai]);
+        //         }
+        //         break;
+        //     // Tambahkan case untuk opsi lain jika diperlukan
+        //     default:
+        //         // Tidak ada filter yang dipilih, tidak perlu operasi tambahan
+        //         break;
+        // }
+
+        return response()->view('penilaian_kinerja.index',compact('penilaian_kinerja','penilaianKinerja','dateFilter', 'periode', 'periodeAktif'));
 
     }
 
@@ -95,18 +99,19 @@ class PenilaianKinerjaController extends Controller
             'pegawai' => 'required',
             'nilai' => 'required|array',
         ]);
-    
+
+        $periodeAktif = Periode::where('status', '=', 'Aktif')->first();
         $penilaian = new PenilaianKinerja();
         $penilaian->pegawai = $data['pegawai'];
         $penilaian->user = auth()->user()->id;
-        $penilaian->tanggal = Carbon::now();
+        $penilaian->periode_id = $periodeAktif->id;
         $penilaian->save();
-    
+
         $nilaiData = [];
         foreach ($data['nilai'] as $indikatorId => $nilai) {
             $nilaiData[] = [
                 'penilaian_kinerja' => $penilaian->id,
-                'indikator' => $indikatorId,
+                'indikator_id' => $indikatorId,
                 'nilai' => $nilai
             ];
         }
@@ -129,7 +134,11 @@ class PenilaianKinerjaController extends Controller
      */
     public function edit(PenilaianKinerja $penilaianKinerja)
     {
-        //
+        $pegawai = $penilaianKinerja->pegawai;
+        $position = Pegawai::findOrFail($pegawai)->jabatan_pegawai;
+        $indikator = Indikator::where('jabatan_id', $position)->get();
+        
+        return view('penilaian_kinerja.edit', compact('penilaianKinerja', 'pegawai','indikator'));
     }
 
     /**
