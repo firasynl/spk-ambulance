@@ -7,14 +7,17 @@
             <div class="form-group">
                 <label for="date_filter">Periode Penilaian:</label>
 
-                <form method="get" action="penilaian_kinerja">
+                <form method="get" action="{{ route('penilaian_kinerja.index') }}">
                     <div class="input-group">
                         <select class="form-select" name="date_filter">
                             <option value="">All Data</option>
-                            <option value="today" {{ $dateFilter == 'today' ? 'selected' : '' }}>Today</option>
-                            <option value="last_three_months" {{ $dateFilter == 'last_three_months' ? 'selected' : '' }}>Jan-Mar</option>
-
-                            </select>
+                            {{-- Menambahkan opsi untuk setiap periode --}}
+                            @foreach($periode as $periode)
+                                <option value="{{ $periode->nama_periode }}" {{ $dateFilter == $periode->nama_periode ? 'selected' : '' }}>
+                                    {{ $periode->nama_periode }}
+                                </option>
+                            @endforeach
+                        </select>
                         <button type="submit" class="btn btn-primary">Ganti</button>
                     </div>
                 </form>
@@ -46,11 +49,28 @@
                             <td class="text-left py-3 px-4">{{ $position }}</td>
                             <td class="text-left py-3 px-4">
                                 <div class="mt-4 mb-4 flex">
+                                    @php
+                                        $penilaianKinerjaExists = $penilaian_kinerja->where('pegawai', $pk->id)     
+                                            ->where('periode_id', $periodeAktif->id)
+                                            ->count() > 0;
+                                        // dd($penilaianKinerjaExists);
+                                    @endphp
+
                                     <div class="mr-2">
+                                        <a href="{{ $penilaianKinerjaExists ? route('penilaian_kinerja.edit', ['penilaian_kinerja' => $pk->id, 'periode' => $periodeAktif->id]) : route('penilaian_kinerja.create', ['pegawai' => $pk->id, 'periode' => $periodeAktif->id]) }}" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded">
+                                            <i class="fas fa-edit"></i> 
+                                            {{ $penilaianKinerjaExists ? 'Edit' : 'Buat' }} penilaian
+                                        </a>
+                                    </div>
+                                    <div class="mr-2">
+                                        <a href="{{ route('penilaian_kinerja.edit',$pk->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white left-0 font-light py-2 px-4 rounded">Edit</a>
+                                    </div>
+
+                                    {{-- <div class="mr-2">
                                         <a href="{{ route('penilaian_kinerja.create', ['pegawai' => $pk->id]) }}" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded">
                                             <i class="fas fa-pen-alt"></i> Isi penilaian
                                         </a>
-                                    </div>
+                                    </div> --}}
                                     <div>
                                         <a href="/export-pdf" class="bg-red-500 hover:bg-red-700 text-white left-0 font-light py-2 px-4 rounded">
                                             <i class="far fa-file-pdf"></i> Export PDF

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('nilai', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('indikator');
+            $table->unsignedBigInteger('indikator_id');
             $table->unsignedBigInteger('penilaian_kinerja');
             $table->integer('nilai');
-            $table->foreign('indikator')->references('id')->on('indikator');
+            $table->foreign('indikator_id')->references('id')->on('indikator');
             $table->foreign('penilaian_kinerja')->references('id')->on('penilaian_kinerja');
             $table->timestamps();
         });
