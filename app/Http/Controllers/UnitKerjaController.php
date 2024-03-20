@@ -12,7 +12,8 @@ class UnitKerjaController extends Controller
      */
     public function index()
     {
-        //
+        $unitKerja = UnitKerja::all();
+        return view('unit_kerja.index', compact('unitKerja'));
     }
 
     /**
@@ -20,7 +21,8 @@ class UnitKerjaController extends Controller
      */
     public function create()
     {
-        //
+        return view('unit_kerja.create');
+        
     }
 
     /**
@@ -28,7 +30,15 @@ class UnitKerjaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+    		'unit_kerja' => 'required',
+    	]);
+ 
+        UnitKerja::create([
+    		'unit_kerja' => $request->unit_kerja,
+    	]);
+ 
+    	return redirect('/home/unit_kerja');
     }
 
     /**
@@ -42,24 +52,34 @@ class UnitKerjaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(UnitKerja $unitKerja)
+    public function edit(string $id)
     {
-        //
+        $unitKerja = UnitKerja::find($id);
+        return view('unit_kerja.edit', compact('unitKerja'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UnitKerja $unitKerja)
+    public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'unit_kerja' => 'required',
+        ]);
+
+        $unitKerja = UnitKerja::find($id);
+        $unitKerja->unit_kerja = $request->unit_kerja;
+        $unitKerja->update();
+        return redirect('/home/unit_kerja');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UnitKerja $unitKerja)
+    public function destroy(string $id)
     {
-        //
+        $unitKerja = UnitKerja::find($id);
+        $unitKerja->delete();
+        return redirect('/home/unit_kerja');
     }
 }

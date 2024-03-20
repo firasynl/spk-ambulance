@@ -7,6 +7,7 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\IndikatorController;
 use App\Http\Controllers\PenilaianKinerjaController;
 use App\Http\Controllers\PeriodeController;
+use App\Http\Controllers\UnitKerjaController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -31,6 +32,7 @@ Route::get('/home', [HomeController::class, 'index'])
 Route::resource('/home/pegawai', PegawaiController::class);
 Route::resource('/home/jabatan', JabatanController::class);
 Route::resource('/home/indikator', IndikatorController::class);
+Route::resource('/home/unit_kerja', UnitKerjaController::class);
 Route::resource('/home/periode', PeriodeController::class);
 Route::resource('/home/penilaian_kinerja', PenilaianKinerjaController::class);
 
