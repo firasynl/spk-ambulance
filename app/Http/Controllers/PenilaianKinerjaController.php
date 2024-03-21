@@ -25,47 +25,28 @@ class PenilaianKinerjaController extends Controller
      */
     public function index(Request $request): Response
     {
-        if(Auth::id()){
+        if (Auth::id()) {
             $usertype = Auth()->user()->usertype;
-            
-            if($usertype=='user')
-            {
+    
+            if ($usertype == 'user') {
                 $unitKerjaId = Auth::user()->unit_kerja_pegawai;
-                $query= Pegawai::where('unit_kerja_pegawai', $unitKerjaId)->get();
-            }
-            else if($usertype=='admin')
-            {
+                $query = Pegawai::where('unit_kerja_pegawai', $unitKerjaId)->get();
+            } else if ($usertype == 'admin') {
                 $query = Pegawai::query()->get();
             }
         }
-
-        // $penilaian_kinerja = $query;
+    
         $periodeAktif = Periode::where('status', '=', 'Aktif')->first();
 
-        // $pegawai = Pegawai::where('unit_kerja_pegawai', $unitKerjaId)->get();
-        
+        $pegawai = $query;
+    
         $dateFilter = $request->date_filter;
         $periode = Periode::all();
-        $penilaian_kinerja = $query;
-        $penilaianKinerja = PenilaianKinerja::all();
+        $penilaian_kinerja = PenilaianKinerja::where('periode_id', $periodeAktif->id)
+            ->whereIn('pegawai', $pegawai->pluck('id'))
+            ->get();
 
-        // switch ($dateFilter) {
-        //     case 'today':
-        //         $query->whereDate('updated_at', Carbon::today());
-        //         break;
-        //     case 'nama_periode':
-        //         // Ambil periode yang sesuai dari tabel Periode
-        //         foreach ($periode as $periode) {
-        //             $query->orWhereBetween('updated_at', [$periode->tanggal_mulai, $periode->tanggal_selesai]);
-        //         }
-        //         break;
-        //     // Tambahkan case untuk opsi lain jika diperlukan
-        //     default:
-        //         // Tidak ada filter yang dipilih, tidak perlu operasi tambahan
-        //         break;
-        // }
-
-        return response()->view('penilaian_kinerja.index',compact('penilaian_kinerja','penilaianKinerja','dateFilter', 'periode', 'periodeAktif'));
+        return response()->view('penilaian_kinerja.index',compact('penilaian_kinerja', 'pegawai', 'dateFilter', 'periode', 'periodeAktif'));
 
     }
 
@@ -110,7 +91,7 @@ class PenilaianKinerjaController extends Controller
         $nilaiData = [];
         foreach ($data['nilai'] as $indikatorId => $nilai) {
             $nilaiData[] = [
-                'penilaian_kinerja' => $penilaian->id,
+                'penilaian_kinerja_id' => $penilaian->id,
                 'indikator_id' => $indikatorId,
                 'nilai' => $nilai
             ];
@@ -122,23 +103,23 @@ class PenilaianKinerjaController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(PenilaianKinerja $penilaianKinerja)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(PenilaianKinerja $penilaianKinerja)
     {
-        $pegawai = $penilaianKinerja->pegawai;
-        $position = Pegawai::findOrFail($pegawai)->jabatan_pegawai;
+        // dd($penilaianKinerja);
+        $pegawai = Pegawai::all();
+        $periodeAktif = Periode::where('status', 'Aktif')->first();
+        $penilaian_kinerja = PenilaianKinerja::with('nilai.indikator')
+                    ->where('periode_id', $periodeAktif->id)
+                    ->whereIn('pegawai', $pegawai->pluck('id'))
+                    ->get();
+        $pegawaiId = $penilaianKinerja->pegawai;
+        $position = Pegawai::findOrFail($pegawaiId)->jabatan_pegawai;
         $indikator = Indikator::where('jabatan_id', $position)->get();
-        
-        return view('penilaian_kinerja.edit', compact('penilaianKinerja', 'pegawai','indikator'));
+        // $nilai = Nilai::where('penilaian_kinerja', $penilaianKinerja->id)->get();
+
+        return view('penilaian_kinerja.edit', compact('penilaianKinerja','penilaian_kinerja', 'pegawai','indikator'));
     }
 
     /**
