@@ -18,8 +18,8 @@ class UserSeeder extends Seeder
         while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
             if (!$firstline) {
                 \DB::table('users')->insert([
-                    "name" => $data['0'],
-                    "unit_kerja_pegawai" => $data['1'],
+                    "nama" => $data['0'],
+                    "unit_kerja" => $data['1'],
                     "email" => $data['2'],
                     "password" => $data['3'],
                     "usertype" => $data['4'],
