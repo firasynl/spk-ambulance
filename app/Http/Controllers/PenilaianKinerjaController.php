@@ -107,28 +107,60 @@ class PenilaianKinerjaController extends Controller
      */
     public function edit(PenilaianKinerja $penilaianKinerja)
     {
-        // dd($penilaianKinerja);
-        $pegawai = Pegawai::all();
         $periodeAktif = Periode::where('status', 'Aktif')->first();
-        $penilaian_kinerja = PenilaianKinerja::with('nilai.indikator')
-                    ->where('periode_id', $periodeAktif->id)
-                    ->whereIn('pegawai', $pegawai->pluck('id'))
-                    ->get();
         $pegawaiId = $penilaianKinerja->pegawai;
-        $position = Pegawai::findOrFail($pegawaiId)->jabatan_pegawai;
-        $indikator = Indikator::where('jabatan_id', $position)->get();
-        // $nilai = Nilai::where('penilaian_kinerja', $penilaianKinerja->id)->get();
 
-        return view('penilaian_kinerja.edit', compact('penilaianKinerja','penilaian_kinerja', 'pegawai','indikator'));
+        $pegawai = Pegawai::findOrFail($pegawaiId);
+        $position = $pegawai->jabatan_pegawai;
+
+        $indikator = Indikator::where('jabatan_id', $pegawai->jabatan_pegawai)->get();
+
+        $penilaian_kinerja = PenilaianKinerja::with(['nilai' => function($query) use ($penilaianKinerja, $periodeAktif) {
+            $query->where('penilaian_kinerja_id', $penilaianKinerja->id);
+        }])->findOrFail($penilaianKinerja->id);
+
+        $pegawaiName = $pegawai->nama;
+
+        return view('penilaian_kinerja.edit', compact('penilaianKinerja', 'penilaian_kinerja', 'pegawaiName', 'indikator'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, PenilaianKinerja $penilaianKinerja)
     {
-        //
+        $data = $request->validate([
+            'nilai' => 'required|array',
+        ]);
+
+        // Update Penilaian Kinerja
+        $penilaianKinerja->update([
+            'user' => auth()->user()->id,
+        ]);
+
+        // Update Nilai
+        foreach ($data['nilai'] as $indikatorId => $nilai) {
+            $nilaiRecord = Nilai::where('penilaian_kinerja_id', $penilaianKinerja->id)
+                ->where('indikator_id', $indikatorId)
+                ->first();
+
+            if ($nilaiRecord) {
+                $nilaiRecord->update([
+                    'nilai' => $nilai,
+                ]);
+            } else {
+                Nilai::create([
+                    'penilaian_kinerja_id' => $penilaianKinerja->id,
+                    'indikator_id' => $indikatorId,
+                    'nilai' => $nilai,
+                ]);
+            }
+        }
+
+        return redirect()->route('penilaian_kinerja.index');
     }
+
 
     /**
      * Remove the specified resource from storage.

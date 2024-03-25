@@ -32,20 +32,23 @@
                                                 <tr>
                                                     <td class="text-left py-3 px-4">{{$no++}}</td>
                                                     <td class="text-left py-3 px-4">{{$value->indikator}}</td>
+                                                    @php
+                                                        $nilai = $penilaian_kinerja->nilai->where('indikator_id', $value->id)->first();
+                                                    @endphp
                                                     <td class="text-center py-3 px-4">
-                                                        <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value="1" {{ $value->nilai ? ($value->nilai->nilai == 1 ? 'checked' : '') : '' }}>
+                                                        <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value=1 {{ $nilai ? ($nilai->nilai == 1 ? 'checked' : '') : '' }}>
                                                     </td>
                                                     <td class="text-center py-3 px-4">
-                                                        <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value=2 {{ $value->nilai ? ($value->nilai->nilai == 2 ? 'checked' : '') : '' }}>
+                                                        <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value=2 {{ $nilai ? ($nilai->nilai == 2 ? 'checked' : '') : '' }}>
                                                     </td>
                                                     <td class="text-center py-3 px-4">
-                                                        <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value=3 {{ $value->nilai ? ($value->nilai->nilai == 3 ? 'checked' : '') : '' }}>
+                                                        <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value=3 {{ $nilai ? ($nilai->nilai == 3 ? 'checked' : '') : '' }}>
                                                     </td>
                                                     <td class="text-center py-3 px-4">
-                                                        <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value=4 {{ $value->nilai ? ($value->nilai->nilai == 4 ? 'checked' : '') : '' }}>
+                                                        <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value=4 {{ $nilai ? ($nilai->nilai == 4 ? 'checked' : '') : '' }}>
                                                     </td>
                                                     <td class="text-center py-3 px-4">
-                                                        <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value=5 {{ $value->nilai ? ($value->nilai->nilai == 5 ? 'checked' : '') : '' }}>
+                                                        <input type="radio" id="nilai_{{$value->id}}" name="nilai[{{$value->id}}]" value=5 {{ $nilai ? ($nilai->nilai == 5 ? 'checked' : '') : '' }}>
                                                     </td>
                                                 </tr>
                                             @endforeach
