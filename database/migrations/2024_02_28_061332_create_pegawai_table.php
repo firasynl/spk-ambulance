@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('nama_pegawai');
             $table->unsignedBigInteger('jabatan_pegawai');
             $table->unsignedBigInteger('unit_kerja_pegawai');
-            $table->foreign('jabatan_pegawai')->references('id')->on('jabatan');
-            $table->foreign('unit_kerja_pegawai')->references('id')->on('unit_kerja');
+            $table->foreign('jabatan_pegawai')->references('id')->on('jabatan')->onDelete('cascade');
+            $table->foreign('unit_kerja_pegawai')->references('id')->on('unit_kerja')->onDelete('cascade');
             $table->timestamps();
         });
     }

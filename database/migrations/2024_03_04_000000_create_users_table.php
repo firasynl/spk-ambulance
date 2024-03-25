@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('usertype')->default('user');
             $table->rememberToken();
-            $table->foreign('unit_kerja_pegawai')->references('id')->on('unit_kerja');
+            $table->foreign('unit_kerja_pegawai')->references('id')->on('unit_kerja')->onDelete('cascade');
             $table->timestamps();
         });
     }
