@@ -25,47 +25,28 @@ class PenilaianKinerjaController extends Controller
      */
     public function index(Request $request): Response
     {
-        if(Auth::id()){
+        if (Auth::id()) {
             $usertype = Auth()->user()->usertype;
-            
-            if($usertype=='user')
-            {
+    
+            if ($usertype == 'user') {
                 $unitKerjaId = Auth::user()->unit_kerja_pegawai;
-                $query= Pegawai::where('unit_kerja_pegawai', $unitKerjaId)->get();
-            }
-            else if($usertype=='admin')
-            {
+                $query = Pegawai::where('unit_kerja_pegawai', $unitKerjaId)->get();
+            } else if ($usertype == 'admin') {
                 $query = Pegawai::query()->get();
             }
         }
-
-        // $penilaian_kinerja = $query;
+    
         $periodeAktif = Periode::where('status', '=', 'Aktif')->first();
 
-        // $pegawai = Pegawai::where('unit_kerja_pegawai', $unitKerjaId)->get();
-        
+        $pegawai = $query;
+    
         $dateFilter = $request->date_filter;
         $periode = Periode::all();
-        $penilaian_kinerja = $query;
-        $penilaianKinerja = PenilaianKinerja::all();
+        $penilaian_kinerja = PenilaianKinerja::where('periode_id', $periodeAktif->id)
+            ->whereIn('pegawai', $pegawai->pluck('id'))
+            ->get();
 
-        // switch ($dateFilter) {
-        //     case 'today':
-        //         $query->whereDate('updated_at', Carbon::today());
-        //         break;
-        //     case 'nama_periode':
-        //         // Ambil periode yang sesuai dari tabel Periode
-        //         foreach ($periode as $periode) {
-        //             $query->orWhereBetween('updated_at', [$periode->tanggal_mulai, $periode->tanggal_selesai]);
-        //         }
-        //         break;
-        //     // Tambahkan case untuk opsi lain jika diperlukan
-        //     default:
-        //         // Tidak ada filter yang dipilih, tidak perlu operasi tambahan
-        //         break;
-        // }
-
-        return response()->view('penilaian_kinerja.index',compact('penilaian_kinerja','penilaianKinerja','dateFilter', 'periode', 'periodeAktif'));
+        return response()->view('penilaian_kinerja.index',compact('penilaian_kinerja', 'pegawai', 'dateFilter', 'periode', 'periodeAktif'));
 
     }
 
@@ -110,7 +91,7 @@ class PenilaianKinerjaController extends Controller
         $nilaiData = [];
         foreach ($data['nilai'] as $indikatorId => $nilai) {
             $nilaiData[] = [
-                'penilaian_kinerja' => $penilaian->id,
+                'penilaian_kinerja_id' => $penilaian->id,
                 'indikator_id' => $indikatorId,
                 'nilai' => $nilai
             ];
@@ -122,32 +103,64 @@ class PenilaianKinerjaController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(PenilaianKinerja $penilaianKinerja)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(PenilaianKinerja $penilaianKinerja)
     {
-        $pegawai = $penilaianKinerja->pegawai;
-        $position = Pegawai::findOrFail($pegawai)->jabatan_pegawai;
-        $indikator = Indikator::where('jabatan_id', $position)->get();
-        
-        return view('penilaian_kinerja.edit', compact('penilaianKinerja', 'pegawai','indikator'));
+        $periodeAktif = Periode::where('status', 'Aktif')->first();
+        $pegawaiId = $penilaianKinerja->pegawai;
+
+        $pegawai = Pegawai::findOrFail($pegawaiId);
+        $position = $pegawai->jabatan_pegawai;
+
+        $indikator = Indikator::where('jabatan_id', $pegawai->jabatan_pegawai)->get();
+
+        $penilaian_kinerja = PenilaianKinerja::with(['nilai' => function($query) use ($penilaianKinerja, $periodeAktif) {
+            $query->where('penilaian_kinerja_id', $penilaianKinerja->id);
+        }])->findOrFail($penilaianKinerja->id);
+
+        $pegawaiName = $pegawai->nama;
+
+        return view('penilaian_kinerja.edit', compact('penilaianKinerja', 'penilaian_kinerja', 'pegawaiName', 'indikator'));
     }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, PenilaianKinerja $penilaianKinerja)
     {
-        //
+        $data = $request->validate([
+            'nilai' => 'required|array',
+        ]);
+
+        // Update Penilaian Kinerja
+        $penilaianKinerja->update([
+            'user' => auth()->user()->id,
+        ]);
+
+        // Update Nilai
+        foreach ($data['nilai'] as $indikatorId => $nilai) {
+            $nilaiRecord = Nilai::where('penilaian_kinerja_id', $penilaianKinerja->id)
+                ->where('indikator_id', $indikatorId)
+                ->first();
+
+            if ($nilaiRecord) {
+                $nilaiRecord->update([
+                    'nilai' => $nilai,
+                ]);
+            } else {
+                Nilai::create([
+                    'penilaian_kinerja_id' => $penilaianKinerja->id,
+                    'indikator_id' => $indikatorId,
+                    'nilai' => $nilai,
+                ]);
+            }
+        }
+
+        return redirect()->route('penilaian_kinerja.index');
     }
+
 
     /**
      * Remove the specified resource from storage.

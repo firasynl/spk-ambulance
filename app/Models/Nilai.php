@@ -13,12 +13,12 @@ class Nilai extends Model
     public $table = 'nilai';
 
     protected $fillable = [
-        'indikator_id','penilaian_kinerja', 'nilai'
+        'indikator_id','penilaian_kinerja_id', 'nilai'
     ];
 
     public function indikator(): BelongsTo
     {
-        return $this->belongsTo(Indikator::class);
+        return $this->belongsTo(Indikator::class, 'indikator_id');
     }
     public function penilaian_kinerja(): BelongsTo
     {

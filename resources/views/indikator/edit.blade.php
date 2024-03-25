@@ -31,7 +31,7 @@
                                     <select class="rounded text-sm py-1 px-2 text-black w-[700px]  border-1 border-black" name="jabatan" id="jabatan" value="{{ $indikator->jabatan }}" aria-label="Default select example">
                                         <option selected>Pilih Jabatan</option>
                                         @foreach ($jabatan as $item)
-                                            <option value="{{ $item->id }}" @if ($item->id == $indikator->jabatan) selected @endif>
+                                            <option value="{{ $item->id }}" @if ($item->id == $indikator->jabatan->id) selected @endif>
                                                 {{ $item->jabatan }}
                                             </option>
                                         @endforeach

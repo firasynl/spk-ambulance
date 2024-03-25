@@ -8,6 +8,7 @@ use App\Http\Controllers\IndikatorController;
 use App\Http\Controllers\PenilaianKinerjaController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\UnitKerjaController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -35,6 +36,7 @@ Route::resource('/home/indikator', IndikatorController::class);
 Route::resource('/home/unit_kerja', UnitKerjaController::class);
 Route::resource('/home/periode', PeriodeController::class);
 Route::resource('/home/penilaian_kinerja', PenilaianKinerjaController::class);
+Route::resource('/home/register_akun', UsersController::class);
 
 
 Route::get('/export-pdf', [PenilaianKinerjaController::class, 'exportPdf']);

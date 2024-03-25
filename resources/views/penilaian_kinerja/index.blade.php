@@ -39,7 +39,7 @@
                     @php
                         $no = 1;
                     @endphp
-                    @foreach ($penilaian_kinerja as $pk)
+                    @foreach ($pegawai as $pk)
                         <tr>
                             <td class="text-left py-3 px-4">{{ $no++ }}</td>
                             <td class="text-left py-3 px-4">{{ $pk->nama_pegawai }}</td>
@@ -50,27 +50,19 @@
                             <td class="text-left py-3 px-4">
                                 <div class="mt-4 mb-4 flex">
                                     @php
-                                        $penilaianKinerjaExists = $penilaian_kinerja->where('pegawai', $pk->id)     
-                                            ->where('periode_id', $periodeAktif->id)
-                                            ->count() > 0;
-                                        // dd($penilaianKinerjaExists);
+                                        $penilaianKinerja = $penilaian_kinerja->where('pegawai', $pk->id)
+                                                                            ->where('periode_id', $periodeAktif->id)
+                                                                            ->first();
+                                        $penilaianKinerjaExists = $penilaianKinerja !== null;
+                                        $penilaianKinerjaId = $penilaianKinerjaExists ? $penilaianKinerja->id : null;
                                     @endphp
 
                                     <div class="mr-2">
-                                        <a href="{{ $penilaianKinerjaExists ? route('penilaian_kinerja.edit', ['penilaian_kinerja' => $pk->id, 'periode' => $periodeAktif->id]) : route('penilaian_kinerja.create', ['pegawai' => $pk->id, 'periode' => $periodeAktif->id]) }}" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded">
+                                        <a href="{{ $penilaianKinerjaExists ? route('penilaian_kinerja.edit', ['penilaian_kinerja' => $penilaianKinerjaId, 'periode' => $periodeAktif->id]) : route('penilaian_kinerja.create', ['pegawai' => $pk->id, 'periode' => $periodeAktif->id]) }}" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded">
                                             <i class="fas fa-edit"></i> 
                                             {{ $penilaianKinerjaExists ? 'Edit' : 'Buat' }} penilaian
                                         </a>
                                     </div>
-                                    <div class="mr-2">
-                                        <a href="{{ route('penilaian_kinerja.edit',$pk->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white left-0 font-light py-2 px-4 rounded">Edit</a>
-                                    </div>
-
-                                    {{-- <div class="mr-2">
-                                        <a href="{{ route('penilaian_kinerja.create', ['pegawai' => $pk->id]) }}" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded">
-                                            <i class="fas fa-pen-alt"></i> Isi penilaian
-                                        </a>
-                                    </div> --}}
                                     <div>
                                         <a href="/export-pdf" class="bg-red-500 hover:bg-red-700 text-white left-0 font-light py-2 px-4 rounded">
                                             <i class="far fa-file-pdf"></i> Export PDF
