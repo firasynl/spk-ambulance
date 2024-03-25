@@ -7,6 +7,10 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
+                margin-left: 10px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                margin-right: 10px;
             }
             table {
                 width: 100%;
@@ -15,8 +19,8 @@
             th, td {
                 border: 1px solid #dddddd;
                 text-align: left;
-                padding: 8px;
-                font-size: 12px; 
+                padding: 3px;
+                font-size: 11px; 
             }
             th {
                 background-color: #f2f2f2;
@@ -41,11 +45,15 @@
             .center {
                 text-align: center;
             }
+
+            .bold {
+                font-weight: 700;
+            }
         </style>
     </head>
     <body>
         <h2 style="text-align: center;">Penilaian Kinerja Pegawai</h2>
-        <p>PERIODE PENILAIAN: </p>
+        <p>PERIODE PENILAIAN: {{ $periode }}</p> 
         <table>
             <tr>
                 <th width="50%" colspan="3" class="center"> PEGAWAI YANG DINILAI</th>
@@ -54,10 +62,10 @@
             <tr>
                 <td width="10%" class="no-r-border">NAMA</td>
                 <td width="%" class="no-l-border no-r-border">:</td>
-                <td width="38%" class="no-l-border"></td>
+                <td width="38%" class="no-l-border">{{ $pegawai->nama_pegawai }}</td>
                 <td width="10%" class="no-r-border">NAMA</td>
                 <td width="2%" class="no-l-border no-r-border">:</td>
-                <td width="38%" class="no-l-border"></td>
+                <td width="38%" class="no-l-border">{{ $user }}</td>
             </tr>
             <tr>
                 <td class="no-r-border">NIK</td>
@@ -70,7 +78,7 @@
             <tr>
                 <td class="no-r-border">JABATAN</td>
                 <td class="no-l-border no-r-border">:</td>
-                <td class="no-l-border"></td>
+                <td class="no-l-border">{{ $jabatan}}</td>
                 <td class="no-r-border">PANGKAT/GOL.RUANG</td>
                 <td class="no-l-border no-r-border">:</td>
                 <td class="no-l-border"></td>
@@ -78,7 +86,7 @@
             <tr>
                 <td class="no-r-border">UNIT KERJA</td>
                 <td class="no-l-border no-r-border">:</td>
-                <td class="no-l-border"></td>
+                <td class="no-l-border">{{ $unitKerja }}</td>
                 <td class="no-r-border">JABATAN</td>
                 <td class="no-l-border no-r-border">:</td>
                 <td class="no-l-border"></td>
@@ -89,63 +97,275 @@
                 <td class="no-l-border"></td>
                 <td class="no-r-border">UNIT KERJA</td>
                 <td class="no-l-border no-r-border">:</td>
-                <td class="no-l-border"></td>
+                <td class="no-l-border">{{ $unitKerja }}</td>
             </tr>
         </table>
         <table>
             <tr>
-                <th rowspan="2" width="5px">NO</th>
-                <th rowspan="2" class="center">KOMPONEN PENILAIAN KINERJA</th>
-                <th colspan="5" class="center">NILAI</th>
-            </tr>
-            <tr>
-                <th class="center">SB</th>
-                <th class="center">B</th>
-                <th class="center">C</th>
-                <th class="center">K</th>
-                <th class="center">SK</th>
+                <th width="5%">NO</th>
+                <th class="center" width="70%">KOMPONEN PENILAIAN KINERJA</th>
+                <th class="center" width="7%">NILAI</th>
+                <th class="center" width="18%">KETERANGAN</th>
             </tr>
             <tr>
                 <th>I</th>
                 <th colspan="6">PENILAIAN KINERJA</th>
             </tr>
+            @php
+                $totalNilai = 0;
+                $countNilai = 0;
+            @endphp
+            @foreach ($indikator as $index => $value)
+                @if ($value->kategori == 'Penilaian Kinerja')
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $value->indikator }}</td>
+                        <td class="center">
+                            <span>{{ $penilaianKinerja->nilai->where('indikator_id', $value->id)->first()->nilai ?? '' }}</span>
+                        </td>
+                        <td>
+                            @php
+                                $nilaiIndikator = $penilaianKinerja->nilai->where('indikator_id', $value->id)->first();
+                                if ($nilaiIndikator) {
+                                    $totalNilai += $nilaiIndikator->nilai;
+                                    $countNilai++;
+                                    switch ($nilaiIndikator->nilai) {
+                                        case 1:
+                                            echo 'Sangat Kurang';
+                                            break;
+                                        case 2:
+                                            echo 'Kurang';
+                                            break;
+                                        case 3:
+                                            echo 'Cukup';
+                                            break;
+                                        case 4:
+                                            echo 'Baik';
+                                            break;
+                                        case 5:
+                                            echo 'Sangat Baik';
+                                            break;
+                                        default:
+                                            echo '';
+                                            break;
+                                    }
+                                }
+                            @endphp
+                        </td>
+                    </tr>
+                @endif
+            @endforeach
+            <tr>
+                <td colspan="2" class="center bold">CAPAIAN PENILAIAN KINERJA</td>
+                <td class="center">
+                    @if ($countNilai > 0)
+                        {{ round($totalNilai / $countNilai) }}
+                    @else
+                        0
+                    @endif
+                </td>
+                <td>
+                    @php
+                        if ($countNilai > 0) {
+                            switch (round($totalNilai / $countNilai)) {
+                                case 1:
+                                    echo 'Sangat Kurang';
+                                    break;
+                                case 2:
+                                    echo 'Kurang';
+                                    break;
+                                case 3:
+                                    echo 'Cukup';
+                                    break;
+                                case 4:
+                                    echo 'Baik';
+                                    break;
+                                case 5:
+                                    echo 'Sangat Baik';
+                                    break;
+                                default:
+                                    echo '';
+                                    break;
+                            }
+                        } else {
+                            echo '';
+                        }   
+                    @endphp
+                </td>
+                    
+            </tr>
             <tr>
                 <th>II</th>
                 <th colspan="6">PERILAKU KERJA</th>
             </tr>
-            {{-- @foreach ($data as $key => $item)
-                <tr>
-                    <td>{{ $key + 1 }}</td>
-                    {{-- <td>{{ $item->indikator }}</td> --}}
-                    {{-- <td>{{ $item->nilai }}</td> --}}
-                    {{-- <td>
-                        @if ($item->nilai == 1)
-                            Sangat Kurang
-                        @elseif ($item->nilai == 2)
-                            Kurang
-                        @elseif ($item->nilai == 3)
-                            Cukup
-                        @elseif ($item->nilai == 4)
-                            Baik
-                        @else
-                            Sangat Baik
-                        @endif
-                    </td> --}}
-                {{-- </tr> --}}
-            {{-- @endforeach --}} 
+            @php
+                $totalNilai2 = 0;
+                $countNilai2 = 0;
+            @endphp
+            @foreach ($indikator as $index => $value)
+                @if ($value->kategori == 'Perilaku Kerja')
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $value->indikator }}</td>
+                        <td class="center">
+                            <span>{{ $penilaianKinerja->nilai->where('indikator_id', $value->id)->first()->nilai ?? '' }}</span>
+                        </td>
+                        <td>
+                            @php
+                                $nilaiIndikator = $penilaianKinerja->nilai->where('indikator_id', $value->id)->first();
+                                if ($nilaiIndikator) {
+                                    $totalNilai2 += $nilaiIndikator->nilai;
+                                    $countNilai2++;
+                                    switch ($nilaiIndikator->nilai) {
+                                        case 1:
+                                            echo 'Sangat Kurang';
+                                            break;
+                                        case 2:
+                                            echo 'Kurang';
+                                            break;
+                                        case 3:
+                                            echo 'Cukup';
+                                            break;
+                                        case 4:
+                                            echo 'Baik';
+                                            break;
+                                        case 5:
+                                            echo 'Sangat Baik';
+                                            break;
+                                        default:
+                                            echo '';
+                                            break;
+                                    }
+                                }
+                            @endphp
+                        </td>
+                    </tr>
+                @endif
+            @endforeach
+            <tr>
+                <td colspan="2" class="center bold">NILAI PERILAKU</td>
+                <td class="center">
+                    @if ($countNilai2 > 0)
+                        {{ round($totalNilai2 / $countNilai2) }}
+                    @else
+                        0
+                    @endif
+                </td>
+                <td>
+                    @php
+                    if ($countNilai2 > 0) {
+                        switch (round($totalNilai2 / $countNilai2)) {
+                            case 1:
+                                echo 'Sangat Kurang';
+                                break;
+                            case 2:
+                                echo 'Kurang';
+                                break;
+                            case 3:
+                                echo 'Cukup';
+                                break;
+                            case 4:
+                                echo 'Baik';
+                                break;
+                            case 5:
+                                echo 'Sangat Baik';
+                                break;
+                            default:
+                                echo '';
+                                break;
+                        }
+                    } else {
+                        echo '';
+                    }   
+                    @endphp
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="center bold">NILAI AKHIR PENILAIAN</td>
+                <td class="center">
+                    @if ($countNilai > 0 and $countNilai2 > 0)
+                        {{ round(($totalNilai + $totalNilai2))/($countNilai + $countNilai2)  }}
+                    @else
+                        0
+                    @endif
+                </td>
+                <td>
+                    @php
+                    if ($countNilai > 0 && $countNilai2 > 0) {
+                        switch (round(($totalNilai + $totalNilai2))/($countNilai + $countNilai2)) {
+                            case 1:
+                                echo 'Sangat Kurang';
+                                break;
+                            case 2:
+                                echo 'Kurang';
+                                break;
+                            case 3:
+                                echo 'Cukup';
+                                break;
+                            case 4:
+                                echo 'Baik';
+                                break;
+                            case 5:
+                                echo 'Sangat Baik';
+                                break;
+                            default:
+                                echo '';
+                                break;
+                        }
+                    } else {
+                        echo '';
+                    }   
+                    @endphp
+                </td>
+            </tr> 
         </table>
 
         <div style="margin: 0 auto;">
-            <table style="text-align: center;">
+            <p> KETERANGAN : </p>
+            <table>
                 <tr>
-                    <td class="no-border" colspan="3"></td>
-                    <td class="no-border">Semarang,</td>
+                    <td width="15%" class="no-border">Sangat Baik </td>
+                    <td width="2%" class="no-border">:</td>
+                    <td width="83%" class="no-border">86 - 100</td>
                 </tr>
+                <tr>
+                    <td class="no-border">Baik</td>
+                    <td class="no-border">:</td>
+                    <td class="no-border">71 - 85</td>
+                </tr>
+                <tr>
+                    <td class="no-border">Cukup</td>
+                    <td class="no-border">:</td>
+                    <td class="no-border">61 - 70</td>
+                </tr>
+                <tr>
+                    <td class="no-border">Kurang</td>
+                    <td class="no-border">:</td>
+                    <td class="no-border">41 - 60</td>
+                </tr>
+                <tr>
+                    <td class="no-border">Sangat Kurang</td>
+                    <td class="no-border">:</td>
+                    <td class="no-border">0 - 40</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="height: 50px;"></div>
+
+        <div style="margin: 0 auto;">
+            <table style="text-align: center;">
+              <tr>
+                <td class="no-border" colspan="3"></td>
+                <td class="no-border" style="text-align: right">Semarang, {{ $dateName }}  </td>
+                <td class="no-border" colspan="2"></td>
+              </tr>
               <tr>
                 <td class="no-border" width="15%"></td>
-                <th class="no-border center" width="30%" class="center">PEGAWAI YANG DINILAI</th>
+                <td class="no-border center bold" width="30%">PEGAWAI YANG DINILAI</th\d>
                 <td class="no-border" width="10%"></td>
-                <th class="no-border center" width="30%" class="center">PEJABAT PENILAI</th>
+                <td class="no-border center bold" width="30%">PEJABAT PENILAI</td>
                 <td class="no-border" width="15%"></td>
               </tr>
               <tr>
@@ -157,33 +377,19 @@
               </tr>
               <tr>
                 <td class="no-border"></td>
-                <td class="no-border center">Tanti Widiyanti</td>
+                <td class="no-border center">{{ $pegawai->nama_pegawai }}</td>
                 <td class="no-border"></td>
-                <td class="no-border center">dr. KURNIA RIZQA AKBAR</td>
+                <td class="no-border center">Kepala Puskesmas</td>
                 <td class="no-border"></td>
               </tr>
               <tr>
                 <td class="no-border"></td>
-                <td class="no-border center">3327096404860009</td>
+                <td class="no-border center">NIK</td>
                 <td class="no-border"></td>
-                <td class="no-border center">19781110 2009 04 1 003</td>
+                <td class="no-border center">NIP</td>
                 <td class="no-border"></td>
               </tr>
             </table>
         </div>
-
-        {{-- <p>CAPAIAN KINERJA PEGAWAI: {{ $capaian_kinerja }} ({{ $keterangan_capaian }})</p>
-        <p>NILAI PERILAKU: {{ $nilai_perilaku }} ({{ $keterangan_perilaku }})</p>
-        <p>NILAI AKHIR PENILAIAN: {{ $nilai_akhir }} ({{ $keterangan_akhir }})</p>
-
-        <p>{{ $tanggal }},</p>
-
-        <p>PEGAWAI YANG DINILAI: {{ $pegawai->nama }}</p>
-        <p>NIK: {{ $pegawai->nik }}</p>
-        <p>JABATAN: {{ $pegawai->jabatan }}</p>
-        <p>UNIT KERJA: {{ $pegawai->unit_kerja }}</p>
-        <p>PEJABAT PENILAI: {{ $pejabat_penilai->nama }}</p>
-        <p>NIP: {{ $pejabat_penilai->nip }}</p> --}}
-
     </body>
 </html>

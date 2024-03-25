@@ -56,15 +56,15 @@
                                         $penilaianKinerjaExists = $penilaianKinerja !== null;
                                         $penilaianKinerjaId = $penilaianKinerjaExists ? $penilaianKinerja->id : null;
                                     @endphp
-
                                     <div class="mr-2">
                                         <a href="{{ $penilaianKinerjaExists ? route('penilaian_kinerja.edit', ['penilaian_kinerja' => $penilaianKinerjaId, 'periode' => $periodeAktif->id]) : route('penilaian_kinerja.create', ['pegawai' => $pk->id, 'periode' => $periodeAktif->id]) }}" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded">
                                             <i class="fas fa-edit"></i> 
                                             {{ $penilaianKinerjaExists ? 'Edit' : 'Buat' }} penilaian
                                         </a>
                                     </div>
+                                    
                                     <div>
-                                        <a href="/export-pdf" class="bg-red-500 hover:bg-red-700 text-white left-0 font-light py-2 px-4 rounded">
+                                        <a href="{{ $penilaianKinerjaExists ? route('export-pdf', ['id' => $penilaianKinerjaId]): null }}" class="bg-red-500 hover:bg-red-700 text-white left-0 font-light py-2 px-4 rounded">
                                             <i class="far fa-file-pdf"></i> Export PDF
                                         </a>
                                     </div>
