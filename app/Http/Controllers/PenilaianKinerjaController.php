@@ -73,11 +73,13 @@ class PenilaianKinerjaController extends Controller
 
         $dateName = Carbon::now()->locale('id')->isoFormat('LL');
 
+        $fileName = $pegawai->nama_pegawai . '_' . Carbon::now()->format('Ymd') . '.pdf';
+
         $pdf = PDF::loadView('pdf.export-penilaian', ['penilaianKinerja' => $penilaianKinerja, 'indikator' => $indikator, 'pegawai' => $pegawai, 'jabatan' => $jabatan, 'unitKerja' => $unitKerja, 'user' => $user, 'periode' => $periode, 'dateName' => $dateName])
                 ->setPaper([0, 0, 612.2835, 935.433]);
 
         // return view('pdf.export-penilaian',compact('pdf', 'indikator', 'penilaianKinerja', 'pegawai', 'jabatan', 'unitKerja', 'user', 'periode', 'dateName'));
-        return $pdf->download('export-penilaian-pegawai.pdf');
+        return $pdf->download($fileName);
     }
 
     /**

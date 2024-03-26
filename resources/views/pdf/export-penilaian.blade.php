@@ -17,7 +17,7 @@
                 border-collapse: collapse;
             }
             th, td {
-                border: 1px solid #dddddd;
+                border: 1px solid #000000;
                 text-align: left;
                 padding: 3px;
                 font-size: 11px; 
@@ -37,6 +37,14 @@
                 border-right: none;
             }
 
+            td.no-b-border{
+                border-bottom: none;
+            }
+
+            td.no-top-border{
+                border-top: none;
+            }
+
             td.no-border, th.no-border {
                 border: none;
                 background-color: #ffffff;
@@ -53,63 +61,63 @@
     </head>
     <body>
         <h2 style="text-align: center;">Penilaian Kinerja Pegawai</h2>
-        <p>PERIODE PENILAIAN: {{ $periode }}</p> 
+        <p>Periode Penilaian: {{ $periode }}</p> 
         <table>
             <tr>
                 <th width="50%" colspan="3" class="center"> PEGAWAI YANG DINILAI</th>
                 <th width="50%" colspan="3" class="center">PEJABAT PENILAI KINERJA</th>
             </tr>
             <tr>
-                <td width="10%" class="no-r-border">NAMA</td>
-                <td width="%" class="no-l-border no-r-border">:</td>
-                <td width="38%" class="no-l-border">{{ $pegawai->nama_pegawai }}</td>
-                <td width="10%" class="no-r-border">NAMA</td>
-                <td width="2%" class="no-l-border no-r-border">:</td>
-                <td width="38%" class="no-l-border">{{ $user }}</td>
+                <td width="10%" class="no-r-border no-b-border">NAMA</td>
+                <td width="2%" class="no-l-border no-r-border no-b-border">:</td>
+                <td width="38%" class="no-l-border no-b-border">{{ $pegawai->nama_pegawai }}</td>
+                <td width="10%" class="no-r-border no-b-border">NAMA</td>
+                <td width="2%" class="no-l-border no-r-border no-b-border">:</td>
+                <td width="38%" class="no-l-border no-b-border">{{ $user }}</td>
             </tr>
             <tr>
-                <td class="no-r-border">NIK</td>
-                <td class="no-l-border no-r-border">:</td>
-                <td class="no-l-border"></td>
-                <td class="no-r-border">NIP</td>
-                <td class="no-l-border no-r-border">:</td>
-                <td class="no-l-border"></td>
+                <td class="no-r-border no-b-border no-top-border">NIK</td>
+                <td class="no-border">:</td>
+                <td class="no-l-border no-b-border no-top-border"></td>
+                <td class="no-r-border no-b-border no-top-border">NIP</td>
+                <td class="no-border">:</td>
+                <td class="no-l-border no-b-border no-top-border"></td>
             </tr>
             <tr>
-                <td class="no-r-border">JABATAN</td>
-                <td class="no-l-border no-r-border">:</td>
-                <td class="no-l-border">{{ $jabatan}}</td>
-                <td class="no-r-border">PANGKAT/GOL.RUANG</td>
-                <td class="no-l-border no-r-border">:</td>
-                <td class="no-l-border"></td>
+                <td class="no-r-border no-b-border no-top-border">JABATAN</td>
+                <td class="no-border">:</td>
+                <td class="no-l-border no-b-border no-top-border">{{ $jabatan}}</td>
+                <td class="no-r-border no-b-border no-top-border">PANGKAT/GOL.RUANG</td>
+                <td class="no-border">:</td>
+                <td class="no-l-border no-b-border no-top-border"></td>
             </tr>
             <tr>
-                <td class="no-r-border">UNIT KERJA</td>
-                <td class="no-l-border no-r-border">:</td>
-                <td class="no-l-border">{{ $unitKerja }}</td>
-                <td class="no-r-border">JABATAN</td>
-                <td class="no-l-border no-r-border">:</td>
-                <td class="no-l-border"></td>
+                <td class="no-r-border no-b-border no-top-border">UNIT KERJA</td>
+                <td class="no-border">:</td>
+                <td class="no-l-border no-b-border no-top-border">{{ $unitKerja }}</td>
+                <td class="no-r-border no-b-border no-top-border">JABATAN</td>
+                <td class="no-border">:</td>
+                <td class="no-l-border no-b-border no-top-border"></td>
             </tr>
             <tr>
-                <td class="no-r-border"></td>
-                <td class="no-l-border no-r-border"></td>
-                <td class="no-l-border"></td>
-                <td class="no-r-border">UNIT KERJA</td>
-                <td class="no-l-border no-r-border">:</td>
-                <td class="no-l-border">{{ $unitKerja }}</td>
+                <td class="no-r-border no-b-border no-top-border"></td>
+                <td class="no-border"></td>
+                <td class="no-l-border no-b-border no-top-border"></td>
+                <td class="no-r-border no-b-border no-top-border">UNIT KERJA</td>
+                <td class="no-border">:</td>
+                <td class="no-l-border no-b-border no-top-border">{{ $unitKerja }}</td>
             </tr>
         </table>
         <table>
             <tr>
-                <th width="5%">NO</th>
-                <th class="center" width="70%">KOMPONEN PENILAIAN KINERJA</th>
+                <th class="center" width="5%">NO</th>
+                <th class="center" width="75%">KOMPONEN PENILAIAN KINERJA</th>
                 <th class="center" width="7%">NILAI</th>
-                <th class="center" width="18%">KETERANGAN</th>
+                <th class="center" width="13%">KETERANGAN</th>
             </tr>
             <tr>
-                <th>I</th>
-                <th colspan="6">PENILAIAN KINERJA</th>
+                <th class="center">I</th>
+                <th colspan="3">PENILAIAN KINERJA</th>
             </tr>
             @php
                 $totalNilai = 0;
@@ -118,7 +126,7 @@
             @foreach ($indikator as $index => $value)
                 @if ($value->kategori == 'Penilaian Kinerja')
                     <tr>
-                        <td>{{ $index + 1 }}</td>
+                        <td class="center">{{ $index + 1 }}</td>
                         <td>{{ $value->indikator }}</td>
                         <td class="center">
                             <span>{{ $penilaianKinerja->nilai->where('indikator_id', $value->id)->first()->nilai ?? '' }}</span>
@@ -195,8 +203,8 @@
                     
             </tr>
             <tr>
-                <th>II</th>
-                <th colspan="6">PERILAKU KERJA</th>
+                <th class="center">II</th>
+                <th colspan="3">PERILAKU KERJA</th>
             </tr>
             @php
                 $totalNilai2 = 0;
@@ -205,7 +213,7 @@
             @foreach ($indikator as $index => $value)
                 @if ($value->kategori == 'Perilaku Kerja')
                     <tr>
-                        <td>{{ $index + 1 }}</td>
+                        <td class="center">{{ $index + 1 }}</td>
                         <td>{{ $value->indikator }}</td>
                         <td class="center">
                             <span>{{ $penilaianKinerja->nilai->where('indikator_id', $value->id)->first()->nilai ?? '' }}</span>
@@ -352,14 +360,16 @@
             </table>
         </div>
 
-        <div style="height: 50px;"></div>
+        <div style="height: 40px;"></div>
 
         <div style="margin: 0 auto;">
             <table style="text-align: center;">
               <tr>
                 <td class="no-border" colspan="3"></td>
-                <td class="no-border" style="text-align: right">Semarang, {{ $dateName }}  </td>
+                <td class="no-border center" style="text-align: center">Semarang, {{ $dateName }}  </td>
                 <td class="no-border" colspan="2"></td>
+              </tr>
+              <tr style="height: 10px;">
               </tr>
               <tr>
                 <td class="no-border" width="15%"></td>
