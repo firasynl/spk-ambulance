@@ -50,7 +50,7 @@
                 </button>
                 <div x-show="isOpen" class="text-white ml-5 focus:outline-none">
                     <a href="/home/register_akun" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                        <i class="far fa-id-card mr-3"></i>
+                        <i class="fas fa-user-plus mr-3"></i>
                         Register Akun
                     </a>
                     <a href="/home/pegawai" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
