@@ -27,7 +27,7 @@
                                     <td class="text-left py-3 px-4">{{$value->tanggal_selesai}}</td>
                                     <td class="text-left py-3 px-4">{{$value->status}}</td>
                                     <td class="text-left py-3 px-4">
-                                        <a href="/home/periode/{{$value->id}}/edit" class="px-4 py-1 text-white font-light tracking-wider bg-blue-700 rounded">Edit</a>
+                                        <a href="{{ route('periode.edit', ['periode' => $value->id]) }}" class="px-4 py-1 text-white font-light tracking-wider bg-blue-700 rounded">Edit</a>
                                         <form action="/home/periode/{{$value->id}}" method="POST">
                                             @csrf
                                             @method('DELETE')

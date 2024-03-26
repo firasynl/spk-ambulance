@@ -6,22 +6,24 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="date_filter">Periode Penilaian:</label>
-
                 <form method="get" action="{{ route('penilaian_kinerja.index') }}">
                     <div class="input-group">
                         <select class="form-select" name="date_filter">
-                            <option value="">All Data</option>
                             {{-- Menambahkan opsi untuk setiap periode --}}
-                            @foreach($periode as $periode)
-                                <option value="{{ $periode->nama_periode }}" {{ $dateFilter == $periode->nama_periode ? 'selected' : '' }}>
-                                    {{ $periode->nama_periode }}
+                            {{-- Default option: Periode Aktif --}}
+                            <option value="{{ $periodeAktif->id }}" {{ !$dateFilter ? 'selected' : '' }}>
+                                {{ $periodeAktif->nama_periode }}
+                            </option>
+                            {{-- Opsi untuk periode lain --}}
+                            @foreach($periode as $periodeItem)
+                                <option value="{{ $periodeItem->id }}" {{ $dateFilter == $periodeItem->id ? 'selected': '' }}>
+                                    {{ $periodeItem->nama_periode }}
                                 </option>
                             @endforeach
                         </select>
                         <button type="submit" class="btn btn-primary">Ganti</button>
                     </div>
                 </form>
-
             </div>
         </div>
         <div class="bg-white overflow-auto">
@@ -52,7 +54,7 @@
                                 <div class="mt-4 mb-4 flex justify-center">
                                     @php
                                         $penilaianKinerja = $penilaian_kinerja->where('pegawai', $pk->id)
-                                                                            ->where('periode_id', $periodeAktif->id)
+                                                                            ->where('periode_id', $dateFilter)
                                                                             ->first();
                                         $penilaianKinerjaExists = $penilaianKinerja !== null;
                                         $penilaianKinerjaId = $penilaianKinerjaExists ? $penilaianKinerja->id : null;

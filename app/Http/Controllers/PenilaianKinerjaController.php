@@ -30,7 +30,7 @@ class PenilaianKinerjaController extends Controller
             $usertype = Auth()->user()->usertype;
     
             if ($usertype == 'user') {
-                $unitKerjaId = Auth::user()->unit_kerja_pegawai;
+                $unitKerjaId = Auth::user()->unit_kerja;
                 $query = Pegawai::where('unit_kerja_pegawai', $unitKerjaId)->get();
             } else if ($usertype == 'admin') {
                 $query = Pegawai::query()->get();
@@ -41,11 +41,24 @@ class PenilaianKinerjaController extends Controller
 
         $pegawai = $query;
     
-        $dateFilter = $request->date_filter;
         $periode = Periode::all();
-        $penilaian_kinerja = PenilaianKinerja::where('periode_id', $periodeAktif->id)
-            ->whereIn('pegawai', $pegawai->pluck('id'))
-            ->get();
+        $dateFilter = null;
+
+        // Jika ada filter periode yang dipilih
+        if ($request->has('date_filter')) {
+            $dateFilter = $request->date_filter;
+
+            // Jika filter periode adalah periode tertentu
+            $penilaian_kinerja = PenilaianKinerja::where('periode_id', $dateFilter)
+                ->whereIn('pegawai', $pegawai->pluck('id'))
+                ->get();
+        } else {
+            $dateFilter = $periodeAktif->id;
+            // Jika tidak ada filter, tampilkan data periode aktif
+            $penilaian_kinerja = PenilaianKinerja::where('periode_id', $periodeAktif->id)
+                ->whereIn('pegawai', $pegawai->pluck('id'))
+                ->get();
+        }
 
         return response()->view('penilaian_kinerja.index',compact('penilaian_kinerja', 'pegawai', 'dateFilter', 'periode', 'periodeAktif'));
 

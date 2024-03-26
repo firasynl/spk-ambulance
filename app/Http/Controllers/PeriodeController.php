@@ -59,9 +59,9 @@ class PeriodeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Periode $periode)
+    public function edit(string $id)
     {
-        $periode = Periode::all();
+        $periode = Periode::find($id);
         return view('periode.edit', compact('periode'));
     }
 
