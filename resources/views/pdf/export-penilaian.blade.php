@@ -293,7 +293,7 @@
                 <td colspan="2" class="center bold">NILAI AKHIR PENILAIAN</td>
                 <td class="center">
                     @if ($countNilai > 0 and $countNilai2 > 0)
-                        {{ round(($totalNilai + $totalNilai2))/($countNilai + $countNilai2)  }}
+                        {{ round(($totalNilai + $totalNilai2)/($countNilai + $countNilai2))  }}
                     @else
                         0
                     @endif
@@ -301,7 +301,7 @@
                 <td>
                     @php
                     if ($countNilai > 0 && $countNilai2 > 0) {
-                        switch (round(($totalNilai + $totalNilai2))/($countNilai + $countNilai2)) {
+                        switch (round(($totalNilai + $totalNilai2)/($countNilai + $countNilai2))) {
                             case 1:
                                 echo 'Sangat Kurang';
                                 break;
