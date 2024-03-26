@@ -39,7 +39,7 @@ Route::resource('/home/penilaian_kinerja', PenilaianKinerjaController::class);
 Route::resource('/home/register_akun', UsersController::class);
 
 
-Route::get('/export-pdf', [PenilaianKinerjaController::class, 'exportPdf']);
+Route::get('export-pdf/{id}', [PenilaianKinerjaController::class, 'exportPdf'])->name('export-pdf');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

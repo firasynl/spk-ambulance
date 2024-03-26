@@ -9,6 +9,7 @@ use App\Models\Users;
 use App\Models\Periode;
 use App\Models\Jabatan;
 use App\Models\Nilai;
+use App\Models\UnitKerja;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
@@ -50,13 +51,35 @@ class PenilaianKinerjaController extends Controller
 
     }
 
-    public function exportPdf()
+    public function exportPdf($id)
     {
-        $data = Pegawai::with('jabatan')->get();
+        $penilaianKinerja = PenilaianKinerja::findOrFail($id);
+        $pegawaiId = $penilaianKinerja->pegawai;
+        $userId = $penilaianKinerja->user;
 
-        // return view('pdf.export-penilaian',compact('data'));
-        $pdf = Pdf::loadView('pdf.export-penilaian', ['data' => $data]);
-        return $pdf->download('export-penilaian-pegawai.pdf');
+        $pegawai = Pegawai::findOrFail($pegawaiId);
+        $position = $pegawai->jabatan_pegawai;
+        $jabatanId = Jabatan::findOrFail($position);
+        $jabatan = $jabatanId->jabatan;
+        $unitKerjaId = UnitKerja::findOrFail($pegawai->unit_kerja_pegawai);
+        $unitKerja = $unitKerjaId->unit_kerja;
+        $users = Users::findOrFail($userId);
+        $user = $users->nama;
+        $periodeId = $penilaianKinerja->periode_id;
+        $periodes = Periode::findOrFail($periodeId);
+        $periode = $periodes->nama_periode;
+
+        $indikator = Indikator::where('jabatan_id', $pegawai->jabatan_pegawai)->get();
+
+        $dateName = Carbon::now()->locale('id')->isoFormat('LL');
+
+        $fileName = $pegawai->nama_pegawai . '_' . Carbon::now()->format('Ymd') . '.pdf';
+
+        $pdf = PDF::loadView('pdf.export-penilaian', ['penilaianKinerja' => $penilaianKinerja, 'indikator' => $indikator, 'pegawai' => $pegawai, 'jabatan' => $jabatan, 'unitKerja' => $unitKerja, 'user' => $user, 'periode' => $periode, 'dateName' => $dateName])
+                ->setPaper([0, 0, 612.2835, 935.433]);
+
+        // return view('pdf.export-penilaian',compact('pdf', 'indikator', 'penilaianKinerja', 'pegawai', 'jabatan', 'unitKerja', 'user', 'periode', 'dateName'));
+        return $pdf->download($fileName);
     }
 
     /**
