@@ -36,31 +36,33 @@ class PenilaianKinerjaController extends Controller
                 $query = Pegawai::query()->get();
             }
         }
-    
-        $periodeAktif = Periode::where('status', '=', 'Aktif')->first();
 
         $pegawai = $query;
-    
         $periode = Periode::all();
+        $periodeAktif = Periode::where('status', '=', 'Aktif')->first();
+        $periodeEmpty = $periode->isEmpty() ? 'No data in periode' : '';
         $dateFilter = null;
 
         // Jika ada filter periode yang dipilih
-        if ($request->has('date_filter')) {
+        if ($request->has('date_filter') && !$periodeEmpty) {
             $dateFilter = $request->date_filter;
 
             // Jika filter periode adalah periode tertentu
             $penilaian_kinerja = PenilaianKinerja::where('periode_id', $dateFilter)
                 ->whereIn('pegawai', $pegawai->pluck('id'))
                 ->get();
-        } else {
+        } elseif ( !$periodeEmpty) {
             $dateFilter = $periodeAktif->id;
             // Jika tidak ada filter, tampilkan data periode aktif
             $penilaian_kinerja = PenilaianKinerja::where('periode_id', $periodeAktif->id)
                 ->whereIn('pegawai', $pegawai->pluck('id'))
                 ->get();
+        } else {
+            $penilaian_kinerja = PenilaianKinerja::whereIn('pegawai', $pegawai->pluck('id'))
+                ->get();
         }
 
-        return response()->view('penilaian_kinerja.index',compact('penilaian_kinerja', 'pegawai', 'dateFilter', 'periode', 'periodeAktif'));
+        return response()->view('penilaian_kinerja.index',compact('penilaian_kinerja', 'pegawai', 'dateFilter', 'periode', 'periodeAktif', 'periodeEmpty'));
 
     }
 
