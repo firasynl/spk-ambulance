@@ -19,57 +19,54 @@
         .active-nav-link { background: #1947ee; }
         .nav-item:hover { background: #1947ee; }
         .account-link:hover { background: #3d68ff; }
+        .data:hover { background: #1947ee; }
     </style>
 </head>
 <body class="bg-gray-100 font-family-karla flex">
-
     <aside class="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
         <div class="p-6">
             <a href="/home" class="text-white text-2xl font-semibold uppercase hover:text-gray-300">Sistem Penilaian Kinerja</a>
-            <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-                <i class="fas fa-plus mr-3"></i> New Report
-            </button> -->
         </div>
         <nav class="text-white text-base font-semibold pt-3">
-            <a href="/home" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
+            <a href="/home" class="flex items-center {{ Request::is('home') ? 'active-nav-link' : '' }} text-white py-4 pl-6 nav-item opacity-75 hover:opacity-100">
                 <i class="fas fa-tachometer-alt mr-3"></i>
                 Dashboard
             </a>
-            <a href="/home/penilaian_kinerja" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <a href="/home/penilaian_kinerja" class="flex items-center {{ Request::is('home/penilaian_kinerja') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-file-signature mr-3"></i>
                 Penilaian Kinerja
             </a>
             @auth
                 @if(Auth::user()->usertype == 'admin')
-            <!-- dropdwon sidebar -->
-            <div x-data="{ isOpen: false }">
-                <button @click="isOpen = !isOpen" class="w-full flex items-center text-white font-semibold opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+            <!-- dropdown sidebar -->
+            <div x-data="{ isOpen: false}">
+                <button @click="isOpen = !isOpen" class="w-full flex items-center text-white font-semibold opacity-75 hover:opacity-100 data py-4 pl-6">
                     <i class="fas fa-table mr-3"></i>
                     <span>Data</span>
                     <i class="fas fa-angle-down ml-2"></i>
                 </button>
                 <div x-show="isOpen" class="text-white ml-5 focus:outline-none overflow-y-auto h-56">
-                    <a href="/home/register_akun" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <a href="/home/register_akun" class="flex items-center {{ Request::is('home/register_akun') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                         <i class="fas fa-user-plus mr-3"></i>
                         Register Akun
                     </a>
-                    <a href="/home/pegawai" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <a href="/home/pegawai" class="flex items-center {{ Request::is('home/pegawai') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                         <i class="far fa-id-card mr-3"></i>
                         Pegawai
                     </a>
-                     <a href="/home/jabatan" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                     <a href="/home/jabatan" class="flex items-center {{ Request::is('home/jabatan') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                         <i class="fas fa-sitemap mr-3"></i>
                         Jabatan
                     </a>
-                    <a href="/home/indikator" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <a href="/home/indikator" class="flex items-center {{ Request::is('home/indikator') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                         <i class="fas fa-tasks mr-3"></i>
                         Indikator
                     </a>
-                    <a href="/home/unit_kerja" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <a href="/home/unit_kerja" class="flex items-center {{ Request::is('home/unit_kerja') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                         <i class="fas fa-building mr-3"></i>
                         Unit Kerja
                     </a>
-                    <a href="/home/periode" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <a href="/home/periode" class="flex items-center {{ Request::is('home/periode') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                         <i class="far fa-calendar-alt mr-3"></i>
                         Periode
                     </a>
@@ -120,49 +117,53 @@
 
             <!-- Dropdown Nav -->
             <nav :class="isOpen ? 'flex': 'hidden'" class="flex flex-col pt-4">
-                <a href="index.html" class="flex items-center active-nav-link text-white py-2 pl-4 nav-item">
+                <a href="/home" class="flex items-center {{ Request::is('home') ? 'active-nav-link' : '' }} text-white py-2 pl-4 nav-item opacity-75 hover:opacity-100">
                     <i class="fas fa-tachometer-alt mr-3"></i>
                     Dashboard
                 </a>
-                <a href="blank.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-sticky-note mr-3"></i>
-                    Blank Page
+                <a href="/home/penilaian_kinerja" class="flex items-center {{ Request::is('home/penilaian_kinerja') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100  py-2 pl-4 nav-item">
+                    <i class="fas fa-file-signature mr-3"></i>
+                    Penilaian Kinerja
                 </a>
-                <a href="tables.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-table mr-3"></i>
-                    Tables
-                </a>
-                <a href="forms.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-align-left mr-3"></i>
-                    Forms
-                </a>
-                <a href="tabs.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-tablet-alt mr-3"></i>
-                    Tabbed Content
-                </a>
-                <a href="calendar.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-calendar mr-3"></i>
-                    Calendar
-                </a>
-                <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-cogs mr-3"></i>
-                    Support
-                </a>
-                <a href="{{ route('profile.edit') }}" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-user mr-3"></i>
-                    Profile
-                </a>
-                <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                    <i class="fas fa-sign-out-alt mr-3"></i>
-                    Sign Out
-                </a>
-                <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-                    <i class="fas fa-arrow-circle-up mr-3"></i> Upgrade to Pro!
-                </button>
+                @auth
+                @if(Auth::user()->usertype == 'admin')
+                    <!-- dropdown sidebar -->
+                    <div x-data="{ isOpen: false}">
+                        <button @click="isOpen = !isOpen" class="w-full flex items-center text-white font-semibold opacity-75 hover:opacity-100 data py-2 pl-4">
+                            <i class="fas fa-table mr-3"></i>
+                            <span>Data</span>
+                            <i class="fas fa-angle-down ml-2"></i>
+                        </button>
+                        <div x-show="isOpen" class="text-white ml-5 focus:outline-none overflow-y-auto h-56">
+                            <a href="/home/register_akun" class="flex items-center {{ Request::is('home/register_akun') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                                <i class="fas fa-user-plus mr-3"></i>
+                                Register Akun
+                            </a>
+                            <a href="/home/pegawai" class="flex items-center {{ Request::is('home/pegawai') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                                <i class="far fa-id-card mr-3"></i>
+                                Pegawai
+                            </a>
+                            <a href="/home/jabatan" class="flex items-center {{ Request::is('home/jabatan') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                                <i class="fas fa-sitemap mr-3"></i>
+                                Jabatan
+                            </a>
+                            <a href="/home/indikator" class="flex items-center {{ Request::is('home/indikator') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                                <i class="fas fa-tasks mr-3"></i>
+                                Indikator
+                            </a>
+                            <a href="/home/unit_kerja" class="flex items-center {{ Request::is('home/unit_kerja') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                                <i class="fas fa-building mr-3"></i>
+                                Unit Kerja
+                            </a>
+                            <a href="/home/periode" class="flex items-center {{ Request::is('home/periode') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                                <i class="far fa-calendar-alt mr-3"></i>
+                                Periode
+                            </a>
+                        </div>
+                    </div>
+                @endif
+                @endauth
             </nav>
-            <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-                <i class="fas fa-plus mr-3"></i> New Report
-            </button> -->
         </header>
     
         <div class="w-full overflow-x-hidden border-t flex flex-col h-screen">
@@ -185,6 +186,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
 
     <script>
+        // Navigasi
+        const navLinks = document.querySelectorAll('.nav-item');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                navLinks.forEach(navLink => {
+                    navLink.classList.remove('active-nav-link');
+                });
+
+                link.classList.add('active-nav-link');
+            });
+        });
+
         var chartOne = document.getElementById('chartOne');
         var myChart = new Chart(chartOne, {
             type: 'bar',
