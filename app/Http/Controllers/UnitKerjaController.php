@@ -12,7 +12,7 @@ class UnitKerjaController extends Controller
      */
     public function index()
     {
-        $unitKerja = UnitKerja::all();
+        $unitKerja = UnitKerja::paginate(10);
         return view('unit_kerja.index', compact('unitKerja'));
     }
 

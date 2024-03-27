@@ -41,6 +41,7 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        {{ $unitKerja->links()}}
                     </div>
                 </div>
 </x-admin-layout>

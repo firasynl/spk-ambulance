@@ -41,6 +41,7 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        {{ $jabatan->links() }}
                     </div>
                 </div>
 </x-admin-layout>

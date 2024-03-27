@@ -48,7 +48,7 @@
                     <span>Data</span>
                     <i class="fas fa-angle-down ml-2"></i>
                 </button>
-                <div x-show="isOpen" class="text-white ml-5 focus:outline-none">
+                <div x-show="isOpen" class="text-white ml-5 focus:outline-none overflow-y-auto h-56">
                     <a href="/home/register_akun" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                         <i class="fas fa-user-plus mr-3"></i>
                         Register Akun
@@ -165,18 +165,16 @@
             </button> -->
         </header>
     
-        <div class="w-full overflow-x-hidden border-t flex flex-col">
+        <div class="w-full overflow-x-hidden border-t flex flex-col h-screen">
             <main class="w-full flex-grow p-6">
                 {{$slot}}
             </main>
-    
             <footer class="w-full bg-white text-right p-4">
                 Built by <a target="_blank" href="https://github.com/firasynl" class="underline">Firasyana</a>
                 <i class="far fa-handshake"></i><a target="_blank" href="https://github.com/ReginaAyumi" class="underline"> Regina</a>
                 .
-            </footer>
+            </footer>  
         </div>
-        
     </div>
 
     <!-- AlpineJS -->
