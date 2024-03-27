@@ -14,10 +14,10 @@ class IndikatorController extends Controller
      */
     public function index()
     {
-        $jabatan = Jabatan::select('id', 'jabatan')->get();
-        $indikator = Indikator::join()->get();
+        $jabatan = Jabatan::select('id', 'jabatan')->paginate(10);
+        $indikator = Indikator::join()->paginate(10);
         
-        return view('indikator.index',compact('indikator', 'jabatan'));
+        return view('indikator.index',compact('indikator', 'jabatan'))->with('pagination', $indikator);
     }
 
     /**

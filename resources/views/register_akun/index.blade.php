@@ -46,7 +46,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {{-- {{ $pegawai->links() }} --}}
+            {{ $pagination->links() }}
         </div>
     </div>
 </x-admin-layout>

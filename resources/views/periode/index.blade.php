@@ -27,12 +27,15 @@
                                     <td class="text-left py-3 px-4">{{$value->tanggal_selesai}}</td>
                                     <td class="text-left py-3 px-4">{{$value->status}}</td>
                                     <td class="text-left py-3 px-4">
-                                        <a href="{{ route('periode.edit', ['periode' => $value->id]) }}" class="px-4 py-1 text-white font-light tracking-wider bg-blue-700 rounded">Edit</a>
+                                        <div class="mt-4 mb-4 flex">
+                                        <a href="{{ route('periode.edit', ['periode' => $value->id]) }}" class="px-4 py-1 text-white mr-1 font-light tracking-wider bg-blue-700 rounded"><i class="far fa-edit"></i>Edit</a>
                                         <form action="/home/periode/{{$value->id}}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <input type="submit" class="px-4 py-1 text-white font-light tracking-wider bg-red-700 rounded" value="Delete">
-                                        </form>
+                                            <button type="submit" class="px-4 py-1 text-white font-light tracking-wider bg-red-700 rounded" value="Delete">
+                                                <i class="fas fa-trash-alt"></i> Delete
+                                            </button>                                        </form>
+                                        </div>
                                     </td>
                                 </tr>
                                 @empty

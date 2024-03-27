@@ -14,10 +14,10 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $unit_kerja = UnitKerja::select('id', 'unit_kerja')->get();
-        $users = Users::join()->get();
+        $unit_kerja = UnitKerja::select('id', 'unit_kerja')->paginate(10);
+        $users = Users::join()->paginate(10);
         
-        return view('register_akun.index',compact('users', 'unit_kerja'));
+        return view('register_akun.index',compact('users', 'unit_kerja'))->with('pagination', $users);
     }
 
     /**
