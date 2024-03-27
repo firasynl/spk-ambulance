@@ -1,23 +1,52 @@
 <x-admin-layout>
+    <style>
+        /* Gaya untuk label */
+        .form-group label {
+            font-weight: bold;
+            color: #333;
+        }
+    
+        /* Gaya untuk select box */
+        .form-select {
+            width: 20%;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+    
+        /* Gaya untuk tombol Ganti */
+        .btn-primary {
+            background-color: #2d3748;
+            color: #fff;
+            border-color: #2d3748;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+    
+        /* Gaya untuk tombol Ganti saat dihover */
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
     <div class="w-full mt-12">
-        <p class="text-xl pb-3 flex items-center">
+        <p class="text-2xl pb-3 flex items-center">
             <i class="fas fa-list mr-3"></i> Penilaian Kinerja Pegawai
         </p>
         @if (!empty($periodeEmpty))
             <p>{{ $periodeEmpty }}</p>
         @else
-            <div class="col-md-6">
+            <div class="col-md-6 mb-5 mt-5">
                 <div class="form-group">
                     <label for="date_filter">Periode Penilaian:</label>
                     <form method="get" action="{{ route('penilaian_kinerja.index') }}">
                         <div class="input-group">
                             <select class="form-select" name="date_filter">
                                 {{-- Menambahkan opsi untuk setiap periode --}}
-                                {{-- Default option: Periode Aktif --}}
-                                <option value="{{ $periodeAktif->id }}" {{ !$dateFilter ? 'selected' : '' }}>
-                                    {{ $periodeAktif->nama_periode }}
-                                </option>
-                                {{-- Opsi untuk periode lain --}}
                                 @foreach($periode as $periodeItem)
                                     <option value="{{ $periodeItem->id }}" {{ $dateFilter == $periodeItem->id ? 'selected': '' }}>
                                         {{ $periodeItem->nama_periode }}
@@ -87,7 +116,7 @@
                                             </a>
                                         </div>
                                         <div>
-                                            <a href="{{ $penilaianKinerjaExists ? route('export-pdf', ['id' => $penilaianKinerjaId]): null }}" class="bg-red-500 hover:bg-red-700 text-white left-0 font-light py-2 px-4 rounded">
+                                            <a href="{{ $penilaianKinerjaExists ? route('export-pdf', ['id' => $penilaianKinerjaId]) : '#' }}" class="bg-red-500 hover:bg-red-700 text-white left-0 font-light py-2 px-4 rounded" onclick="exportPdf(event)">
                                                 <i class="far fa-file-pdf"></i> Export PDF
                                             </a>
                                         </div>

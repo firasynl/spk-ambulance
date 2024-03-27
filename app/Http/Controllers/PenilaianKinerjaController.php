@@ -157,7 +157,7 @@ class PenilaianKinerjaController extends Controller
             $query->where('penilaian_kinerja_id', $penilaianKinerja->id);
         }])->findOrFail($penilaianKinerja->id);
 
-        $pegawaiName = $pegawai->nama;
+        $pegawaiName = $pegawai->nama_pegawai;
 
         return view('penilaian_kinerja.edit', compact('penilaianKinerja', 'penilaian_kinerja', 'pegawaiName', 'indikator'));
     }
