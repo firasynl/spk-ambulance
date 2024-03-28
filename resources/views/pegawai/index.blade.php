@@ -1,20 +1,23 @@
 <x-admin-layout>
+    <head>
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    </head>
     <div class="w-full mt-12">
-        <p class="text-xl pb-3 flex items-center">
+        <p class="text-2xl pb-3 flex items-center">
             <i class="fas fa-list mr-3"></i> Daftar Pegawai
         </p>
         <div class="mt-4 mb-4">
-            <a href="{{ route('pegawai.create') }}" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded">Tambah</a>
+            <a href="{{ route('pegawai.create') }}" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded">Tambah Pegawai</a>
             </div>
         <div class="bg-white overflow-auto">
             <table class="min-w-full bg-white">
                 <thead class="bg-gray-800 text-white">
                     <tr>
-                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm">No</th> 
-                        <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Nama</th> 
-                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Jabatan</th> 
-                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Unit Kerja</th> 
-                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm"></th>
+                        <th class="text-center py-3 px-4 uppercase font-semibold text-sm w-10">No</th> 
+                        <th class="w-1/3 text-center py-3 px-4 uppercase font-semibold text-sm">Nama</th> 
+                        <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Jabatan</th> 
+                        <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Unit Kerja</th> 
+                        <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Action</th>
                     </tr>
                 </thead>
                 
@@ -24,12 +27,12 @@
                     @endphp
                     @foreach ($pegawai as $pegawai)
                         <tr>
-                            <td class="text-left py-3 px-4">{{ $no++ }}</td>
-                            <td class="text-left py-3 px-4">{{ $pegawai->nama_pegawai }}</td>
-                            <td class="text-left py-3 px-4">{{ $pegawai->jabatan }}</td>
-                            <td class="text-left py-3 px-4">{{ $pegawai->unit_kerja }}</td>
-                            <td class="text-left py-3 px-4">
-                                <div class="mt-4 mb-4 flex">
+                            <td class="text-center">{{ $no++ }}</td>
+                            <td class="text-left px-5">{{ $pegawai->nama_pegawai }}</td>
+                            <td class="text-center">{{ $pegawai->jabatan }}</td>
+                            <td class="text-center">{{ $pegawai->unit_kerja }}</td>
+                            <td class="text-left px-5">
+                                <div class="mt-2 mb-2 flex justify-center">
                                     <a href="{{ route('pegawai.edit',$pegawai->id) }}" class="px-4 py-1 text-white mr-1 font-light tracking-wider bg-blue-700 rounded"><i class="far fa-edit"></i>Edit</a>
                                 <form action="{{ route('pegawai.destroy',$pegawai->id) }}" method="POST">
                                     @csrf
