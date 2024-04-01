@@ -1,11 +1,6 @@
 <x-admin-layout>
     <head>
-        <link rel="stylesheet" href="{{ asset('css/styles.css') }}"> 
-        <style>
-            table {
-                width: 60%;
-            }
-        </style>  
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">  
     </head>
     <div class="w-full mt-12">
         <p class="text-2xl pb-3 flex items-center">
@@ -52,7 +47,7 @@
                     @endforelse
                 </tbody>
             </table>
-            <div style="width: 60%">
+            <div>
                 {{ $unitKerja->links()}}
             </div>
         </div>

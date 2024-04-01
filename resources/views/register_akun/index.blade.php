@@ -8,7 +8,7 @@
         </p>
         <div class="mt-4 mb-4">
             <a href="{{ route('register_akun.create') }}" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded">Tambah Akun</a>
-            </div>
+        </div>
         <div class="bg-white overflow-auto">
             <table class="min-w-full bg-white">
                 <thead class="bg-gray-800 text-white">
@@ -49,8 +49,12 @@
                     @endforeach
                 </tbody>
             </table>
+            
+        </div>
+        <div class="mt-3">
             {{ $pagination->links() }}
         </div>
+        
     </div>
 </x-admin-layout>
 

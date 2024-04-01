@@ -9,13 +9,13 @@
                         <div class="leading-loose">
                             <form class="p-10 bg-white rounded shadow-xl" method="POST" action="{{ route('indikator.store') }}">
                                 @csrf
-                                <div class="">
-                                    <label class="block text-sm text-gray-600" for="indikator">Indikator</label>
+                                <div class="mb-2">
+                                    <label class="block text-m text-gray-600" for="indikator">Indikator</label>
                                     <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="indikator" name="indikator" type="text" required="" placeholder="Masukkan indikator penilaian" aria-label="Indikator">
                                 </div>
-                                <div class="">
-                                    <label class="block text-sm text-gray-600" for="kategori">Kategori</label>
-                                    <select class="rounded text-sm py-1 px-2 text-black w-[700px]  border-1 border-black" name="kategori" aria-label="Default select example">
+                                <div class="mb-2">
+                                    <label class="block text-m text-gray-600" for="kategori">Kategori</label>
+                                    <select class="rounded text-m py-1 px-2 text-black w-[700px]  border-1 border-black" name="kategori" aria-label="Default select example">
                                         <option selected>Pilih Kategori</option>
                                             <option value="Penilaian Kinerja">
                                                 Penilaian Kinerja
@@ -25,9 +25,9 @@
                                             </option>
                                     </select>  
                                 </div>
-                                <div class="">
-                                    <label class="block text-sm text-gray-600" for="jabatan">Jabatan</label>
-                                    <select class="rounded text-sm py-1 px-2 text-black w-[700px]  border-1 border-black" name="jabatan" aria-label="Default select example">
+                                <div class="mb-2">
+                                    <label class="block text-m text-gray-600" for="jabatan">Jabatan</label>
+                                    <select class="rounded text-m py-1 px-2 text-black w-[700px]  border-1 border-black" name="jabatan" aria-label="Default select example">
                                         <option selected>Pilih Jabatan</option>
                                         @foreach ($jabatan as $item)
                                             <option value="{{ $item->id }}">
@@ -37,7 +37,7 @@
                                     </select>
                                 </div>
 
-                                <div class="mt-6">
+                                <div class="mt-6 flex justify-center">
                                     <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Submit</button>
                                 </div>
                             </form>

@@ -8,11 +8,11 @@
                             <form action="/home/jabatan/{{$jabatan->id}}" method="POST" class="p-10 bg-white rounded shadow-xl">
                                 @csrf
                                 @method('PUT')
-                                <div class="">
-                                    <label class="block text-sm text-gray-600" for="jabatan">Nama Jabatan</label>
+                                <div class="mb-2">
+                                    <label class="block text-m text-gray-600" for="jabatan">Nama Jabatan</label>
                                     <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="jabatan" name="jabatan" type="text" required="" value="{{$jabatan->jabatan}}" placeholder="Contoh: Admin" aria-label="Jabatan">
                                 </div>
-                                <div class="mt-6">
+                                <div class="mt-6 flex justify-center">
                                     <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Submit</button>
                                 </div>
                             </form>
