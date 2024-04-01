@@ -32,7 +32,7 @@
                             <form action="/home/unit_kerja/{{$value->id}}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="px-4 py-1 text-white font-light tracking-wider bg-red-700 rounded" value="Delete">
+                                <button type="submit" class="px-4 py-1 text-white font-light tracking-wider bg-red-700 rounded" onclick="return confirm('Are you sure?')" value="Delete">
                                     <i class="fas fa-trash-alt"></i> Delete
                                 </button>
                             </form>
@@ -47,9 +47,9 @@
                     @endforelse
                 </tbody>
             </table>
-            <div>
-                {{ $unitKerja->links()}}
-            </div>
+        </div>
+        <div class="mt-3">
+            {{ $unitKerja->links()}}
         </div>
     </div>
 </x-admin-layout>

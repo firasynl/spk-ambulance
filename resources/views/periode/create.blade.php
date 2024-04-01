@@ -1,12 +1,19 @@
 <x-admin-layout>
-    <div class="flex flex-wrap">
+    <div class="flex flex-wrap place-content-center">
         <div class="w-full lg:w-1/2 my-6 pr-0 lg:pr-2">
-            <p class="text-2xl pb-6 flex items-center">
-                <i class="fas fa-list mr-3"></i> Input Periode
-            </p>
             <div class="leading-loose">
                 <form action="/home/periode" method="POST" class="p-10 bg-white rounded shadow-xl">
                     @csrf
+                    <div class=" grid grid-cols-4 mt-4 mb-4">
+                            <div class="col-start-1 col-span-1 place-content-center">
+                                <a href="{{ route('periode.index') }}" class="py-2 px-4 rounded"><i class="far fa-arrow-alt-circle-left text-2xl"></i></a>
+                            </div>
+                            <div class="col-start-2 col-end-4 ">
+                                <p class="text-2xl py-2 px-4 font-bold flex place-content-center">
+                                    Input Periode
+                                </p>
+                            </div>
+                    </div>
                     <div class="mb-3">
                         <label class="block text-m text-gray-600" for="nama_periode">Nama Periode</label>
                         <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="nama_periode" name="nama_periode" type="text" required="" placeholder="Contoh: Periode 2024-1" aria-label="Periode">
@@ -21,7 +28,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="block text-m text-gray-600" for="kategori">Status</label>
-                        <select class="rounded text-sm py-1 px-2 text-black w-[700px]  border-1 border-black" name="status" aria-label="Default select example">
+                        <select class="rounded px-5 py-2 text-m py-1 px-2 text-black w-[700px] w-full bg-gray-200 border-1 border-black" name="status" aria-label="Default select example">
                             <option selected>Pilih Status Periode</option>
                                 <option value="Aktif">
                                     Aktif
