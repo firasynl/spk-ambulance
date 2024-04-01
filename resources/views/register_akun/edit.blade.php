@@ -1,15 +1,22 @@
 <x-admin-layout>
-    <div class="bg-white overflow-auto ">
-        <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
-            <main class="w-full flex-grow p-6">
-                <p class="text-2xl pb-6 flex items-center">
-                    <i class="fas fa-list mr-3"></i> Edit Akun
-                </p>
-                <div class="flex flex-wrap">
+    <div class="overflow-auto ">
+        <div class="w-full overflow-x-hidden border-t flex flex-col">
+            <main class="w-full flex-grow">
+                <div class="flex flex-wrap place-content-center">
                     <div class="w-full lg:w-1/2 my-6 pr-0 lg:pr-2">
                         <div class="leading-loose">
                             <form class="p-10 bg-white rounded shadow-xl" method="POST" action="{{ route('register_akun.update', $register_akun->id) }}">
                                 @csrf
+                                <div class=" grid grid-cols-4 mt-4 mb-4">
+                                    <div class="col-start-1 col-span-1 place-content-center">
+                                        <a href="{{ route('register_akun.index') }}" class="py-2 px-4 rounded"><i class="far fa-arrow-alt-circle-left text-2xl"></i></a>
+                                    </div>
+                                    <div class="col-start-2 col-end-4 ">
+                                        <p class="text-2xl py-2 px-4 font-bold flex place-content-center">
+                                            <i class="mr-3"></i> Edit Akun
+                                        </p>
+                                    </div>
+                                </div>
                                 @method('PUT')
                                 <div class="mb-2">
                                     <label class="block text-m text-gray-600" for="nama">Nama</label>
@@ -17,7 +24,7 @@
                                 </div>
                                 <div class="mb-2">
                                     <label class="block text-m text-gray-600" for="unit_kerja">Unit Kerja</label>
-                                    <select class="rounded text-m py-1 px-2 text-black w-[700px]  border-2 border-black" name="unit_kerja" id="unit_kerja" value="{{ $register_akun->unit_kerja }}" aria-label="Default select example">
+                                    <select class="rounded text-m py-1 px-2 text-black w-full w-[700px] bg-gray-200 border-2 border-black" name="unit_kerja" id="unit_kerja" value="{{ $register_akun->unit_kerja }}" aria-label="Default select example">
                                         <option selected>Pilih Unit Kerja</option>
                                         @foreach ($unit_kerja as $item)
                                             <option value="{{ $item->id }}" @if ($item->id == $register_akun->unit_kerja) selected @endif>
@@ -36,7 +43,7 @@
                                 </div>
                                 <div class="mb-2">
                                     <label class="block text-m text-gray-600" for="usertype">Usertype</label>
-                                    <select class="rounded text-m py-1 px-2 text-black w-[700px] border-2 border-black" name="usertype" aria-label="Default select example">
+                                    <select class="rounded text-m py-1 px-2 text-black w-full w-[700px] bg-gray-200 border-2 border-black" name="usertype" aria-label="Default select example">
                                         <option disabled>Pilih User Type</option>
                                         <option value="admin" {{ $register_akun->usertype === 'admin' ? 'selected' : '' }}>Admin</option>
                                         <option value="user" {{ $register_akun->usertype === 'user' ? 'selected' : '' }}>User</option>

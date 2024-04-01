@@ -38,7 +38,8 @@ class UnitKerjaController extends Controller
     		'unit_kerja' => $request->unit_kerja,
     	]);
  
-    	return redirect('/home/unit_kerja');
+    	return redirect()->route('unit_kerja.index')
+                        ->with('success','Unit Kerja created successfully');
     }
 
     /**
@@ -70,7 +71,8 @@ class UnitKerjaController extends Controller
         $unitKerja = UnitKerja::find($id);
         $unitKerja->unit_kerja = $request->unit_kerja;
         $unitKerja->update();
-        return redirect('/home/unit_kerja');
+        return redirect()->route('unit_kerja.index')
+                        ->with('success','Unit Kerja updated successfully');
     }
 
     /**
@@ -80,6 +82,7 @@ class UnitKerjaController extends Controller
     {
         $unitKerja = UnitKerja::find($id);
         $unitKerja->delete();
-        return redirect('/home/unit_kerja');
+        return redirect()->route('unit_kerja.index')
+                        ->with('success','Unit Kerja deleted successfully');
     }
 }

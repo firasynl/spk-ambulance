@@ -9,7 +9,7 @@
                 <div class="mt-6">
                     <div class="w-full">
                         <div class="p-6 bg-white w-full shadow-md rounded">
-                            <h2 class="text-xl">
+                            <h2 class="text-xl font-bold">
                                 <i class="fas fa-book mr-3"></i> Panduan Sistem</h2>
                             <ul class="list-disc px-6 py-4">
                                 <li>Login ke dalam sistem dengan username dan password</li>
@@ -22,7 +22,9 @@
                         </div>
                     </div>
                 </div>
-        <div class="p-6 m-20 bg-white rounded shadow">
+        <div class="w-full p-6 mt-6 bg-white rounded shadow-md">
+            <h2 class="text-xl font-bold">
+                <i class="fas fa-award mr-3"></i>Data Nilai Pegawai</h2>
             {!! $chart->container() !!}
         </div>
 </x-admin-layout>

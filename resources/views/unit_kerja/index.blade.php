@@ -53,3 +53,15 @@
         </div>
     </div>
 </x-admin-layout>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Periksa apakah ada pesan sukses
+        let successMessage = "{{ session('success') }}";
+
+        // Jika ada pesan sukses, tampilkan pesan pop-up
+        if (successMessage) {
+            alert(successMessage);
+        }
+    });
+</script>

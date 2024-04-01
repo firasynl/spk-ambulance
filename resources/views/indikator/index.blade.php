@@ -38,7 +38,7 @@
                                     @csrf
                                     @method('DELETE')
                                     
-                                    <button type="submit" class="px-4 py-1 text-white font-light tracking-wider bg-red-700 rounded" value="Delete">
+                                    <button type="submit" class="px-4 py-1 text-white font-light tracking-wider bg-red-700 rounded" onclick="return confirm('Are you sure?')" value="Delete">
                                         <i class="fas fa-trash-alt">
                                         </i> Delete
                                     </button>

@@ -78,7 +78,7 @@ class NilaiPegawaiChart
     // dd($nilai_pegawai);
 
     return $this->chart->barChart()
-        ->setTitle('Data Nilai Pegawai')
+        // ->setTitle('Data Nilai Pegawai')
         ->setSubtitle($periodeAktif ? $periodeAktif->nama_periode : '')
         ->addData('Total nilai', $nilai_pegawai) //nilai
         ->setXAxis($nama_pegawai); //nama pegawai

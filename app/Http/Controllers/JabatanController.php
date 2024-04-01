@@ -37,7 +37,8 @@ class JabatanController extends Controller
     		'jabatan' => $request->jabatan,
     	]);
  
-    	return redirect('/home/jabatan');
+        return redirect()->route('jabatan.index')
+                        ->with('success','Jabatan created successfully.');
     }
 
     /**
@@ -69,7 +70,8 @@ class JabatanController extends Controller
         $jabatan = Jabatan::find($id);
         $jabatan->jabatan = $request->jabatan;
         $jabatan->update();
-        return redirect('/home/jabatan');
+        return redirect()->route('jabatan.index')
+                        ->with('success','Jabatan updated successfully.');
     }
 
     /**
@@ -79,6 +81,8 @@ class JabatanController extends Controller
     {
         $jabatan = Jabatan::find($id);
         $jabatan->delete();
-        return redirect('/home/jabatan');
+
+        return redirect()->route('jabatan.index')
+                        ->with('success','Jabatan deleted successfully');
     }
 }

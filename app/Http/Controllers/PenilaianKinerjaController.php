@@ -137,7 +137,8 @@ class PenilaianKinerjaController extends Controller
 
         Nilai::insert($nilaiData);
 
-        return redirect()->route('penilaian_kinerja.index');
+        return redirect()->route('penilaian_kinerja.index')
+                        ->with('success','Penilaian kinerja created successfully');
     }
 
     /**
@@ -196,7 +197,8 @@ class PenilaianKinerjaController extends Controller
             }
         }
 
-        return redirect()->route('penilaian_kinerja.index');
+        return redirect()->route('penilaian_kinerja.index')
+                        ->with('success','Penilaian kinerja updated successfully');
     }
 
 
