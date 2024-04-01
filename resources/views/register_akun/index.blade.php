@@ -24,7 +24,7 @@
                 
                 <tbody class="text-gray-700">
                     @php
-                        $no = 1;
+                        $no = ($users->currentPage() - 1) * $users->perPage() + 1;;
                     @endphp
                     @foreach ($users as $users)
                         <tr>

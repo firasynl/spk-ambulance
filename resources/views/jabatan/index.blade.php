@@ -24,9 +24,12 @@
                     </tr>
                 </thead>
                 <tbody class="text-gray-700">
-                        @forelse ($jabatan as $key=>$value)
+                    @php
+                        $no = ($jabatan->currentPage() - 1) * $jabatan->perPage() + 1;;
+                    @endphp
+                    @forelse ($jabatan as $key=>$value)
                     <tr>
-                        <td class="text-center px-4">{{$key + 1}}</td>
+                        <td class="text-center px-4">{{$no++}}</td>
                         <td class="text-center px-4">{{$value->jabatan}}</td>
                         <td class="text-center px-4">
                             <div class="mt-2 mb-2 flex justify-center">
@@ -49,7 +52,9 @@
                     @endforelse
                 </tbody>
             </table>
-            {{ $jabatan->links() }}
+            <div style="width: 50%">
+                {{ $jabatan->links() }}
+            </div>
         </div>
     </div>
 </x-admin-layout>

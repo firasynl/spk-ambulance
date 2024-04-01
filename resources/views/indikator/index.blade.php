@@ -23,7 +23,7 @@
                 
                 <tbody class="text-gray-700">
                     @php
-                        $no = 1;
+                        $no = ($indikator->currentPage() - 1) * $indikator->perPage() + 1;
                     @endphp
                     @foreach ($indikator as $indikator)
                         <tr>

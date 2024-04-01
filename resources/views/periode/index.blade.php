@@ -22,9 +22,12 @@
                     </tr>
                 </thead>
                 <tbody class="text-gray-700">
-                        @forelse ($periode as $key=>$value)
+                    @php
+                        $no = ($periode->currentPage() - 1) * $periode->perPage() + 1;;
+                    @endphp
+                    @forelse ($periode as $key=>$value)
                     <tr>
-                        <td class="text-center px-4">{{$key + 1}}</td>
+                        <td class="text-center px-4">{{$no++}}</td>
                         <td class="text-left px-4">{{$value->nama_periode}}</td>
                         <td class="text-center px-4">{{$value->tanggal_mulai}}</td>
                         <td class="text-center px-4">{{$value->tanggal_selesai}}</td>
@@ -48,6 +51,7 @@
                     @endforelse
                 </tbody>
             </table>
+            {{ $periode->links() }}
         </div>
     </div>
 </x-admin-layout>

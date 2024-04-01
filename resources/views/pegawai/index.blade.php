@@ -23,7 +23,7 @@
                 
                 <tbody class="text-gray-700">
                     @php
-                        $no = 1;
+                        $no = ($pegawai->currentPage() - 1) * $pegawai->perPage() + 1;;
                     @endphp
                     @foreach ($pegawai as $pegawai)
                         <tr>

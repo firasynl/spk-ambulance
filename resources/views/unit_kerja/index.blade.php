@@ -24,9 +24,12 @@
                     </tr>
                 </thead>
                 <tbody class="text-gray-700">
-                        @forelse ($unitKerja as $key=>$value)
+                    @php
+                        $no = ($unitKerja->currentPage() - 1) * $unitKerja->perPage() + 1;;
+                    @endphp
+                    @forelse ($unitKerja as $key=>$value)
                     <tr>
-                        <td class="text-center px-4">{{$key + 1}}</td>
+                        <td class="text-center px-4">{{$no++}}</td>
                         <td class="text-center px-4">{{$value->unit_kerja}}</td>
                         <td class="text-center px-4">
                             <div class="mt-2 mb-2 flex justify-center">
@@ -49,7 +52,9 @@
                     @endforelse
                 </tbody>
             </table>
-            {{ $unitKerja->links()}}
+            <div style="width: 60%">
+                {{ $unitKerja->links()}}
+            </div>
         </div>
     </div>
 </x-admin-layout>

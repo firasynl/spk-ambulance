@@ -31,13 +31,13 @@ class PenilaianKinerjaController extends Controller
     
             if ($usertype == 'user') {
                 $unitKerjaId = Auth::user()->unit_kerja;
-                $query = Pegawai::where('unit_kerja_pegawai', $unitKerjaId)->get();
+                $query = Pegawai::where('unit_kerja_pegawai', $unitKerjaId);
             } else if ($usertype == 'admin') {
-                $query = Pegawai::query()->get();
+                $query = Pegawai::query();
             }
         }
 
-        $pegawai = $query;
+        $pegawai = $query->paginate(10);
         $periode = Periode::all();
         $periodeAktif = Periode::where('status', '=', 'Aktif')->first();
         $periodeEmpty = $periode->isEmpty() ? 'No data in periode' : '';
