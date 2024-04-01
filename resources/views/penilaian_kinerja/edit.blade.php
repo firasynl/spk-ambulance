@@ -1,39 +1,6 @@
 <x-admin-layout>
     <head>
-        <style>
-            /* Styling untuk garis pinggir tabel */
-            table {
-                border-collapse: collapse;
-                width: 100%;
-            }
-
-            /* Styling untuk garis pinggir th */
-            th {
-                border: 1px solid #dddddd;
-                text-align: left;
-                padding: 8px;
-                background-color: #424242;
-            }
-
-            /* Styling untuk garis pinggir td */
-            td {
-                border: 1px solid #dddddd;
-                text-align: left;
-                padding: 8px;
-            }
-
-            /* Styling untuk baris ganjil */
-            tr:nth-child(odd) {
-                background-color: #f2f2f2;
-            }
-
-            .td2 {
-                background-color: #ffffff;
-                border: 0px;
-                text-align: left;
-                padding: 3px;
-            }
-        </style>
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     </head>
         <div class="w-full mt-12">
             <main class="w-full flex-grow">

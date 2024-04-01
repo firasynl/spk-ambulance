@@ -13,7 +13,7 @@ class PeriodeController extends Controller
      */
     public function index()
     {
-        $periode = Periode::all();
+        $periode = Periode::paginate(10);;
         return view('periode.index', compact('periode'));
     }
 

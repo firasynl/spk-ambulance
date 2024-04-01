@@ -1,4 +1,7 @@
 <x-admin-layout>
+    <head>
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    </head>
     <style>
         /* Gaya untuk label */
         .form-group label {
@@ -62,7 +65,7 @@
                 <table class="min-w-full bg-white border border-gray-300">
                     <thead class="bg-gray-800 text-white">
                         <tr>
-                            <th class="text-left py-3 px-4 uppercase font-semibold text-sm">No</th> 
+                            <th class="text-left py-3 px-4 uppercase font-semibold text-sm w-10">No</th> 
                             <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm text-center">Nama</th> 
                             <th class="text-left py-3 px-4 uppercase font-semibold text-sm text-center">Jabatan</th>  
                             <th class="text-left py-3 px-4 uppercase font-semibold text-sm text-center w-100">Action</th>
@@ -72,18 +75,18 @@
                     
                     <tbody class="text-gray-700">
                         @php
-                            $no = 1;
+                            $no = ($pegawai->currentPage() - 1) * $pegawai->perPage() + 1;
                         @endphp
                         
             
                         @foreach ($pegawai as $pk)
                             <tr class="border border-gray-300">
-                                <td class="text-left px-4">{{ $no++ }}</td>
+                                <td class="text-center px-4">{{ $no++ }}</td>
                                 <td class="text-left px-4">{{ $pk->nama_pegawai }}</td>
                                 @php 
                                     $position = App\Models\Jabatan::where('id', $pk->jabatan_pegawai)->first()->jabatan;
                                 @endphp
-                                <td class="text-left px-4">{{ $position }}</td>
+                                <td class="text-center px-4">{{ $position }}</td>
                                 <td class="text-left px-4">
                                     <div class="mt-4 mb-4 flex justify-center">
                                         @php
@@ -131,10 +134,10 @@
                                     
                                 </td>
                             </tr>
-                        @endforeach
-                        
+                        @endforeach  
                     </tbody>
                 </table>
+                {{ $pegawai->links() }}
             </div>
         @endif
     </div>
