@@ -137,9 +137,12 @@
                         @endforeach  
                     </tbody>
                 </table>
-                {{ $pegawai->links() }}
             </div>
         @endif
+        <div class="mt-3" >
+            {{ $pegawai->links() }}
+        </div>
+        
     </div>
 </x-admin-layout>
 
