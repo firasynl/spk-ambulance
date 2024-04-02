@@ -15,11 +15,22 @@ class PegawaiController extends Controller
      */
     public function index(Request $request)
     {
+        $searchQuery = $request->input('search');
+
         $jabatan = Jabatan::select('id', 'jabatan')->paginate(10);
         $unit_kerja = UnitKerja::select('id', 'unit_kerja')->paginate(10);
-        $pegawai = Pegawai::join()->paginate(10);
+        $pegawaiQuery = Pegawai::query();
 
-        
+        if ($searchQuery) {
+            $pegawaiQuery->where('nama_pegawai', 'LIKE', "%$searchQuery%")
+            ->orWhereHas('jabatan', function ($query) use ($searchQuery) {
+                $query->where('jabatan', 'LIKE', "%$searchQuery%");
+                })
+            ->orWhereHas('unit_kerja', function ($query) use ($searchQuery) {
+                $query->where('unit_kerja', 'LIKE', "%$searchQuery%");
+                });
+        }
+        $pegawai = $pegawaiQuery->paginate(10);
         return view('pegawai.index',compact('pegawai', 'jabatan', 'unit_kerja'))->with('pagination', $pegawai);
     }
 

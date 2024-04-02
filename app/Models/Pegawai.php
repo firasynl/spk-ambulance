@@ -27,7 +27,12 @@ class Pegawai extends Model
 
     public function jabatan(): BelongsTo
     {
-        return $this->belongsTo(Jabatan::class);
+        return $this->belongsTo(Jabatan::class, 'jabatan_pegawai');
+    }
+
+    public function unit_kerja(): BelongsTo
+    {
+        return $this->belongsTo(UnitKerja::class, 'unit_kerja_pegawai');
     }
 
     public function penilaian_kinerja()
