@@ -18,6 +18,9 @@ class JabatanController extends Controller
             $query->where('jabatan', 'like', $searchTerm);
         }
         $jabatan = $query->paginate(5);
+        if ($request->filled('search')) {
+            $jabatan->appends(['search' => $request->input('search')]);
+        }
         return view('jabatan.index', compact('jabatan'));
     }
 

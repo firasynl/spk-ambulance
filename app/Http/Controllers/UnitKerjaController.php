@@ -19,6 +19,9 @@ class UnitKerjaController extends Controller
             $query->where('unit_kerja', 'like', $searchTerm);
         }
         $unitKerja = $query->paginate(10);
+        if ($request->filled('search')) {
+            $unitKerja->appends(['search' => $request->input('search')]);
+        }
         return view('unit_kerja.index', compact('unitKerja'));
     }
 

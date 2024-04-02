@@ -86,7 +86,7 @@ class PenilaianKinerjaController extends Controller
         $userId = $penilaianKinerja->user;
 
         $pegawai = Pegawai::findOrFail($pegawaiId);
-        $position = $pegawai->jabatan_pegawai;
+        $position = $pegawai->jabatan_id;
         $jabatanId = Jabatan::findOrFail($position);
         $jabatan = $jabatanId->jabatan;
         $unitKerjaId = UnitKerja::findOrFail($pegawai->unit_kerja_pegawai);
@@ -97,7 +97,7 @@ class PenilaianKinerjaController extends Controller
         $periodes = Periode::findOrFail($periodeId);
         $periode = $periodes->nama_periode;
 
-        $indikator = Indikator::where('jabatan_id', $pegawai->jabatan_pegawai)->get();
+        $indikator = Indikator::where('jabatan_id', $pegawai->jabatan_id)->get();
 
         $dateName = Carbon::now()->locale('id')->isoFormat('LL');
 
@@ -106,8 +106,8 @@ class PenilaianKinerjaController extends Controller
         $pdf = PDF::loadView('pdf.export-penilaian', ['penilaianKinerja' => $penilaianKinerja, 'indikator' => $indikator, 'pegawai' => $pegawai, 'jabatan' => $jabatan, 'unitKerja' => $unitKerja, 'user' => $user, 'periode' => $periode, 'dateName' => $dateName])
                 ->setPaper([0, 0, 612.2835, 935.433]);
 
-        return view('pdf.export-penilaian',compact('pdf', 'indikator', 'penilaianKinerja', 'pegawai', 'jabatan', 'unitKerja', 'user', 'periode', 'dateName'));
-        // return $pdf->download($fileName);
+        // return view('pdf.export-penilaian',compact('pdf', 'indikator', 'penilaianKinerja', 'pegawai', 'jabatan', 'unitKerja', 'user', 'periode', 'dateName'));
+        return $pdf->download($fileName);
     }
 
     /**
@@ -116,7 +116,7 @@ class PenilaianKinerjaController extends Controller
     public function create(Request $request)
     {
         $pegawai = $request->input('pegawai');
-        $position = Pegawai::findOrFail($pegawai)->jabatan_pegawai;
+        $position = Pegawai::findOrFail($pegawai)->jabatan_id;
         $indikator = Indikator::where('jabatan_id', $position)->get();
         
         return view('penilaian_kinerja.create', compact('pegawai','indikator'));
@@ -163,9 +163,9 @@ class PenilaianKinerjaController extends Controller
         $pegawaiId = $penilaianKinerja->pegawai;
 
         $pegawai = Pegawai::findOrFail($pegawaiId);
-        $position = $pegawai->jabatan_pegawai;
+        $position = $pegawai->jabatan_id;
 
-        $indikator = Indikator::where('jabatan_id', $pegawai->jabatan_pegawai)->get();
+        $indikator = Indikator::where('jabatan_id', $pegawai->jabatan_id)->get();
 
         $penilaian_kinerja = PenilaianKinerja::with(['nilai' => function($query) use ($penilaianKinerja, $periodeAktif) {
             $query->where('penilaian_kinerja_id', $penilaianKinerja->id);

@@ -68,12 +68,12 @@
                 <th width="50%" colspan="3" class="center">PEJABAT PENILAI KINERJA</th>
             </tr>
             <tr>
-                <td width="10%" class="no-r-border no-b-border">NAMA</td>
+                <td width="13%" class="no-r-border no-b-border">NAMA</td>
                 <td width="2%" class="no-l-border no-r-border no-b-border">:</td>
-                <td width="38%" class="no-l-border no-b-border">{{ $pegawai->nama_pegawai }}</td>
-                <td width="10%" class="no-r-border no-b-border">NAMA</td>
+                <td width="35%" class="no-l-border no-b-border">{{ $pegawai->nama_pegawai }}</td>
+                <td width="13%" class="no-r-border no-b-border">NAMA</td>
                 <td width="2%" class="no-l-border no-r-border no-b-border">:</td>
-                <td width="38%" class="no-l-border no-b-border">{{ $user }}</td>
+                <td width="35%" class="no-l-border no-b-border">{{ $user }}</td>
             </tr>
             <tr>
                 <td class="no-r-border no-b-border no-top-border">NIK</td>
