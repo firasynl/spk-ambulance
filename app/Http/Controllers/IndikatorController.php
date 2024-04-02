@@ -12,10 +12,37 @@ class IndikatorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jabatan = Jabatan::select('id', 'jabatan')->paginate(10);
-        $indikator = Indikator::join()->paginate(10);
+        $searchQuery = $request->input('search');
+        $jabatan = Jabatan::select('id', 'jabatan');
+        $query = Indikator::query();
+
+        // if ($searchQuery) {
+        //     // $indikatorQuery->where('indikator', 'LIKE', "%$searchQuery%")
+        //     // ->orWhereHas('jabatan', function ($query) use ($searchQuery) {
+        //     //     $query->where('jabatan', 'LIKE', "%$searchQuery%");
+        //     //     });
+        //     $indikatorQuery->where(function ($query) use ($searchQuery) {
+        //             $query->where('indikator', 'like', "%$searchQuery%")
+        //                 ->orWhereHas('jabatan', function ($query) use ($searchQuery) {
+        //                     $query->where('jabatan', 'like', "%$searchQuery%");
+        //                 });
+        //         });
+        // }
+        if ($request->filled('search')) {
+            $searchQuery = $request->input('search');
+            $query->where(function ($query) use ($searchQuery) {
+                $query->where('indikator', 'like', "%$searchQuery%")
+                    ->orWhereHas('jabatan', function ($query) use ($searchQuery) {
+                        $query->where('jabatan', 'like', "%$searchQuery%");
+                    });
+            });
+        }
+        $indikator = $query->paginate(10);
+        if ($request->filled('search')) {
+            $indikator->appends(['search' => $request->input('search')]);
+        }
         
         return view('indikator.index',compact('indikator', 'jabatan'))->with('pagination', $indikator);
     }
