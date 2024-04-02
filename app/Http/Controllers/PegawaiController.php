@@ -13,11 +13,12 @@ class PegawaiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $jabatan = Jabatan::select('id', 'jabatan')->paginate(10);
         $unit_kerja = UnitKerja::select('id', 'unit_kerja')->paginate(10);
         $pegawai = Pegawai::join()->paginate(10);
+
         
         return view('pegawai.index',compact('pegawai', 'jabatan', 'unit_kerja'))->with('pagination', $pegawai);
     }

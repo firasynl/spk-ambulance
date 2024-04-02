@@ -39,6 +39,7 @@ class UsersController extends Controller
     {
         $request->validate([
             'nama' => 'required',
+            'nip' => 'required', 
             'unit_kerja' => 'required',
             'email' => 'required',
             'password' => 'required',

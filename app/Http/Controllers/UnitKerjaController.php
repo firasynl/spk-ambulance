@@ -10,9 +10,15 @@ class UnitKerjaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $unitKerja = UnitKerja::paginate(10);
+        $query = UnitKerja::query();
+        
+        if ($request->has('search') && !empty($request->search)) {
+            $searchTerm = '%' . $request->search . '%';
+            $query->where('unit_kerja', 'like', $searchTerm);
+        }
+        $unitKerja = $query->paginate(10);
         return view('unit_kerja.index', compact('unitKerja'));
     }
 
