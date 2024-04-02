@@ -58,6 +58,7 @@ class UsersController extends Controller
         ]);
 
         $name= $request->input('nama');
+        $nip= $request->input('nip');
         $unit_kerja= $request->input('unit_kerja');
         $email= $request->input('email');
         $password= bcrypt($request->input('password'));
@@ -65,6 +66,7 @@ class UsersController extends Controller
     
         Users::create([
             'nama' => $name,
+            'nip' => $nip,
             'unit_kerja' => $unit_kerja,
             'email' => $email,
             'password' => $password,
@@ -92,13 +94,14 @@ class UsersController extends Controller
     {
         $request->validate([
             'nama' => 'required',
+            'nip' => 'required',
             'unit_kerja' => 'required',
             'email' => 'required',
             'usertype' => 'required',
         ]);
     
         // Ambil data dari request
-        $data = $request->only(['nama', 'unit_kerja', 'email', 'usertype']);
+        $data = $request->only(['nama','nip','unit_kerja', 'email', 'usertype']);
     
         // Cek apakah password diisi
         if ($request->filled('password')) {

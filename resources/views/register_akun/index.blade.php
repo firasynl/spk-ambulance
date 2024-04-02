@@ -23,6 +23,7 @@
                     <tr>
                         <th class="text-center py-3 px-4 uppercase font-semibold text-sm w-10">No</th> 
                         <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Nama</th>  
+                        <th class="text-center py-3 px-4 uppercase font-semibold text-sm">NIP</th>  
                         <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Unit Kerja</th>  
                         <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Email</th>  
                         <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Usertype</th> 
@@ -38,6 +39,7 @@
                         <tr>
                             <td class="text-center px-4">{{ $no++ }}</td>
                             <td class="text-center px-4">{{ $users->nama }}</td>
+                            <td class="text-center px-4">{{ $users->nip }}</td>
                             <td class="text-center px-4">{{ $users->unit_kerja }}</td>
                             <td class="text-center px-4">{{ $users->email }}</td>
                             <td class="text-center px-4">{{ $users->usertype }}</td>

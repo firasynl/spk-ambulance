@@ -23,6 +23,10 @@
                                     <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="nama" name="nama" type="text" required="" placeholder="Masukkan nama" aria-label="Nama">
                                 </div>
                                 <div class="mb-2">
+                                    <label class="block text-m text-gray-600" for="nip">NIP</label>
+                                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="nip" name="nip" type="text" required="" placeholder="Masukkan NIP" aria-label="NIP">
+                                </div>
+                                <div class="mb-2">
                                     <label class="block text-m text-gray-600" for="unit_kerja">Unit Kerja</label>
                                     <select class="rounded px-5 py-2 text-m py-1 px-2 text-black w-[700px] w-full bg-gray-200 border-1 border-black" name="unit_kerja" aria-label="Default select example">
                                         <option selected>Pilih Unit Kerja</option>

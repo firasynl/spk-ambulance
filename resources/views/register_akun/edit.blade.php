@@ -23,6 +23,10 @@
                                     <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="nama" name="nama" type="text" required="" value="{{ $register_akun -> nama }}" aria-label="Nama">
                                 </div>
                                 <div class="mb-2">
+                                    <label class="block text-m text-gray-600" for="nip">NIP</label>
+                                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="nip" name="nip" type="text" required="" value="{{ $register_akun -> nip }}" aria-label="NIP">
+                                </div>
+                                <div class="mb-2">
                                     <label class="block text-m text-gray-600" for="unit_kerja">Unit Kerja</label>
                                     <select class="rounded text-m py-1 px-2 text-black w-full w-[700px] bg-gray-200 border-2 border-black" name="unit_kerja" id="unit_kerja" value="{{ $register_akun->unit_kerja }}" aria-label="Default select example">
                                         <option selected>Pilih Unit Kerja</option>
