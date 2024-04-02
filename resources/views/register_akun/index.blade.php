@@ -40,7 +40,7 @@
                             <td class="text-center px-4">{{ $no++ }}</td>
                             <td class="text-center px-4">{{ $users->nama }}</td>
                             <td class="text-center px-4">{{ $users->nip }}</td>
-                            <td class="text-center px-4">{{ $users->unit_kerja }}</td>
+                            <td class="text-center px-4">{{ $users->unit_kerja_pegawai->unit_kerja }}</td>
                             <td class="text-center px-4">{{ $users->email }}</td>
                             <td class="text-center px-4">{{ $users->usertype }}</td>
                             <td class="text-center px-4">

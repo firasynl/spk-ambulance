@@ -23,7 +23,7 @@ class Users extends Model
         return $data;
     }
 
-    public function unit_kerja(): BelongsTo
+    public function unit_kerja_pegawai(): BelongsTo
     {
         return $this->belongsTo(UnitKerja::class, 'unit_kerja');
     }

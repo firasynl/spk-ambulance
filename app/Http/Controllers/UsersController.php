@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Users;
 use App\Models\UnitKerja;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
@@ -16,19 +17,16 @@ class UsersController extends Controller
     {
         $searchQuery = $request->input('search');
 
-        $unit_kerjaPegawai = UnitKerja::select('id', 'unit_kerja');
+        // dd($unit_kerja);
         $usersQuery = Users::query();
 
         if ($searchQuery) {
             $usersQuery->where('nama', 'LIKE', "%$searchQuery%")
             ->orWhere('usertype', 'LIKE', "%$searchQuery%");
         }
-        $users = $usersQuery->paginate(10);
-
-        // $unit_kerja = UnitKerja::select('id', 'unit_kerja')->paginate(10);
-        // $users = Users::join()->paginate(10);
+        $users = $usersQuery->with('unit_kerja_pegawai')->paginate(10);
         
-        return view('register_akun.index',compact('users', 'unit_kerjaPegawai'))->with('pagination', $users);
+        return view('register_akun.index',compact('users'))->with('pagination', $users);
     }
 
     /**
