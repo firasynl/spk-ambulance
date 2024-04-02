@@ -17,8 +17,8 @@ class PegawaiController extends Controller
     {
         $searchQuery = $request->input('search');
 
-        $jabatan = Jabatan::select('id', 'jabatan')->paginate(10);
-        $unit_kerja = UnitKerja::select('id', 'unit_kerja')->paginate(10);
+        $jabatan = Jabatan::select('id', 'jabatan');
+        $unit_kerja = UnitKerja::select('id', 'unit_kerja');
         $pegawaiQuery = Pegawai::query();
 
         if ($searchQuery) {
@@ -31,6 +31,9 @@ class PegawaiController extends Controller
                 });
         }
         $pegawai = $pegawaiQuery->paginate(10);
+        if ($request->filled('search')) {
+            $pegawai->appends(['search' => $request->input('search')]);
+        }
         return view('pegawai.index',compact('pegawai', 'jabatan', 'unit_kerja'))->with('pagination', $pegawai);
     }
 
