@@ -15,6 +15,7 @@
                     <tr>
                         <th class="text-center py-3 px-4 uppercase font-semibold text-sm w-10">No</th> 
                         <th class="w-1/3 text-center py-3 px-4 uppercase font-semibold text-sm">Nama</th> 
+                        <th class="text-center py-3 px-4 uppercase font-semibold text-sm">NIK</th>
                         <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Jabatan</th> 
                         <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Unit Kerja</th> 
                         <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Action</th>
@@ -29,6 +30,7 @@
                         <tr>
                             <td class="text-center">{{ $no++ }}</td>
                             <td class="text-left px-5">{{ $pegawai->nama_pegawai }}</td>
+                            <td class="text-left px-5">{{ $pegawai->nik }}</td>
                             <td class="text-center">{{ $pegawai->jabatan }}</td>
                             <td class="text-center">{{ $pegawai->unit_kerja }}</td>
                             <td class="text-left px-5">

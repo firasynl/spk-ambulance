@@ -40,6 +40,15 @@
         <p class="text-2xl pb-3 flex items-center">
             <i class="fas fa-list mr-3"></i> Penilaian Kinerja Pegawai
         </p>
+        <div class="mb-4 flex justify-between items-center">
+            <form action="{{ route('penilaian_kinerja.index') }}" method="GET">
+                <div class="flex items-center">
+                    <label for="search" class="mr-2">Search:</label>
+                    <input type="text" name="search" id="search" class="rounded border border-gray-400 py-1 px-2" value="{{ request('search') }}">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded">Search</button>
+                </div>
+            </form>
+        </div>
         @if (!empty($periodeEmpty))
             <p>{{ $periodeEmpty }}</p>
         @else

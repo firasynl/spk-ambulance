@@ -78,7 +78,7 @@
             <tr>
                 <td class="no-r-border no-b-border no-top-border">NIK</td>
                 <td class="no-border">:</td>
-                <td class="no-l-border no-b-border no-top-border"></td>
+                <td class="no-l-border no-b-border no-top-border">{{ $pegawai->nik }}</td>
                 <td class="no-r-border no-b-border no-top-border">NIP</td>
                 <td class="no-border">:</td>
                 <td class="no-l-border no-b-border no-top-border"></td>
@@ -394,7 +394,7 @@
               </tr>
               <tr>
                 <td class="no-border"></td>
-                <td class="no-border center">NIK</td>
+                <td class="no-border center">{{ $pegawai->nik }}</td>
                 <td class="no-border"></td>
                 <td class="no-border center">NIP</td>
                 <td class="no-border"></td>

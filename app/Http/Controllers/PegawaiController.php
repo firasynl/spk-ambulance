@@ -40,16 +40,19 @@ class PegawaiController extends Controller
     {
         $request->validate([
             'nama_pegawai' => 'required',
+            'nik' => 'required',
             'jabatan_pegawai' => 'required',
             'unit_kerja_pegawai' => 'required',
         ]);
 
         $nama_pegawai = $request->input('nama_pegawai');
+        $nik = $request->input('nik');
         $jabatan_pegawai = $request->input('jabatan_pegawai');
         $unit_kerja_pegawai = $request->input('unit_kerja_pegawai');
     
         Pegawai::create([
             'nama_pegawai' => $nama_pegawai,
+            'nik' => $nik,
             'jabatan_pegawai' => $jabatan_pegawai,
             'unit_kerja_pegawai' => $unit_kerja_pegawai,
         ]);
@@ -76,6 +79,7 @@ class PegawaiController extends Controller
     {
         $request->validate([
             'nama_pegawai' => 'required',
+            'nik' => 'required',
             'jabatan_pegawai' => 'required',
             'unit_kerja_pegawai' => 'required',
         ]);

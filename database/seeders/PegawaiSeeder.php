@@ -23,8 +23,9 @@ class PegawaiSeeder extends Seeder
             if (!$firstline) {
                 \DB::table('pegawai')->insert([
                     "nama_pegawai" => $data['0'],
-                    "jabatan_pegawai" => $data['1'],
-                    "unit_kerja_pegawai" => $data['2']
+                    "nik" => $data['1'],
+                    "jabatan_pegawai" => $data['2'],
+                    "unit_kerja_pegawai" => $data['3']
                 ]);    
             }
             $firstline = false;

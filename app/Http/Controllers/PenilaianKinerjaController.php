@@ -37,6 +37,14 @@ class PenilaianKinerjaController extends Controller
             }
         }
 
+        if ($request->filled('search')) {
+            $searchTerm = $request->input('search');
+            $query->where(function ($query) use ($searchTerm) {
+                $query->where('nama_pegawai', 'like', "%$searchTerm%")
+                    ->orWhere('jabatan_pegawai', 'like', "%$searchTerm%");
+            });
+        }
+
         $pegawai = $query->paginate(10);
         $periode = Periode::all();
         $periodeAktif = Periode::where('status', '=', 'Aktif')->first();
@@ -93,8 +101,8 @@ class PenilaianKinerjaController extends Controller
         $pdf = PDF::loadView('pdf.export-penilaian', ['penilaianKinerja' => $penilaianKinerja, 'indikator' => $indikator, 'pegawai' => $pegawai, 'jabatan' => $jabatan, 'unitKerja' => $unitKerja, 'user' => $user, 'periode' => $periode, 'dateName' => $dateName])
                 ->setPaper([0, 0, 612.2835, 935.433]);
 
-        // return view('pdf.export-penilaian',compact('pdf', 'indikator', 'penilaianKinerja', 'pegawai', 'jabatan', 'unitKerja', 'user', 'periode', 'dateName'));
-        return $pdf->download($fileName);
+        return view('pdf.export-penilaian',compact('pdf', 'indikator', 'penilaianKinerja', 'pegawai', 'jabatan', 'unitKerja', 'user', 'periode', 'dateName'));
+        // return $pdf->download($fileName);
     }
 
     /**

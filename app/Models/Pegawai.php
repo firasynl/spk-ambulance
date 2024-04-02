@@ -14,7 +14,7 @@ class Pegawai extends Model
     public $table = 'pegawai';
 
     protected $fillable = [
-        'nama_pegawai', 'jabatan_pegawai', 'unit_kerja_pegawai'
+        'nama_pegawai', 'nik', 'jabatan_pegawai', 'unit_kerja_pegawai'
     ];
 
     public static function join(){
