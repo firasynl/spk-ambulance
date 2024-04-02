@@ -40,33 +40,36 @@
         <p class="text-2xl pb-3 flex items-center">
             <i class="fas fa-list mr-3"></i> Penilaian Kinerja Pegawai
         </p>
-        <div class="mb-4 flex justify-between items-center">
-            <form action="{{ route('penilaian_kinerja.index') }}" method="GET">
-                <div class="flex items-center">
-                    <label for="search" class="mr-2">Search:</label>
-                    <input type="text" name="search" id="search" class="rounded border border-gray-400 py-1 px-2" value="{{ request('search') }}">
-                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded">Search</button>
-                </div>
-            </form>
-        </div>
         @if (!empty($periodeEmpty))
             <p>{{ $periodeEmpty }}</p>
         @else
-            <div class="col-md-6 mb-5 mt-5">
-                <div class="form-group">
-                    <label for="date_filter">Periode Penilaian:</label>
-                    <form method="get" action="{{ route('penilaian_kinerja.index') }}">
-                        <div class="input-group">
-                            <select class="form-select" name="date_filter">
-                                {{-- Menambahkan opsi untuk setiap periode --}}
-                                @foreach($periode as $periodeItem)
-                                    <option value="{{ $periodeItem->id }}" {{ $dateFilter == $periodeItem->id ? 'selected': '' }}>
-                                        {{ $periodeItem->nama_periode }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <button type="submit" class="btn btn-primary">Ganti</button>
-                        </div>
+            <div class="flex flex-wrap items-center place-content-between mb-5">
+                <div class="col-md-6 mb-5 mt-5">
+                    <div class="form-group flex items-center">
+                        <label for="date_filter">Periode Penilaian:</label>
+                        <form method="get" action="{{ route('penilaian_kinerja.index') }}">
+                            <div class="input-group ml-3">
+                                <select class="form-select" name="date_filter" style="width: auto;"s>
+                                    {{-- Menambahkan opsi untuk setiap periode --}}
+                                    @foreach($periode as $periodeItem)
+                                        <option value="{{ $periodeItem->id }}" {{ $dateFilter == $periodeItem->id ? 'selected': '' }}>
+                                            {{ $periodeItem->nama_periode }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <button type="submit" class="btn btn-primary">Ganti</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div>
+                    <form method="GET" action="{{ route('penilaian_kinerja.index') }}" class="flex flex-grow">
+                        <input type="text" name="search" placeholder="Search" value="{{ request('search') }}" class="p-2 border rounded-l w-full md:w-auto">
+                        <button type="submit" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-r flex items-center">
+                            <span class="fas fa-search mr-2">
+                                search
+                            </span> Search
+                        </button>
                     </form>
                 </div>
             </div>
@@ -93,7 +96,7 @@
                                 <td class="text-center px-4">{{ $no++ }}</td>
                                 <td class="text-left px-4">{{ $pk->nama_pegawai }}</td>
                                 @php 
-                                    $position = App\Models\Jabatan::where('id', $pk->jabatan_pegawai)->first()->jabatan;
+                                    $position = App\Models\Jabatan::where('id', $pk->jabatan_id)->first()->jabatan;
                                 @endphp
                                 <td class="text-center px-4">{{ $position }}</td>
                                 <td class="text-left px-4">
@@ -104,7 +107,7 @@
                                                                                 ->first();
                                             $penilaianKinerjaExists = $penilaianKinerja !== null;
                                             $penilaianKinerjaId = $penilaianKinerjaExists ? $penilaianKinerja->id : null;
-                                            $indikator = App\Models\Indikator::where('jabatan_id', $pk->jabatan_pegawai)->get();
+                                            $indikator = App\Models\Indikator::where('jabatan_id', $pk->jabatan_id)->get();
 
                                             // Periksa apakah semua indikator telah diisi
                                             $semuaIndikatorDiisi = true;

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nama_pegawai');
             $table->bigInteger('nik');
-            $table->unsignedBigInteger('jabatan_pegawai');
+            $table->unsignedBigInteger('jabatan_id');
             $table->unsignedBigInteger('unit_kerja_pegawai');
-            $table->foreign('jabatan_pegawai')->references('id')->on('jabatan')->onDelete('cascade');
+            $table->foreign('jabatan_id')->references('id')->on('jabatan')->onDelete('cascade');
             $table->foreign('unit_kerja_pegawai')->references('id')->on('unit_kerja')->onDelete('cascade');
             $table->timestamps();
         });

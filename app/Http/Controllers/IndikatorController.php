@@ -38,17 +38,17 @@ class IndikatorController extends Controller
         $request->validate([
             'indikator' => 'required',
             'kategori' => 'required',
-            'jabatan' => 'required',
+            'jabatan_id' => 'required',
         ]);
 
         $indikator = $request->input('indikator');
         $kategori = $request->input('kategori');
-        $jabatan = $request->input('jabatan');
+        $jabatan_id = $request->input('jabatan_id');
     
         Indikator::create([
             'indikator' => $indikator,
             'kategori' => $kategori,
-            'jabatan' => $jabatan,
+            'jabatan_id' => $jabatan_id,
         ]);
 
         return redirect()->route('indikator.index')

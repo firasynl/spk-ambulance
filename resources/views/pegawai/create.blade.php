@@ -26,8 +26,8 @@
                                     <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="nik" name="nik" type="number" required="" placeholder="Masukkan NIK pegawai" aria-label="NIK">
                                 </div>
                                 <div class="mb-2">
-                                    <label class="block text-m text-gray-600" for="jabatan_pegawai">Jabatan</label>
-                                    <select class="rounded px-5 py-2 text-m py-1 px-2 text-black w-[700px] w-full bg-gray-200 border-1 border-black" name="jabatan_pegawai" aria-label="Default select example">
+                                    <label class="block text-m text-gray-600" for="jabatan_id">Jabatan</label>
+                                    <select class="rounded px-5 py-2 text-m py-1 px-2 text-black w-[700px] w-full bg-gray-200 border-1 border-black" name="jabatan_id" aria-label="Default select example">
                                         <option selected>Pilih Jabatan</option>
                                         @foreach ($jabatan as $item)
                                             <option value="{{ $item->id }}">

@@ -24,7 +24,7 @@ class PegawaiSeeder extends Seeder
                 \DB::table('pegawai')->insert([
                     "nama_pegawai" => $data['0'],
                     "nik" => $data['1'],
-                    "jabatan_pegawai" => $data['2'],
+                    "jabatan_id" => $data['2'],
                     "unit_kerja_pegawai" => $data['3']
                 ]);    
             }

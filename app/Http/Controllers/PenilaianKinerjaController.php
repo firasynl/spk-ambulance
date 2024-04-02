@@ -41,11 +41,16 @@ class PenilaianKinerjaController extends Controller
             $searchTerm = $request->input('search');
             $query->where(function ($query) use ($searchTerm) {
                 $query->where('nama_pegawai', 'like', "%$searchTerm%")
-                    ->orWhere('jabatan_pegawai', 'like', "%$searchTerm%");
+                    ->orWhereHas('jabatan', function ($query) use ($searchTerm) {
+                        $query->where('jabatan', 'like', "%$searchTerm%");
+                    });
             });
         }
 
         $pegawai = $query->paginate(10);
+        if ($request->filled('search')) {
+            $pegawai->appends(['search' => $request->input('search')]);
+        }
         $periode = Periode::all();
         $periodeAktif = Periode::where('status', '=', 'Aktif')->first();
         $periodeEmpty = $periode->isEmpty() ? 'No data in periode' : '';
