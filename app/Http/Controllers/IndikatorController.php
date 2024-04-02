@@ -18,18 +18,6 @@ class IndikatorController extends Controller
         $jabatan = Jabatan::select('id', 'jabatan');
         $query = Indikator::query();
 
-        // if ($searchQuery) {
-        //     // $indikatorQuery->where('indikator', 'LIKE', "%$searchQuery%")
-        //     // ->orWhereHas('jabatan', function ($query) use ($searchQuery) {
-        //     //     $query->where('jabatan', 'LIKE', "%$searchQuery%");
-        //     //     });
-        //     $indikatorQuery->where(function ($query) use ($searchQuery) {
-        //             $query->where('indikator', 'like', "%$searchQuery%")
-        //                 ->orWhereHas('jabatan', function ($query) use ($searchQuery) {
-        //                     $query->where('jabatan', 'like', "%$searchQuery%");
-        //                 });
-        //         });
-        // }
         if ($request->filled('search')) {
             $searchQuery = $request->input('search');
             $query->where(function ($query) use ($searchQuery) {

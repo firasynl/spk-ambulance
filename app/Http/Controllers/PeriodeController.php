@@ -11,9 +11,18 @@ class PeriodeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $periode = Periode::paginate(10);;
+        $query = Periode::query();
+        if ($request->has('search') && !empty($request->search)) {
+            $searchTerm = '%' . $request->search . '%';
+            $query->where('nama_periode', 'like', $searchTerm)
+            ->orWhere('status', 'like', $searchTerm);
+        }
+        $periode = $query->paginate(10);
+        if ($request->filled('search')) {
+            $periode->appends(['search' => $request->input('search')]);
+        }
         return view('periode.index', compact('periode'));
     }
 

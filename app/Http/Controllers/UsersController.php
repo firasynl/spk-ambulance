@@ -12,12 +12,23 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $unit_kerja = UnitKerja::select('id', 'unit_kerja')->paginate(10);
-        $users = Users::join()->paginate(10);
+        $searchQuery = $request->input('search');
+
+        $unit_kerjaPegawai = UnitKerja::select('id', 'unit_kerja');
+        $usersQuery = Users::query();
+
+        if ($searchQuery) {
+            $usersQuery->where('nama', 'LIKE', "%$searchQuery%")
+            ->orWhere('usertype', 'LIKE', "%$searchQuery%");
+        }
+        $users = $usersQuery->paginate(10);
+
+        // $unit_kerja = UnitKerja::select('id', 'unit_kerja')->paginate(10);
+        // $users = Users::join()->paginate(10);
         
-        return view('register_akun.index',compact('users', 'unit_kerja'))->with('pagination', $users);
+        return view('register_akun.index',compact('users', 'unit_kerjaPegawai'))->with('pagination', $users);
     }
 
     /**
