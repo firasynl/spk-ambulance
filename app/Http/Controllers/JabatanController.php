@@ -10,9 +10,14 @@ class JabatanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jabatan = Jabatan::paginate(5);
+        $query = Jabatan::query();
+        if ($request->has('search') && !empty($request->search)) {
+            $searchTerm = '%' . $request->search . '%';
+            $query->where('jabatan', 'like', $searchTerm);
+        }
+        $jabatan = $query->paginate(5);
         return view('jabatan.index', compact('jabatan'));
     }
 

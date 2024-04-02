@@ -9,6 +9,14 @@
         <div class="mt-4 mb-8">
         <a href="/home/unit_kerja/create" class="bg-green-500 hover:bg-green-700 text-white left-0 font-light py-2 px-4 rounded">Tambah Unit Kerja</a>
         </div>
+        <form method="GET" action="{{ route('unit_kerja.index') }}" class="flex w-full md:w-auto">
+                                <input type="text" name="search" placeholder="Search" value="{{ request('search') }}" class="p-2 border rounded-l w-full md:w-auto md:ml-2">
+                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r flex items-center">
+                                    <span class="material-symbols-outlined mr-2">
+                                        search
+                                    </span> Search
+                                </button>
+                            </form>
         <div class="overflow-auto">
             <table class="table-auto bg-white">
                 <thead class="bg-gray-800 text-white">
