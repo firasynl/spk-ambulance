@@ -15,12 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('nip')->nullable();
+            $table->string('pangkat')->nullable();
+            $table->unsignedBigInteger('jabatan_pegawai');
             $table->unsignedBigInteger('unit_kerja');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('usertype')->default('user');
             $table->rememberToken();
+            $table->foreign('jabatan_pegawai')->references('id')->on('jabatan')->onDelete('cascade');
             $table->foreign('unit_kerja')->references('id')->on('unit_kerja')->onDelete('cascade');
             $table->timestamps();
         });

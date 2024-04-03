@@ -19,10 +19,12 @@ class UserSeeder extends Seeder
             if (!$firstline) {
                 \DB::table('users')->insert([
                     "nama" => $data['0'],
-                    "unit_kerja" => $data['1'],
-                    "email" => $data['2'],
-                    "password" => $data['3'],
-                    "usertype" => $data['4'],
+                    "nip" => $data['1'],
+                    "jabatan_pegawai" => $data['2'],
+                    "unit_kerja" => $data['3'],
+                    "email" => $data['4'],
+                    "password" => $data['5'],
+                    "usertype" => $data['6'],
                 ]);    
             }
             $firstline = false;

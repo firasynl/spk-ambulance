@@ -43,8 +43,9 @@ class UsersController extends Controller
         $users = Users::join()->get();
         $usertype = Users::distinct()->pluck('usertype');
         $unit_kerja = UnitKerja::select('id', 'unit_kerja')->get();
+        $jabatan_pegawai = UnitKerja::select('id', 'jabatan_pegawai')->get();
 
-        return view('register_akun.create',compact('users', 'usertype', 'unit_kerja'));
+        return view('register_akun.create',compact('users', 'usertype', 'unit_kerja', 'jabatan_pegawai'));
     }
 
     /**
@@ -54,7 +55,9 @@ class UsersController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'nip' => 'required', 
+            'nip' => 'required',
+            'pangkat' => 'required', 
+            'jabatan_pegawai' => 'required',
             'unit_kerja' => 'required',
             'email' => 'required',
             'password' => 'required',

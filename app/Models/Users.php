@@ -13,7 +13,7 @@ class Users extends Model
     public $table = 'users';
 
     protected $fillable = [
-        'nama', 'nip', 'unit_kerja', 'email', 'password', 'usertype'
+        'nama', 'nip', 'pangkat', 'jabatan_pegawai', 'unit_kerja', 'email', 'password', 'usertype'
     ];
 
     public static function join(){
@@ -26,6 +26,11 @@ class Users extends Model
     public function unit_kerja_pegawai(): BelongsTo
     {
         return $this->belongsTo(UnitKerja::class, 'unit_kerja');
+    }
+
+    public function jabatan_pegawai(): BelongsTo
+    {
+        return $this->belongsTo(Jabatan::class, 'jabatan_pegawai');
     }
 
 
