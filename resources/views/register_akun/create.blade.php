@@ -27,6 +27,21 @@
                                     <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="nip" name="nip" type="text" required="" placeholder="Masukkan NIP" aria-label="NIP">
                                 </div>
                                 <div class="mb-2">
+                                    <label class="block text-m text-gray-600" for="pangkat">Pangkat</label>
+                                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="pangkat" name="pangkat" type="text" required="" placeholder="Masukkan pangkat/gol.ruang" aria-label="Pangkat">
+                                </div>
+                                 <div class="mb-2">
+                                    <label class="block text-m text-gray-600" for="unit_kerja">Jabatan</label>
+                                    <select class="rounded px-5 py-2 text-m py-1 px-2 text-black w-[700px] w-full bg-gray-200 border-1 border-black" name="jabatan_pegawai" aria-label="Default select example">
+                                        <option selected>Pilih Jabatan</option>
+                                        @foreach ($jabatan as $item)
+                                            <option value="{{ $item->id }}">
+                                                {{ $item->jabatan }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-2">
                                     <label class="block text-m text-gray-600" for="unit_kerja">Unit Kerja</label>
                                     <select class="rounded px-5 py-2 text-m py-1 px-2 text-black w-[700px] w-full bg-gray-200 border-1 border-black" name="unit_kerja" aria-label="Default select example">
                                         <option selected>Pilih Unit Kerja</option>

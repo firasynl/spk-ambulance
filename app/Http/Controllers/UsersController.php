@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jabatan;
 use App\Models\Users;
 use App\Models\UnitKerja;
 use App\Models\User;
@@ -19,6 +20,7 @@ class UsersController extends Controller
 
         // dd($unit_kerja);
         $unit_kerja = UnitKerja::select('id', 'unit_kerja');
+        $jabatan = Jabatan::select('id', 'jabatan');
         $usersQuery = Users::query();
 
         if ($searchQuery) {
@@ -43,9 +45,9 @@ class UsersController extends Controller
         $users = Users::join()->get();
         $usertype = Users::distinct()->pluck('usertype');
         $unit_kerja = UnitKerja::select('id', 'unit_kerja')->get();
-        $jabatan_pegawai = UnitKerja::select('id', 'jabatan_pegawai')->get();
+        $jabatan = Jabatan::select('id', 'jabatan')->get();
 
-        return view('register_akun.create',compact('users', 'usertype', 'unit_kerja', 'jabatan_pegawai'));
+        return view('register_akun.create',compact('users', 'usertype', 'unit_kerja', 'jabatan'));
     }
 
     /**
@@ -66,6 +68,8 @@ class UsersController extends Controller
 
         $name= $request->input('nama');
         $nip= $request->input('nip');
+        $pangkat= $request->input('pangkat');
+        $jabatan_pegawai = $request->input('jabatan_pegawai');
         $unit_kerja= $request->input('unit_kerja');
         $email= $request->input('email');
         $password= bcrypt($request->input('password'));
@@ -74,6 +78,8 @@ class UsersController extends Controller
         Users::create([
             'nama' => $name,
             'nip' => $nip,
+            'pangkat' => $pangkat,
+            'jabatan_pegawai' => $jabatan_pegawai,
             'unit_kerja' => $unit_kerja,
             'email' => $email,
             'password' => $password,
@@ -84,14 +90,22 @@ class UsersController extends Controller
                         ->with('success','Account created successfully.');
     }
 
+    public function show($id)
+    {
+        $jabatan = Users::with('unit_kerja_pegawai', 'jabatan_user')->find($id);
+        // $users = Users::all();
+        return view('register_akun.show', compact('jabatan'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Users $register_akun)
     {
         $unit_kerja = UnitKerja::select('id', 'unit_kerja')->get();
+        $jabatan = Jabatan::select('id', 'jabatan')->get();
 
-        return view('register_akun.edit',compact('register_akun', 'unit_kerja'));
+        return view('register_akun.edit',compact('register_akun', 'unit_kerja', 'jabatan'));
     }
 
     /**
@@ -102,13 +116,15 @@ class UsersController extends Controller
         $request->validate([
             'nama' => 'required',
             'nip' => 'required',
+            'pangkat' => 'required', 
+            'jabatan_pegawai' => 'required',
             'unit_kerja' => 'required',
             'email' => 'required',
             'usertype' => 'required',
         ]);
     
         // Ambil data dari request
-        $data = $request->only(['nama','nip','unit_kerja', 'email', 'usertype']);
+        $data = $request->only(['nama','nip', 'pangkat', 'jabatan_pegawai', 'unit_kerja', 'email', 'usertype']);
     
         // Cek apakah password diisi
         if ($request->filled('password')) {

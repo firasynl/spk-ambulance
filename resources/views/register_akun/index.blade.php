@@ -23,7 +23,6 @@
                     <tr>
                         <th class="text-center py-3 px-4 uppercase font-semibold text-sm w-10">No</th> 
                         <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Nama</th>  
-                        <th class="text-center py-3 px-4 uppercase font-semibold text-sm">NIP</th>  
                         <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Unit Kerja</th>  
                         <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Email</th>  
                         <th class="text-center py-3 px-4 uppercase font-semibold text-sm">Usertype</th> 
@@ -39,12 +38,12 @@
                         <tr>
                             <td class="text-center px-4">{{ $no++ }}</td>
                             <td class="text-center px-4">{{ $users->nama }}</td>
-                            <td class="text-center px-4">{{ $users->nip }}</td>
                             <td class="text-center px-4">{{ $users->unit_kerja_pegawai->unit_kerja }}</td>
                             <td class="text-center px-4">{{ $users->email }}</td>
                             <td class="text-center px-4">{{ $users->usertype }}</td>
                             <td class="text-center px-4">
                                 <div class="mt-2 mb-2 flex justify-center">
+                                    <a href="{{ route('register_akun.show',$users->id) }}" class="px-4 py-1 text-white mr-1 font-light tracking-wider bg-yellow-500 rounded"><i class="fas fa-eye"></i>Show</a>
                                     <a href="{{ route('register_akun.edit',$users->id) }}" class="px-4 py-1 text-white mr-1 font-light tracking-wider bg-blue-700 rounded"><i class="far fa-edit"></i>Edit</a>
                                 <form action="{{ route('register_akun.destroy',$users->id) }}" method="POST">
                                     @csrf
