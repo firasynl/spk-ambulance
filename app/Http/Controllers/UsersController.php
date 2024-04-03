@@ -18,13 +18,19 @@ class UsersController extends Controller
         $searchQuery = $request->input('search');
 
         // dd($unit_kerja);
+        $unit_kerja = UnitKerja::select('id', 'unit_kerja');
         $usersQuery = Users::query();
 
         if ($searchQuery) {
             $usersQuery->where('nama', 'LIKE', "%$searchQuery%")
-            ->orWhere('usertype', 'LIKE', "%$searchQuery%");
+            ->orWhere('usertype', 'LIKE', "%$searchQuery%")
+            ->orWhereHas('unit_kerja_pegawai', function ($query)use ($searchQuery) {
+                $query->where('unit_kerja', 'LIKE', "%$searchQuery%");
+        });}
+        $users = $usersQuery->paginate(10);
+        if ($request->filled('search')) {
+            $users->appends(['search' => $request->input('search')]);
         }
-        $users = $usersQuery->with('unit_kerja_pegawai')->paginate(10);
         
         return view('register_akun.index',compact('users'))->with('pagination', $users);
     }
