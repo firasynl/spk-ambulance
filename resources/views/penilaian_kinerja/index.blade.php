@@ -35,6 +35,13 @@
             background-color: #0056b3;
             border-color: #0056b3;
         }
+
+        .disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background-color: #B91C1C;
+        color: #adb5bd;
+    }
     </style>
     <div class="w-full mt-12">
         <p class="text-2xl pb-3 flex items-center">
@@ -131,7 +138,7 @@
                                             </a>
                                         </div>
                                         <div>
-                                            <a href="{{ $penilaianKinerjaExists ? route('export-pdf', ['id' => $penilaianKinerjaId]) : '#' }}" class="bg-red-500 hover:bg-red-700 text-white left-0 font-light py-2 px-4 rounded" onclick="exportPdf(event)">
+                                            <a href="{{ $penilaianKinerjaExists ? route('export-pdf', ['id' => $penilaianKinerjaId]) : '#' }}" class="bg-red-500 hover:bg-red-700 text-white left-0 font-light py-2 px-4 rounded{{ $penilaianKinerjaExists ? '' : ' disabled' }}" onclick="{{ $penilaianKinerjaExists ? 'exportPdf(event)' : 'return false;' }}">
                                                 <i class="far fa-file-pdf"></i> Export PDF
                                             </a>
                                         </div>

@@ -73,7 +73,7 @@
                 <td width="35%" class="no-l-border no-b-border">{{ $pegawai->nama_pegawai }}</td>
                 <td width="13%" class="no-r-border no-b-border">NAMA</td>
                 <td width="2%" class="no-l-border no-r-border no-b-border">:</td>
-                <td width="35%" class="no-l-border no-b-border">{{ $user }}</td>
+                <td width="35%" class="no-l-border no-b-border">{{ $users->nama }}</td>
             </tr>
             <tr>
                 <td class="no-r-border no-b-border no-top-border">NIK</td>
@@ -81,7 +81,7 @@
                 <td class="no-l-border no-b-border no-top-border">{{ $pegawai->nik }}</td>
                 <td class="no-r-border no-b-border no-top-border">NIP</td>
                 <td class="no-border">:</td>
-                <td class="no-l-border no-b-border no-top-border"></td>
+                <td class="no-l-border no-b-border no-top-border">{{ $users->nip }}</td>
             </tr>
             <tr>
                 <td class="no-r-border no-b-border no-top-border">JABATAN</td>
@@ -89,7 +89,7 @@
                 <td class="no-l-border no-b-border no-top-border">{{ $jabatan}}</td>
                 <td class="no-r-border no-b-border no-top-border">PANGKAT/GOL.RUANG</td>
                 <td class="no-border">:</td>
-                <td class="no-l-border no-b-border no-top-border"></td>
+                <td class="no-l-border no-b-border no-top-border">{{ $users->pangkat }}</td>
             </tr>
             <tr>
                 <td class="no-r-border no-b-border no-top-border">UNIT KERJA</td>
@@ -97,7 +97,7 @@
                 <td class="no-l-border no-b-border no-top-border">{{ $unitKerja }}</td>
                 <td class="no-r-border no-b-border no-top-border">JABATAN</td>
                 <td class="no-border">:</td>
-                <td class="no-l-border no-b-border no-top-border"></td>
+                <td class="no-l-border no-b-border no-top-border"> {{ $jabatanUser }}</td>
             </tr>
             <tr>
                 <td class="no-r-border no-b-border no-top-border"></td>
@@ -105,7 +105,7 @@
                 <td class="no-l-border no-b-border no-top-border"></td>
                 <td class="no-r-border no-b-border no-top-border">UNIT KERJA</td>
                 <td class="no-border">:</td>
-                <td class="no-l-border no-b-border no-top-border">{{ $unitKerja }}</td>
+                <td class="no-l-border no-b-border no-top-border">{{ $unitKerjaUser }}</td>
             </tr>
         </table>
         <table>
@@ -389,14 +389,14 @@
                 <td class="no-border"></td>
                 <td class="no-border center">{{ $pegawai->nama_pegawai }}</td>
                 <td class="no-border"></td>
-                <td class="no-border center">Kepala Puskesmas</td>
+                <td class="no-border center">{{ $users->nama }}</td>
                 <td class="no-border"></td>
               </tr>
               <tr>
                 <td class="no-border"></td>
                 <td class="no-border center">{{ $pegawai->nik }}</td>
                 <td class="no-border"></td>
-                <td class="no-border center">NIP</td>
+                <td class="no-border center">{{ $users->nip }}</td>
                 <td class="no-border"></td>
               </tr>
             </table>

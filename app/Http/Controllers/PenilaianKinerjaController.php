@@ -86,13 +86,16 @@ class PenilaianKinerjaController extends Controller
         $userId = $penilaianKinerja->user;
 
         $pegawai = Pegawai::findOrFail($pegawaiId);
+        $users = Users::findOrFail($userId);
         $position = $pegawai->jabatan_id;
         $jabatanId = Jabatan::findOrFail($position);
         $jabatan = $jabatanId->jabatan;
         $unitKerjaId = UnitKerja::findOrFail($pegawai->unit_kerja_pegawai);
         $unitKerja = $unitKerjaId->unit_kerja;
-        $users = Users::findOrFail($userId);
-        $user = $users->nama;
+        $uk_user_id = UnitKerja::findOrFail($users->unit_kerja);
+        $unitKerjaUser = $uk_user_id->unit_kerja;
+        $jabatan_user_id = Jabatan::findOrFail($users->jabatan_pegawai);
+        $jabatanUser = $jabatan_user_id->jabatan;
         $periodeId = $penilaianKinerja->periode_id;
         $periodes = Periode::findOrFail($periodeId);
         $periode = $periodes->nama_periode;
@@ -103,10 +106,10 @@ class PenilaianKinerjaController extends Controller
 
         $fileName = $pegawai->nama_pegawai . '_' . Carbon::now()->format('Ymd') . '.pdf';
 
-        $pdf = PDF::loadView('pdf.export-penilaian', ['penilaianKinerja' => $penilaianKinerja, 'indikator' => $indikator, 'pegawai' => $pegawai, 'jabatan' => $jabatan, 'unitKerja' => $unitKerja, 'user' => $user, 'periode' => $periode, 'dateName' => $dateName])
+        $pdf = PDF::loadView('pdf.export-penilaian', ['penilaianKinerja' => $penilaianKinerja, 'indikator' => $indikator, 'pegawai' => $pegawai, 'jabatan' => $jabatan, 'unitKerja' => $unitKerja, 'unitKerjaUser' => $unitKerjaUser, 'users' => $users, 'jabatanUser' => $jabatanUser, 'periode' => $periode, 'dateName' => $dateName])
                 ->setPaper([0, 0, 612.2835, 935.433]);
 
-        // return view('pdf.export-penilaian',compact('pdf', 'indikator', 'penilaianKinerja', 'pegawai', 'jabatan', 'unitKerja', 'user', 'periode', 'dateName'));
+        // return view('pdf.export-penilaian',compact('pdf', 'indikator', 'penilaianKinerja', 'pegawai', 'jabatan', 'unitKerja','unitKerjaUser', 'users', 'jabatanUser', 'periode', 'dateName'));
         return $pdf->download($fileName);
     }
 
