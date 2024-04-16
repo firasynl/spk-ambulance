@@ -14,13 +14,21 @@
         </div>
 
         <!-- Password -->
-        <div class="mt-4">
+        <div class="mt-4 relative">
             <x-input-label for="password" :value="__('Password')" />
 
-            <x-text-input id="password" class="block mt-1 w-full"
+            <div class="relative">
+                <x-text-input id="password" class="block mt-1 w-full px-5 py- pr-10"
                             type="password"
                             name="password"
                             required autocomplete="current-password" />
+                <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 px-4 py-1 flex items-center text-gray-700">
+                    <i id="toggleIcon" class="fas fa-eye"></i>
+                    <span id="toggleText" class="ml-2">Show</span>
+                </button> 
+                
+            </div>
+                   
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
@@ -46,3 +54,20 @@
         </div>
     </form>
 </x-guest-layout>
+
+<script>
+    function togglePasswordVisibility() {
+        var passwordField = document.getElementById("password");
+        var icon = document.getElementById("toggleIcon");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
+</script>
