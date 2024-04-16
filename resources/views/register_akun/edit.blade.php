@@ -58,7 +58,14 @@
                                 </div>
                                 <div class="mb-2">
                                     <label class="block text-m text-gray-600" for="password">Password</label>
-                                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="password" name="password" type="password" placeholder="Isi jika ingin mengubah password" aria-label="Password">
+                                    <div class="relative">
+                                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="password" name="password" type="password" placeholder="Isi jika ingin mengubah password" aria-label="Password">
+                                        <button type="button" onclick="togglePasswordVisibility()" class="absolute right-0 top-1/2 transform -translate-y-1/2 px-4 py-1 flex items-center text-gray-600">
+                                            <i id="toggleIcon" class="fas fa-eye"></i>
+                                            <span id="toggleText" class="hidden ml-2">Show</span>
+                                        </button>
+                                    </div>
+                                    
                                 </div>
                                 <div class="mb-2">
                                     <label class="block text-m text-gray-600" for="usertype">Usertype</label>
@@ -79,3 +86,20 @@
         </div> 
     </div>
 </x-admin-layout>
+
+<script>
+    function togglePasswordVisibility() {
+        var passwordField = document.getElementById("password");
+        var icon = document.getElementById("toggleIcon");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
+</script>
