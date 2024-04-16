@@ -24,7 +24,6 @@
                             required autocomplete="current-password" />
                 <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 px-4 py-1 flex items-center text-gray-700">
                     <i id="toggleIcon" class="fas fa-eye"></i>
-                    <span id="toggleText" class="ml-2">Show</span>
                 </button> 
                 
             </div>
