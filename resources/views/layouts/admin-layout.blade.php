@@ -46,29 +46,35 @@
                     <i class="fas fa-angle-down ml-2"></i>
                 </button>
                 <div x-show="isOpen" class="text-white ml-5 focus:outline-none overflow-y-auto h-56">
-                    <a href="/home/register_akun" class="flex items-center {{ Request::is('home/register_akun') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                        <i class="fas fa-user-plus mr-3"></i>
-                        Register Akun
+                    <a href="/home/unit_kerja" class="flex items-center {{ Request::is('home/unit_kerja') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <i class="fas fa-building mr-3"></i>
+                        <p class="text-sm mr-2">1.</p>
+                        Unit Kerja
+                    </a>
+                    <a href="/home/jabatan" class="flex items-center {{ Request::is('home/jabatan') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <i class="fas fa-sitemap mr-3"></i>
+                        <p class="text-sm mr-2">2.</p>
+                        Jabatan
                     </a>
                     <a href="/home/pegawai" class="flex items-center {{ Request::is('home/pegawai') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                         <i class="far fa-id-card mr-3"></i>
+                        <p class="text-sm mr-2">3.</p>
                         Pegawai
-                    </a>
-                     <a href="/home/jabatan" class="flex items-center {{ Request::is('home/jabatan') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                        <i class="fas fa-sitemap mr-3"></i>
-                        Jabatan
                     </a>
                     <a href="/home/indikator" class="flex items-center {{ Request::is('home/indikator') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                         <i class="fas fa-tasks mr-3"></i>
+                        <p class="text-sm mr-2">4.</p>
                         Indikator
-                    </a>
-                    <a href="/home/unit_kerja" class="flex items-center {{ Request::is('home/unit_kerja') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                        <i class="fas fa-building mr-3"></i>
-                        Unit Kerja
                     </a>
                     <a href="/home/periode" class="flex items-center {{ Request::is('home/periode') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                         <i class="far fa-calendar-alt mr-3"></i>
+                        <p class="text-sm mr-2">5.</p>
                         Periode
+                    </a>
+                    <a href="/home/register_akun" class="flex items-center {{ Request::is('home/register_akun') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <i class="fas fa-user-plus mr-2"></i>
+                        <p class="text-sm mr-1">6.</p>
+                        Register Akun
                     </a>
                 </div>
             </div>
@@ -135,30 +141,36 @@
                             <i class="fas fa-angle-down ml-2"></i>
                         </button>
                         <div x-show="isOpen" class="text-white ml-5 focus:outline-none overflow-y-auto h-56">
-                            <a href="/home/register_akun" class="flex items-center {{ Request::is('home/register_akun') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                                <i class="fas fa-user-plus mr-3"></i>
-                                Register Akun
-                            </a>
-                            <a href="/home/pegawai" class="flex items-center {{ Request::is('home/pegawai') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                                <i class="far fa-id-card mr-3"></i>
-                                Pegawai
-                            </a>
-                            <a href="/home/jabatan" class="flex items-center {{ Request::is('home/jabatan') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                                <i class="fas fa-sitemap mr-3"></i>
-                                Jabatan
-                            </a>
-                            <a href="/home/indikator" class="flex items-center {{ Request::is('home/indikator') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                                <i class="fas fa-tasks mr-3"></i>
-                                Indikator
-                            </a>
-                            <a href="/home/unit_kerja" class="flex items-center {{ Request::is('home/unit_kerja') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                                <i class="fas fa-building mr-3"></i>
-                                Unit Kerja
-                            </a>
-                            <a href="/home/periode" class="flex items-center {{ Request::is('home/periode') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
-                                <i class="far fa-calendar-alt mr-3"></i>
-                                Periode
-                            </a>
+                            <a href="/home/unit_kerja" class="flex items-center {{ Request::is('home/unit_kerja') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <i class="fas fa-building mr-3"></i>
+                        <p class="text-sm mr-2">1.</p>
+                        Unit Kerja
+                    </a>
+                    <a href="/home/jabatan" class="flex items-center {{ Request::is('home/jabatan') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <i class="fas fa-sitemap mr-3"></i>
+                        <p class="text-sm mr-2">2.</p>
+                        Jabatan
+                    </a>
+                    <a href="/home/pegawai" class="flex items-center {{ Request::is('home/pegawai') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <i class="far fa-id-card mr-3"></i>
+                        <p class="text-sm mr-2">3.</p>
+                        Pegawai
+                    </a>
+                    <a href="/home/indikator" class="flex items-center {{ Request::is('home/indikator') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <i class="fas fa-tasks mr-3"></i>
+                        <p class="text-sm mr-2">4.</p>
+                        Indikator
+                    </a>
+                    <a href="/home/periode" class="flex items-center {{ Request::is('home/periode') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <i class="far fa-calendar-alt mr-3"></i>
+                        <p class="text-sm mr-2">5.</p>
+                        Periode
+                    </a>
+                    <a href="/home/register_akun" class="flex items-center {{ Request::is('home/register_akun') ? 'active-nav-link' : '' }} text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                        <i class="fas fa-user-plus mr-2"></i>
+                        <p class="text-sm mr-1">6.</p>
+                        Register Akun
+                    </a>
                         </div>
                     </div>
                 @endif
