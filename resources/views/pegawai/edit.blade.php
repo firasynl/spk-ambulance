@@ -39,7 +39,18 @@
                                 </div>
                                 <div class="mb-2">
                                     <label class="block text-m text-gray-600" for="unit_kerja_pegawai">Unit Kerja</label>
-                                    <select class="rounded px-5 py-2 text-m py-1 px-2 text-black w-[700px] w-full bg-gray-200 border-1 border-black" name="unit_kerja_pegawai" id="unit_kerja_pegawai" value="{{ $pegawai->unit_kerja_pegawai }}" aria-label="Default select example">
+                                    <select data-hs-select='{
+                                        "hasSearch": true,
+                                                "searchPlaceholder": "Search...",
+                                                "searchClasses": "block w-full text-sm border-gray-200 rounded-lg focus:border-blue-500 focus:ring-blue-500 before:absolute before:inset-0 before:z-[1] dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 py-2 px-3",
+                                                "searchWrapperClasses": "bg-gray-200 p-2 -mx-1 sticky top-0 dark:bg-neutral-900",
+                                                "placeholder": "<span class=\"justify-start\">Pilih Unit Kerja</span>",
+                                                "toggleTag": "<button type=\"button\"><span class=\"text-black dark:text-neutral-200\" data-title></span><span class=\"me-2\" data-icon></span></button>",
+                                                "toggleClasses": "rounded px-5 py-1 text-m text-left text-black w-[900px] w-full bg-gray-200 border-1 border-black",
+                                                "dropdownClasses": "mt-2 max-h-72 pb-1 px-1 space-y-0.5 z-20 w-full bg-gray-200 border border-gray-200 rounded-lg overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 dark:bg-neutral-900 dark:border-neutral-700",                                                "optionClasses": "py-1 px-4 w-full text-m text-gray-800 cursor-pointer hover:bg-gray-100 rounded-lg focus:outline-none focus:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:text-neutral-200 dark:focus:bg-neutral-800",
+                                                "optionTemplate": "<div><div class=\"text-gray-800 text-m dark:text-neutral-20\" data-title></div><div class=\"flex\"><div class=\"me-2\" data-icon></div></div></div>",
+                                                "extraMarkup": "<div class=\"absolute right-0 top-1/2 transform -translate-y-1/2 px-4 py-1 flex\"><svg class=\"flex-shrink-0 size-3.5 text-black dark:text-neutral-500\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"}'
+                                                name="unit_kerja_pegawai">                                        
                                         <option selected>Pilih Unit Kerja</option>
                                         @foreach ($unit_kerja as $item)
                                             <option value="{{ $item->id }}" @if ($item->id == $pegawai->unit_kerja_pegawai) selected @endif>

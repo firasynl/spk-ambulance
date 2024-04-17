@@ -57,8 +57,8 @@ class UsersController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'nip' => 'required',
-            'pangkat' => 'required', 
+            'nip' => 'nullable',
+            'pangkat' => 'nullable', 
             'jabatan_pegawai' => 'required',
             'unit_kerja' => 'required',
             'email' => 'required',
@@ -115,8 +115,8 @@ class UsersController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'nip' => 'required',
-            'pangkat' => 'required', 
+            'nip' => 'nullable',
+            'pangkat' => 'nullable', 
             'jabatan_pegawai' => 'required',
             'unit_kerja' => 'required',
             'email' => 'required',
