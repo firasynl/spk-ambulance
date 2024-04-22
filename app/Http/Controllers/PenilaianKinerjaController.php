@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use function Laravel\Prompts\select;
 
@@ -153,8 +154,9 @@ class PenilaianKinerjaController extends Controller
 
         Nilai::insert($nilaiData);
 
-        return redirect()->route('penilaian_kinerja.index')
-                        ->with('success','Penilaian kinerja created successfully');
+        Alert::success('Success', 'Penilaian kinerja berhasil dibuat');
+
+        return redirect()->route('penilaian_kinerja.index');
     }
 
     /**
@@ -213,8 +215,9 @@ class PenilaianKinerjaController extends Controller
             }
         }
 
-        return redirect()->route('penilaian_kinerja.index')
-                        ->with('success','Penilaian kinerja updated successfully');
+        Alert::success('Success', 'Penilaian kinerja berhasil diedit');
+
+        return redirect()->route('penilaian_kinerja.index');
     }
 
 

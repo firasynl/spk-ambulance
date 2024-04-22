@@ -6,6 +6,7 @@ use App\Models\Indikator;
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class IndikatorController extends Controller
 {
@@ -31,6 +32,10 @@ class IndikatorController extends Controller
         if ($request->filled('search')) {
             $indikator->appends(['search' => $request->input('search')]);
         }
+
+        $title = 'Delete Data!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
         
         return view('indikator.index',compact('indikator', 'jabatan'))->with('pagination', $indikator);
     }
@@ -66,8 +71,9 @@ class IndikatorController extends Controller
             'jabatan_id' => $jabatan_id,
         ]);
 
-        return redirect()->route('indikator.index')
-                        ->with('success','Indikator created successfully.');
+        Alert::success('Success', 'Data berhasil dibuat');
+
+        return redirect()->route('indikator.index');
     }
 
     /**
@@ -93,8 +99,9 @@ class IndikatorController extends Controller
 
         $indikator->update($request->all());
 
-        return redirect()->route('indikator.index')
-                        ->with('success','Indikator updated successfully.');
+        Alert::success('Success', 'Data berhasil diupdate');
+
+        return redirect()->route('indikator.index');
     }
 
     /**
@@ -102,9 +109,10 @@ class IndikatorController extends Controller
      */
     public function destroy(Indikator $indikator): RedirectResponse
     {
-        $indikator->delete();
+        if ($indikator->delete()){ 
+            Alert::success('Deleted', 'Data berhasil dihapus');
+        }
 
-        return redirect()->route('indikator.index')
-                        ->with('success','Indikator deleted successfully');
+        return redirect()->route('indikator.index');
     }
 }

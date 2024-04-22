@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user');
             $table->unsignedBigInteger('periode_id');
             $table->foreign('pegawai')->references('id')->on('pegawai');
-            $table->foreign('user')->references('id')->on('users');
+            $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('periode_id')->references('id')->on('periode')->onDelete('cascade');
             $table->timestamps();
         });

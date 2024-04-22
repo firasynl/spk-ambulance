@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UnitKerja;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UnitKerjaController extends Controller
 {
@@ -22,6 +23,11 @@ class UnitKerjaController extends Controller
         if ($request->filled('search')) {
             $unitKerja->appends(['search' => $request->input('search')]);
         }
+
+        $title = 'Delete Data!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
         return view('unit_kerja.index', compact('unitKerja'));
     }
 
@@ -46,9 +52,10 @@ class UnitKerjaController extends Controller
         UnitKerja::create([
     		'unit_kerja' => $request->unit_kerja,
     	]);
+
+        Alert::success('Success', 'Data berhasil dibuat');
  
-    	return redirect()->route('unit_kerja.index')
-                        ->with('success','Unit Kerja created successfully');
+    	return redirect()->route('unit_kerja.index');
     }
 
     /**
@@ -80,8 +87,9 @@ class UnitKerjaController extends Controller
         $unitKerja = UnitKerja::find($id);
         $unitKerja->unit_kerja = $request->unit_kerja;
         $unitKerja->update();
-        return redirect()->route('unit_kerja.index')
-                        ->with('success','Unit Kerja updated successfully');
+
+        Alert::success('Success', 'Data berhasil diupdate');
+        return redirect()->route('unit_kerja.index');
     }
 
     /**
@@ -89,9 +97,9 @@ class UnitKerjaController extends Controller
      */
     public function destroy(string $id)
     {
-        $unitKerja = UnitKerja::find($id);
-        $unitKerja->delete();
-        return redirect()->route('unit_kerja.index')
-                        ->with('success','Unit Kerja deleted successfully');
+        if (UnitKerja::find($id)->delete()){ 
+            Alert::success('Deleted', 'Data berhasil dihapus');
+        }
+        return redirect()->route('unit_kerja.index');
     }
 }

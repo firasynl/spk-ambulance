@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PeriodeController extends Controller
 {
@@ -23,6 +24,11 @@ class PeriodeController extends Controller
         if ($request->filled('search')) {
             $periode->appends(['search' => $request->input('search')]);
         }
+
+        $title = 'Delete Data!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
         return view('periode.index', compact('periode'));
     }
 
@@ -52,9 +58,10 @@ class PeriodeController extends Controller
             'tanggal_selesai' => $request->tanggal_selesai,
             'status' => $request->status,
     	]);
+
+        Alert::success('Success', 'Data berhasil dibuat');
  
-    	return redirect()->route('periode.index')
-                        ->with('success','Periode created successfully.');
+    	return redirect()->route('periode.index');
     }
 
     /**
@@ -87,8 +94,9 @@ class PeriodeController extends Controller
         ]);
 
         $periode->update($request->all());
-        return redirect()->route('periode.index')
-                        ->with('success','Periode updated successfully.');
+
+        Alert::success('Success', 'Data berhasil diupdate');
+        return redirect()->route('periode.index');
     }
 
     /**
@@ -96,8 +104,10 @@ class PeriodeController extends Controller
      */
     public function destroy(Periode $periode): RedirectResponse
     {
-        $periode->delete();
-        return redirect()->route('periode.index')
-                ->with('success','Periode deleted successfully');
+        if ($periode->delete()){ 
+            Alert::success('Deleted', 'Data berhasil dihapus');
+        }
+        
+        return redirect()->route('periode.index');
     }
 }

@@ -7,11 +7,13 @@
     <meta name="firanregina" content="David Grzyb">
     <meta name="description" content="">
     @vite('resources/js/app.js')
-
+    
     <!-- Tailwind -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
 
+    <!-- Preline -->
     <script src="./node_modules/preline/dist/preline.js"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
         .font-family-karla { font-family: karla; }
@@ -290,6 +292,7 @@
             }
         });
     </script>
-        
+    
 </body>
+@include('sweetalert::alert')
 </html>

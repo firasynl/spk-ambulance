@@ -7,6 +7,7 @@ use App\Models\Jabatan;
 use App\Models\UnitKerja;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PegawaiController extends Controller
 {
@@ -34,6 +35,11 @@ class PegawaiController extends Controller
         if ($request->filled('search')) {
             $pegawai->appends(['search' => $request->input('search')]);
         }
+
+        $title = 'Delete Data!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+
         return view('pegawai.index',compact('pegawai', 'jabatan', 'unit_kerja'))->with('pagination', $pegawai);
     }
 
@@ -72,8 +78,9 @@ class PegawaiController extends Controller
             'unit_kerja_pegawai' => $unit_kerja_pegawai,
         ]);
 
-        return redirect()->route('pegawai.index')
-                        ->with('success','Pegawai created successfully.');
+        Alert::success('Success', 'Data berhasil dibuat');
+
+        return redirect()->route('pegawai.index');
     }
 
     /**
@@ -101,18 +108,20 @@ class PegawaiController extends Controller
 
         $pegawai->update($request->all());
 
-        return redirect()->route('pegawai.index')
-                        ->with('success','Pegawai updated successfully.');
+        Alert::success('Success', 'Data berhasil diupdate');
+
+        return redirect()->route('pegawai.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pegawai $pegawai): RedirectResponse
-    {
-        $pegawai->delete();
+    public function destroy(Pegawai $pegawai)
+    {   
+        if ($pegawai->delete()){ 
+            Alert::success('Deleted', 'Data berhasil dihapus');
+        }
 
-        return redirect()->route('pegawai.index')
-                        ->with('success','Pegawai deleted successfully');
+        return redirect()->route('pegawai.index');
     }
 }

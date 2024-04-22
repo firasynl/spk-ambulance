@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class JabatanController extends Controller
 {
@@ -21,6 +22,11 @@ class JabatanController extends Controller
         if ($request->filled('search')) {
             $jabatan->appends(['search' => $request->input('search')]);
         }
+
+        $title = 'Delete Data!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+        
         return view('jabatan.index', compact('jabatan'));
     }
 
@@ -44,9 +50,10 @@ class JabatanController extends Controller
         Jabatan::create([
     		'jabatan' => $request->jabatan,
     	]);
+
+        Alert::success('Success', 'Data berhasil dibuat');
  
-        return redirect()->route('jabatan.index')
-                        ->with('success','Jabatan created successfully.');
+        return redirect()->route('jabatan.index');
     }
 
     /**
@@ -78,8 +85,9 @@ class JabatanController extends Controller
         $jabatan = Jabatan::find($id);
         $jabatan->jabatan = $request->jabatan;
         $jabatan->update();
-        return redirect()->route('jabatan.index')
-                        ->with('success','Jabatan updated successfully.');
+
+        Alert::success('Success', 'Data berhasil diupdate');
+        return redirect()->route('jabatan.index');
     }
 
     /**
@@ -87,10 +95,12 @@ class JabatanController extends Controller
      */
     public function destroy(string $id)
     {
-        $jabatan = Jabatan::find($id);
-        $jabatan->delete();
+        // $jabatan = Jabatan::find($id);
+        // $jabatan->delete();
+        if (Jabatan::find($id)->delete()){ 
+            Alert::success('Deleted', 'Data berhasil dihapus');
+        }
 
-        return redirect()->route('jabatan.index')
-                        ->with('success','Jabatan deleted successfully');
+        return redirect()->route('jabatan.index');
     }
 }

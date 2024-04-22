@@ -40,8 +40,8 @@
                             <form action="/home/jabatan/{{$value->id}}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="px-4 py-1 text-white font-light tracking-wider bg-red-700 rounded" onclick="return confirm('Are you sure?')" value="Delete">
-                                    <i class="fas fa-trash-alt"></i> Delete
+                                <button type="submit" class="px-4 py-1 text-white font-light tracking-wider bg-red-700 rounded">
+                                    <a href="/home/jabatan/{{$value->id}}" class="btn btn-danger" data-confirm-delete="true"><i class="fas fa-trash-alt mr-1"></i>Delete</a>
                                 </button>
                             </form>
                             </div>
@@ -61,15 +61,3 @@
         </div>
     </div>
 </x-admin-layout>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Periksa apakah ada pesan sukses
-        let successMessage = "{{ session('success') }}";
-
-        // Jika ada pesan sukses, tampilkan pesan pop-up
-        if (successMessage) {
-            alert(successMessage);
-        }
-    });
-</script>

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('indikator');
             $table->enum('kategori', ['Penilaian Kinerja', 'Perilaku Kerja']);
             $table->unsignedBigInteger('jabatan_id');
-            $table->foreign('jabatan_id')->references('id')->on('jabatan');
+            $table->foreign('jabatan_id')->references('id')->on('jabatan')->onDelete('cascade');
             $table->timestamps();
         });
     }

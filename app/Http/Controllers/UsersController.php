@@ -8,6 +8,7 @@ use App\Models\UnitKerja;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UsersController extends Controller
 {
@@ -33,6 +34,10 @@ class UsersController extends Controller
         if ($request->filled('search')) {
             $users->appends(['search' => $request->input('search')]);
         }
+
+        $title = 'Delete Data!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
         
         return view('register_akun.index',compact('users'))->with('pagination', $users);
     }
@@ -86,8 +91,9 @@ class UsersController extends Controller
             'usertype' => $usertype,
         ]);
 
-        return redirect()->route('register_akun.index')
-                        ->with('success','Account created successfully.');
+        Alert::success('Success', 'Data berhasil dibuat');
+
+        return redirect()->route('register_akun.index');
     }
 
     public function show($id)
@@ -138,8 +144,9 @@ class UsersController extends Controller
         // Update data pengguna
         $register_akun->update($data);
 
-        return redirect()->route('register_akun.index')
-                        ->with('success','Account updated successfully.');
+        Alert::success('Success', 'Data berhasil diupdate');
+
+        return redirect()->route('register_akun.index');
     }
 
     /**
@@ -147,9 +154,10 @@ class UsersController extends Controller
      */
     public function destroy(Users $register_akun)
     {
-        $register_akun->delete();
+        if ($register_akun->delete()){ 
+            Alert::success('Deleted', 'Data berhasil dihapus');
+        }
 
-        return redirect()->route('register_akun.index')
-                        ->with('success','Account deleted successfully');
+        return redirect()->route('register_akun.index');
     }
 }
