@@ -36,3 +36,8 @@
 
 #### Menu User
 1. Penilaian Kinerja
+
+
+#### ERD Database Sistem Penilaian Kinerja
+![db-spk](https://github.com/firasynl/spk-ambulance/assets/90667044/4160c683-990f-4e5a-b41c-a79cb8da6746)
+
